@@ -11,6 +11,10 @@ struct ContentView: View {
     var body: some View {
         Text("Hello, world!")
             .padding()
+            .onAppear {
+                API().user("DanielKrofchick")
+                API().repos(user: "DanielKrofchick", repo: "toronto311")
+            }
     }
 }
 
