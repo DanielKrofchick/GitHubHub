@@ -7,7 +7,7 @@
 
 import Foundation
 
-class API {
+class GitHub {
     static let domain = "api.github.com"
 
     func user(_ user: String? = nil) {

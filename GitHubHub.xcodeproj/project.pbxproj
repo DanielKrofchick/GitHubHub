@@ -228,11 +228,13 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
+				"$(SRCROOT)/**/*.graphql",
 			);
 			name = Apollo;
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"$(SRCROOT)/Shared/API.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

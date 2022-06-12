@@ -12,8 +12,8 @@ struct ContentView: View {
         Text("Hello, world!")
             .padding()
             .onAppear {
-                API().user("DanielKrofchick")
-                API().repos(user: "DanielKrofchick", repo: "toronto311")
+                GitHub().user("DanielKrofchick")
+                GitHub().repos(user: "DanielKrofchick", repo: "toronto311")
             }
     }
 }
