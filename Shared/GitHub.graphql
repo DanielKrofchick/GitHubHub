@@ -1,4 +1,4 @@
-query {
+query User {
   user(login: "DanielKrofchick") {
 	name
   }
