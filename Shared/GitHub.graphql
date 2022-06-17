@@ -1,6 +1,10 @@
 query User($login: String!) {
   user(login: $login) {
-	name
+	...UserFragment
   }
+}
+
+fragment UserFragment on User {
+	name
 }
 
