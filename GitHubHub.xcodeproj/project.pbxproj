@@ -18,10 +18,14 @@
 		A463BB4228558DD400F5CFAD /* GitHub.graphql in Resources */ = {isa = PBXBuildFile; fileRef = A463BB4128558DD400F5CFAD /* GitHub.graphql */; };
 		A463BB4328558DD400F5CFAD /* GitHub.graphql in Resources */ = {isa = PBXBuildFile; fileRef = A463BB4128558DD400F5CFAD /* GitHub.graphql */; };
 		A49BE2E828543D5D009EF2DB /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = A49BE2E728543D5D009EF2DB /* Apollo */; };
+		A4B161E428582A9E00F6C483 /* GitHub.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B161E228582A9E00F6C483 /* GitHub.graphql.swift */; };
+		A4B161E528582A9E00F6C483 /* GitHub.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B161E228582A9E00F6C483 /* GitHub.graphql.swift */; };
+		A4B161E628582A9E00F6C483 /* Types.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B161E328582A9E00F6C483 /* Types.graphql.swift */; };
+		A4B161E728582A9E00F6C483 /* Types.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B161E328582A9E00F6C483 /* Types.graphql.swift */; };
 		A4BA23ED28559BEE00B478A7 /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = A4BA23EC28559BEE00B478A7 /* schema.json */; };
 		A4BA23EE28559BEE00B478A7 /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = A4BA23EC28559BEE00B478A7 /* schema.json */; };
-		A4BA23F128559E4700B478A7 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BA23F028559E4700B478A7 /* API.swift */; };
-		A4BA23F228559E4700B478A7 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BA23F028559E4700B478A7 /* API.swift */; };
+		A4E0C62028582D6700F868D6 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E0C61F28582D6700F868D6 /* Network.swift */; };
+		A4E0C62128582D6700F868D6 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E0C61F28582D6700F868D6 /* Network.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,8 +37,10 @@
 		A459537E2852E70000AC2AB6 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
 		A459538D2852E71800AC2AB6 /* GitHub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHub.swift; sourceTree = "<group>"; };
 		A463BB4128558DD400F5CFAD /* GitHub.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = GitHub.graphql; sourceTree = "<group>"; };
+		A4B161E228582A9E00F6C483 /* GitHub.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GitHub.graphql.swift; sourceTree = "<group>"; };
+		A4B161E328582A9E00F6C483 /* Types.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Types.graphql.swift; sourceTree = "<group>"; };
 		A4BA23EC28559BEE00B478A7 /* schema.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
-		A4BA23F028559E4700B478A7 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		A4E0C61F28582D6700F868D6 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,11 +76,12 @@
 			children = (
 				A459536F2852E6FF00AC2AB6 /* GitHubHubApp.swift */,
 				A45953702852E6FF00AC2AB6 /* ContentView.swift */,
+				A4E0C61F28582D6700F868D6 /* Network.swift */,
 				A459538D2852E71800AC2AB6 /* GitHub.swift */,
 				A463BB4128558DD400F5CFAD /* GitHub.graphql */,
 				A4BA23EC28559BEE00B478A7 /* schema.json */,
-				A4BA23F028559E4700B478A7 /* API.swift */,
 				A45953712852E70000AC2AB6 /* Assets.xcassets */,
+				A4B161E128582A9E00F6C483 /* API */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -94,6 +101,15 @@
 				A459537E2852E70000AC2AB6 /* macOS.entitlements */,
 			);
 			path = macOS;
+			sourceTree = "<group>";
+		};
+		A4B161E128582A9E00F6C483 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				A4B161E228582A9E00F6C483 /* GitHub.graphql.swift */,
+				A4B161E328582A9E00F6C483 /* Types.graphql.swift */,
+			);
+			path = API;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -121,10 +137,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A459538A2852E70000AC2AB6 /* Build configuration list for PBXNativeTarget "GitHubHub (macOS)" */;
 			buildPhases = (
+				A4BA23EF28559D9300B478A7 /* Apollo */,
 				A45953782852E70000AC2AB6 /* Sources */,
 				A45953792852E70000AC2AB6 /* Frameworks */,
 				A459537A2852E70000AC2AB6 /* Resources */,
-				A4BA23EF28559D9300B478A7 /* Apollo */,
 			);
 			buildRules = (
 			);
@@ -210,15 +226,17 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
+				"$(SRCROOT)/**/*.graphql",
 			);
 			name = Apollo;
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"$(SRCROOT)/Shared/API/",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Don't run this during index builds\nif [ $ACTION = \"indexbuild\" ]; then exit 0; fi\n\n# Go to the build root and search up the chain to find the Derived Data Path where the source packages are checked out.\nDERIVED_DATA_CANDIDATE=\"${BUILD_ROOT}\"\n\nwhile ! [ -d \"${DERIVED_DATA_CANDIDATE}/SourcePackages\" ]; do\n  if [ \"${DERIVED_DATA_CANDIDATE}\" = / ]; then\n    echo >&2 \"error: Unable to locate SourcePackages directory from BUILD_ROOT: '${BUILD_ROOT}'\"\n    exit 1\n  fi\n\n  DERIVED_DATA_CANDIDATE=\"$(dirname \"${DERIVED_DATA_CANDIDATE}\")\"\ndone\n\n# Grab a reference to the directory where scripts are checked out\nSCRIPT_PATH=\"${DERIVED_DATA_CANDIDATE}/SourcePackages/checkouts/apollo-ios/scripts\"\n\nif [ -z \"${SCRIPT_PATH}\" ]; then\n    echo >&2 \"error: Couldn't find the CLI script in your checked out SPM packages; make sure to add the framework to your project.\"\n    exit 1\nfi\n\ncd \"${SRCROOT}/${TARGET_NAME}\"\nECHO \"###\"\nECHO \"${SRCROOT}/${TARGET_NAME}\"\nECHO \"###\"\n\"${SCRIPT_PATH}\"/run-bundled-codegen.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile=\"schema.json\" API.swift\n#\"${SCRIPT_PATH}\"/run-bundled-codegen.sh schema:download --endpoint=\"https://api.github.com/graphql\" --header \"Authorization: bearer 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\"\n\n";
+			shellScript = "# Don't run this during index builds\nif [ $ACTION = \"indexbuild\" ]; then exit 0; fi\n\n# Go to the build root and search up the chain to find the Derived Data Path where the source packages are checked out.\nDERIVED_DATA_CANDIDATE=\"${BUILD_ROOT}\"\n\nwhile ! [ -d \"${DERIVED_DATA_CANDIDATE}/SourcePackages\" ]; do\n  if [ \"${DERIVED_DATA_CANDIDATE}\" = / ]; then\n    echo >&2 \"error: Unable to locate SourcePackages directory from BUILD_ROOT: '${BUILD_ROOT}'\"\n    exit 1\n  fi\n\n  DERIVED_DATA_CANDIDATE=\"$(dirname \"${DERIVED_DATA_CANDIDATE}\")\"\ndone\n\n# Grab a reference to the directory where scripts are checked out\nSCRIPT_PATH=\"${DERIVED_DATA_CANDIDATE}/SourcePackages/checkouts/apollo-ios/scripts\"\n\nif [ -z \"${SCRIPT_PATH}\" ]; then\n    echo >&2 \"error: Couldn't find the CLI script in your checked out SPM packages; make sure to add the framework to your project.\"\n    exit 1\nfi\n\ncd \"${SRCROOT}/${TARGET_NAME}\"\nECHO \"###\"\nECHO \"${SRCROOT}/${TARGET_NAME}\"\nECHO \"###\"\n\"${SCRIPT_PATH}\"/run-bundled-codegen.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile=\"schema.json\" API   \n#\"${SCRIPT_PATH}\"/run-bundled-codegen.sh schema:download --endpoint=\"https://api.github.com/graphql\" --header \"Authorization: bearer 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\"\n\n";
 		};
 		A4BA23EF28559D9300B478A7 /* Apollo */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -234,11 +252,11 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(SRCROOT)/Shared/API.swift",
+				"$(SRCROOT)/Shared/API/",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Don't run this during index builds\nif [ $ACTION = \"indexbuild\" ]; then exit 0; fi\n\n# Go to the build root and search up the chain to find the Derived Data Path where the source packages are checked out.\nDERIVED_DATA_CANDIDATE=\"${BUILD_ROOT}\"\n\nwhile ! [ -d \"${DERIVED_DATA_CANDIDATE}/SourcePackages\" ]; do\n  if [ \"${DERIVED_DATA_CANDIDATE}\" = / ]; then\n    echo >&2 \"error: Unable to locate SourcePackages directory from BUILD_ROOT: '${BUILD_ROOT}'\"\n    exit 1\n  fi\n\n  DERIVED_DATA_CANDIDATE=\"$(dirname \"${DERIVED_DATA_CANDIDATE}\")\"\ndone\n\n# Grab a reference to the directory where scripts are checked out\nSCRIPT_PATH=\"${DERIVED_DATA_CANDIDATE}/SourcePackages/checkouts/apollo-ios/scripts\"\n\nif [ -z \"${SCRIPT_PATH}\" ]; then\n    echo >&2 \"error: Couldn't find the CLI script in your checked out SPM packages; make sure to add the framework to your project.\"\n    exit 1\nfi\n\ncd \"${SRCROOT}/${TARGET_NAME}\"\nECHO \"###\"\nECHO \"${SRCROOT}/${TARGET_NAME}\"\nECHO \"###\"\n\"${SCRIPT_PATH}\"/run-bundled-codegen.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile=\"${SRCROOT}/Shared/schema.json\" \"Shared/API.swift\"\n#\"${SCRIPT_PATH}\"/run-bundled-codegen.sh schema:download --endpoint=\"https://api.github.com/graphql\" --header \"Authorization: bearer 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\"\n\n";
+			shellScript = "# Don't run this during index builds\nif [ $ACTION = \"indexbuild\" ]; then exit 0; fi\n\n# Go to the build root and search up the chain to find the Derived Data Path where the source packages are checked out.\nDERIVED_DATA_CANDIDATE=\"${BUILD_ROOT}\"\n\nwhile ! [ -d \"${DERIVED_DATA_CANDIDATE}/SourcePackages\" ]; do\n  if [ \"${DERIVED_DATA_CANDIDATE}\" = / ]; then\n    echo >&2 \"error: Unable to locate SourcePackages directory from BUILD_ROOT: '${BUILD_ROOT}'\"\n    exit 1\n  fi\n\n  DERIVED_DATA_CANDIDATE=\"$(dirname \"${DERIVED_DATA_CANDIDATE}\")\"\ndone\n\n# Grab a reference to the directory where scripts are checked out\nSCRIPT_PATH=\"${DERIVED_DATA_CANDIDATE}/SourcePackages/checkouts/apollo-ios/scripts\"\n\nif [ -z \"${SCRIPT_PATH}\" ]; then\n    echo >&2 \"error: Couldn't find the CLI script in your checked out SPM packages; make sure to add the framework to your project.\"\n    exit 1\nfi\n\ncd \"${SRCROOT}/${TARGET_NAME}\"\nECHO \"###\"\nECHO \"${SRCROOT}/${TARGET_NAME}\"\nECHO \"###\"\n\"${SCRIPT_PATH}\"/run-bundled-codegen.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile=\"${SRCROOT}/Shared/schema.json\" \"Shared/API\"\n#\"${SCRIPT_PATH}\"/run-bundled-codegen.sh schema:download --endpoint=\"https://api.github.com/graphql\" --header \"Authorization: bearer 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\"\n\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -247,10 +265,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4B161E628582A9E00F6C483 /* Types.graphql.swift in Sources */,
 				A45953812852E70000AC2AB6 /* ContentView.swift in Sources */,
+				A4E0C62028582D6700F868D6 /* Network.swift in Sources */,
 				A459537F2852E70000AC2AB6 /* GitHubHubApp.swift in Sources */,
-				A4BA23F128559E4700B478A7 /* API.swift in Sources */,
 				A459538E2852E71800AC2AB6 /* GitHub.swift in Sources */,
+				A4B161E428582A9E00F6C483 /* GitHub.graphql.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,10 +278,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4B161E728582A9E00F6C483 /* Types.graphql.swift in Sources */,
 				A45953822852E70000AC2AB6 /* ContentView.swift in Sources */,
+				A4E0C62128582D6700F868D6 /* Network.swift in Sources */,
 				A45953802852E70000AC2AB6 /* GitHubHubApp.swift in Sources */,
-				A4BA23F228559E4700B478A7 /* API.swift in Sources */,
 				A459538F2852E71800AC2AB6 /* GitHub.swift in Sources */,
+				A4B161E528582A9E00F6C483 /* GitHub.graphql.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

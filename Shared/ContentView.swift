@@ -12,8 +12,11 @@ struct ContentView: View {
         Text("Hello, world!")
             .padding()
             .onAppear {
-                GitHub().user("DanielKrofchick")
-                GitHub().repos(user: "DanielKrofchick", repo: "toronto311")
+                GitHub().userGraphQL("DanielKrofchick")
+                GitHub().repos(
+                    user: "DanielKrofchick",
+                    repo: "toronto311"
+                )
             }
     }
 }

@@ -6,6 +6,21 @@
 //
 
 import Foundation
+import Apollo
+
+extension GitHub {
+    func userGraphQL(_ user: String? = nil) {
+        Network.shared.apollo
+            .fetch(query: UserQuery(login: "DanielKrofchick")) { result in
+                if
+                    let result = try? result.get(),
+                    let user = result.data?.user
+                {
+                    print(user)
+                }
+            }
+    }
+}
 
 class GitHub {
     static let domain = "api.github.com"
