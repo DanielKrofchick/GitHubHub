@@ -8,23 +8,27 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var user: UserView.Model = .init(name: "-")
+    @State private var user: UserView = UserView(name: "#")
 
     var body: some View {
-        UserView(user: user)
+        user
             .padding()
             .onAppear {
-                Task {
-                    do {
-                        let user = try await GitHub().user("DanielKrofchick")
-                        if let fragment = user.data?.user?.fragments.userFragment {
-                            self.user = UserView.Model(fragment)
-                        }
-                    } catch {
-                        print(error)
-                    }
-                }
+                loadData()
             }
+    }
+
+    private func loadData() {
+        Task {
+            do {
+                let user = try await GitHub().user("DanielKrofchick")
+                if let fragment = user.data?.user?.fragments.userFragment {
+                    self.user = UserView(fragment)
+                }
+            } catch {
+                print(error)
+            }
+        }
     }
 }
 

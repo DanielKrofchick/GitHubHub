@@ -8,26 +8,22 @@
 import SwiftUI
 
 struct UserView: View {
-    struct Model {
-        let name: String?
-    }
-
-   @State var user: Model
+    var name: String
 
     var body: some View {
-        Text(user.name ?? "-")
+        Text(name)
             .padding()
     }
 }
 
 struct UserView_Previews: PreviewProvider {
     static var previews: some View {
-        UserView(user: .init(name: "Boba Fett"))
+        UserView(name: "Boba Fett")
     }
 }
 
-extension UserView.Model {
+extension UserView {
     init(_ data: UserFragment) {
-        name = data.name
+        name = data.name ?? "BBB"
     }
 }
