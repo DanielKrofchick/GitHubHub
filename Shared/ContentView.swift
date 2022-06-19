@@ -8,14 +8,16 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var user: UserView = UserView(name: "#")
+    @State private var user: UserView?
 
     var body: some View {
         user
-            .padding()
+        Rectangle()
+            .frame(width: 0, height: 0, alignment: .center)
             .onAppear {
                 loadData()
             }
+            .hidden()
     }
 
     private func loadData() {

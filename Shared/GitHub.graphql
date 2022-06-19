@@ -6,5 +6,6 @@ query User($login: String!) {
 
 fragment UserFragment on User {
 	name
+	avatarUrl
 }
 
