@@ -7,11 +7,13 @@
 
 import SwiftUI
 
+let defaultLogin = "DanielKrofchick"
+
 @main
 struct GitHubHubApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(login: defaultLogin)
         }
     }
 }

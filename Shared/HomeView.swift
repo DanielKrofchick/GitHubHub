@@ -30,8 +30,13 @@ struct HomeView: View {
     private func loadData() {
         Task {
             do {
-                let user = try await GitHub().user(login)
-                if let fragment = user.data?.user?.fragments.userFragment {
+                let response = try await GitHub().user(login)
+
+                if let errors = response.errors {
+                    throw errors
+                }
+
+                if let fragment = response.data?.user?.fragments.userFragment {
                     model = .init(avatar: .init(fragment))
                 }
             } catch {
@@ -41,17 +46,8 @@ struct HomeView: View {
     }
 }
 
-extension AvatarView.Model {
-    init(_ fragment: UserFragment) {
-        self.init(
-            name: fragment.name,
-            avatarURL: URL(string: fragment.avatarUrl)
-        )
-    }
-}
-
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(login: "DanielKrofchick")
+        HomeView(login: defaultLogin)
     }
 }

@@ -15,4 +15,9 @@ class GitHub {
         try await Network.shared.apollo
             .fetchAsync(query: UserQuery(login: user))
     }
+
+    func organizations(_ user: String) async throws -> GraphQLResult<OrganizationsQuery.Data> {
+        try await Network.shared.apollo
+            .fetchAsync(query: OrganizationsQuery(login: user))
+    }
 }

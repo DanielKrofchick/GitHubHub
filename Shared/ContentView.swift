@@ -8,15 +8,23 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var login: String
+
     var body: some View {
-        VStack {
-            HomeView(login: "DanielKrofchick")
+        NavigationStack {
+            NavigationLink(value: login) {
+                HomeView(login: login)
+            }
+            .navigationDestination(for: String.self) {
+                OrganizationsView(login: $0)
+            }
+            .navigationTitle("Home")
         }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(login: defaultLogin)
     }
 }

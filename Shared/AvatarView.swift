@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct AvatarView: View {
-    struct Model {
+    struct Model: Identifiable {
+        let id: String
         let name: String?
         let avatarURL: URL?
     }
@@ -39,8 +40,26 @@ struct AvatarView: View {
     }
 }
 
+extension AvatarView.Model {
+    init(_ fragment: UserFragment) {
+        self.init(
+            id: fragment.id,
+            name: fragment.name,
+            avatarURL: URL(string: fragment.avatarUrl)
+        )
+    }
+
+    init(_ fragment: OrganizationFragment) {
+        self.init(
+            id: fragment.id,
+            name: fragment.name,
+            avatarURL: URL(string: fragment.avatarUrl)
+        )
+    }
+}
+
 struct AvatarView_Previews: PreviewProvider {
     static var previews: some View {
-        AvatarView(model: .init(name: "name", avatarURL: nil))
+        AvatarView(model: .init(id: "1", name: "name", avatarURL: nil))
     }
 }

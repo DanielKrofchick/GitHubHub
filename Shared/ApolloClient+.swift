@@ -7,6 +7,8 @@
 
 import Apollo
 
+extension [GraphQLError]: Error {}
+
 extension ApolloClient {
     func fetchAsync<Query: GraphQLQuery>(query: Query) async throws -> GraphQLResult<Query.Data> {
         try await withCheckedThrowingContinuation { continuation in
