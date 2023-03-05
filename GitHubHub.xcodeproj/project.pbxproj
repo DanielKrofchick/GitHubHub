@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		A4216DFA285C176000D9BAD7 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = A4216DF9285C176000D9BAD7 /* Apollo */; };
-		A44313E8285C100C0021130C /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44313E7285C100C0021130C /* UserView.swift */; };
-		A44313E9285C100C0021130C /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44313E7285C100C0021130C /* UserView.swift */; };
 		A44313EB285C14390021130C /* ApolloClient+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44313EA285C14390021130C /* ApolloClient+.swift */; };
 		A44313EC285C14390021130C /* ApolloClient+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44313EA285C14390021130C /* ApolloClient+.swift */; };
 		A459537F2852E70000AC2AB6 /* GitHubHubApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A459536F2852E6FF00AC2AB6 /* GitHubHubApp.swift */; };
@@ -31,10 +29,13 @@
 		A4BA23EE28559BEE00B478A7 /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = A4BA23EC28559BEE00B478A7 /* schema.json */; };
 		A4E0C62028582D6700F868D6 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E0C61F28582D6700F868D6 /* Network.swift */; };
 		A4E0C62128582D6700F868D6 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E0C61F28582D6700F868D6 /* Network.swift */; };
+		A4F9FA3C29B4434E006918E8 /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F9FA3B29B4434E006918E8 /* AvatarView.swift */; };
+		A4F9FA3D29B4434E006918E8 /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F9FA3B29B4434E006918E8 /* AvatarView.swift */; };
+		A4F9FA3F29B444F1006918E8 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F9FA3E29B444F1006918E8 /* HomeView.swift */; };
+		A4F9FA4029B444F1006918E8 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F9FA3E29B444F1006918E8 /* HomeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		A44313E7285C100C0021130C /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
 		A44313EA285C14390021130C /* ApolloClient+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ApolloClient+.swift"; sourceTree = "<group>"; };
 		A459536F2852E6FF00AC2AB6 /* GitHubHubApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubHubApp.swift; sourceTree = "<group>"; };
 		A45953702852E6FF00AC2AB6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -48,6 +49,8 @@
 		A4B161E328582A9E00F6C483 /* Types.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Types.graphql.swift; sourceTree = "<group>"; };
 		A4BA23EC28559BEE00B478A7 /* schema.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
 		A4E0C61F28582D6700F868D6 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		A4F9FA3B29B4434E006918E8 /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
+		A4F9FA3E29B444F1006918E8 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,7 +95,8 @@
 			children = (
 				A459536F2852E6FF00AC2AB6 /* GitHubHubApp.swift */,
 				A45953702852E6FF00AC2AB6 /* ContentView.swift */,
-				A44313E7285C100C0021130C /* UserView.swift */,
+				A4F9FA3E29B444F1006918E8 /* HomeView.swift */,
+				A4F9FA3B29B4434E006918E8 /* AvatarView.swift */,
 				A4E0C61F28582D6700F868D6 /* Network.swift */,
 				A44313EA285C14390021130C /* ApolloClient+.swift */,
 				A459538D2852E71800AC2AB6 /* GitHub.swift */,
@@ -289,10 +293,11 @@
 				A4B161E628582A9E00F6C483 /* Types.graphql.swift in Sources */,
 				A45953812852E70000AC2AB6 /* ContentView.swift in Sources */,
 				A4E0C62028582D6700F868D6 /* Network.swift in Sources */,
+				A4F9FA3F29B444F1006918E8 /* HomeView.swift in Sources */,
 				A459537F2852E70000AC2AB6 /* GitHubHubApp.swift in Sources */,
 				A459538E2852E71800AC2AB6 /* GitHub.swift in Sources */,
 				A4B161E428582A9E00F6C483 /* GitHub.graphql.swift in Sources */,
-				A44313E8285C100C0021130C /* UserView.swift in Sources */,
+				A4F9FA3C29B4434E006918E8 /* AvatarView.swift in Sources */,
 				A44313EB285C14390021130C /* ApolloClient+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -304,10 +309,11 @@
 				A4B161E728582A9E00F6C483 /* Types.graphql.swift in Sources */,
 				A45953822852E70000AC2AB6 /* ContentView.swift in Sources */,
 				A4E0C62128582D6700F868D6 /* Network.swift in Sources */,
+				A4F9FA4029B444F1006918E8 /* HomeView.swift in Sources */,
 				A45953802852E70000AC2AB6 /* GitHubHubApp.swift in Sources */,
 				A459538F2852E71800AC2AB6 /* GitHub.swift in Sources */,
 				A4B161E528582A9E00F6C483 /* GitHub.graphql.swift in Sources */,
-				A44313E9285C100C0021130C /* UserView.swift in Sources */,
+				A4F9FA3D29B4434E006918E8 /* AvatarView.swift in Sources */,
 				A44313EC285C14390021130C /* ApolloClient+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

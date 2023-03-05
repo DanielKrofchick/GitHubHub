@@ -1,11 +1,22 @@
 query User($login: String!) {
-  user(login: $login) {
-	...UserFragment
-  }
+    user(login: $login) {
+        ...UserFragment
+    }
 }
 
 fragment UserFragment on User {
-	name
+    name
 	avatarUrl
 }
 
+query Organizations($login: String!) {
+  user(login: $login) {
+    organizations(first: 10) {
+      totalCount
+      nodes {
+        name
+        avatarUrl
+      }
+    }
+  }
+}
