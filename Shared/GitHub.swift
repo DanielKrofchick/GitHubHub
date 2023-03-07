@@ -11,13 +11,18 @@ import Apollo
 class GitHub {
     static let shared = GitHub()
 
-    func user(_ user: String) async throws -> GraphQLResult<UserQuery.Data> {
+    func user(_ login: String) async throws -> GraphQLResult<UserQuery.Data> {
         try await Network.shared.apollo
-            .fetchAsync(query: UserQuery(login: user))
+            .fetchAsync(query: UserQuery(login: login))
     }
 
-    func organizations(_ user: String) async throws -> GraphQLResult<OrganizationsQuery.Data> {
+    func organizations(_ login: String) async throws -> GraphQLResult<OrganizationsQuery.Data> {
         try await Network.shared.apollo
-            .fetchAsync(query: OrganizationsQuery(login: user))
+            .fetchAsync(query: OrganizationsQuery(login: login))
+    }
+
+    func repositories(_ login: String) async throws -> GraphQLResult<RepositoriesQuery.Data> {
+        try await Network.shared.apollo
+            .fetchAsync(query: RepositoriesQuery(login: login))
     }
 }

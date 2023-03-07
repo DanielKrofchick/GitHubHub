@@ -28,7 +28,7 @@ import Apollo
 class Network {
     static let shared = Network()
     private let domain = "https://api.github.com/graphql"
-    private let token = ""
+    private let token = "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"
 
     private(set) lazy var apollo: ApolloClient = {
         let store = ApolloStore()

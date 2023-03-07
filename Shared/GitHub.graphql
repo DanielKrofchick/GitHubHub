@@ -8,12 +8,7 @@ fragment UserFragment on User {
     id
     name
 	avatarUrl
-}
-
-fragment OrganizationFragment on Organization {
-    id
-    name
-    avatarUrl
+    login
 }
 
 query Organizations($login: String!) {
@@ -25,4 +20,26 @@ query Organizations($login: String!) {
             }
         }
     }
+}
+
+fragment OrganizationFragment on Organization {
+    id
+    name
+    avatarUrl
+    login
+}
+
+query Repositories($login: String!) {
+    organization(login: $login) {
+        repositories(first: 10) {
+            nodes {
+                ...RepositoryFragment
+            }
+        }
+    }
+}
+
+fragment RepositoryFragment on Repository {
+    id
+    name
 }
