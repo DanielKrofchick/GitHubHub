@@ -18,6 +18,7 @@ struct PullRequestsView: View {
             var id: String { avatar.id }
             let load: ReviewersView.Model
             let avatar: AvatarView.Model
+            let color: Color?
         }
         let load: Load
         let items: [Item]?
@@ -31,6 +32,7 @@ struct PullRequestsView: View {
                 ReviewersView(model: item.load)
             } label: {
                 AvatarView(model: item.avatar)
+                    .border(item.color ?? .clear, width: 2)
             }
         }
         .navigationTitle("Pull Requests")
@@ -85,7 +87,8 @@ private extension PullRequestsView.Model.Item {
                 ),
                 items: nil
             ),
-            avatar: .init(fragment)
+            avatar: .init(fragment),
+            color: fragment.isDraft ? .gray : nil
         )
     }
 }
