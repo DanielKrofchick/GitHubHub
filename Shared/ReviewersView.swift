@@ -19,6 +19,7 @@ struct ReviewersView: View {
             var id: String { avatar.id }
             let load: Any?
             let avatar: AvatarView.Model
+            let color: Color
         }
         let load: Load
         let items: [Item]?
@@ -31,6 +32,7 @@ struct ReviewersView: View {
             NavigationLink {
             } label: {
                 AvatarView(model: item.avatar)
+                    .border(item.color, width: 2)
             }
         }
         .navigationTitle("Pull Requests")
@@ -53,9 +55,18 @@ struct ReviewersView: View {
                 }
                 model = Model(
                     load: model.load,
-                    items:  response.data?.repository?.pullRequest?.reviewRequests?.nodes?
-                        .compactMap { $0?.requestedReviewer?.asUser?.fragments.reviewerFragment }
-                        .map { ReviewersView.Model.Item($0) }
+                    items:  response.data?.repository?.pullRequest?.latestOpinionatedReviews?.nodes?
+                        .compactMap {
+                            if
+                                let reviewer = $0?.author?.fragments.reviewerFragment,
+                                let state = $0?.state
+                            {
+                                return (reviewer: reviewer, state: state)
+                            }
+
+                            return nil
+                        }
+                        .map { ReviewersView.Model.Item($0.reviewer, state: $0.state) }
                 )
             } catch {
                 print(error)
@@ -80,10 +91,30 @@ struct ReviewersView_Previews: PreviewProvider {
 }
 
 private extension ReviewersView.Model.Item {
-    init(_ fragment: ReviewerFragment) {
+    init(_ fragment: ReviewerFragment, state: PullRequestReviewState) {
         self.init(
             load: nil,
-            avatar: .init(fragment)
+            avatar: .init(fragment),
+            color: state.color
         )
+    }
+}
+
+extension PullRequestReviewState {
+    var color: Color {
+        switch self {
+        case .pending:
+            return .gray
+        case .commented:
+            return .orange
+        case .approved:
+            return .green
+        case .changesRequested:
+            return .red
+        case .dismissed:
+            return .blue
+        case .__unknown:
+            return .black
+        }
     }
 }

@@ -89,14 +89,13 @@ query Reviewers(
         name: $name
     ) {
         pullRequest(number: $number) {
-            reviewRequests(first: 10) {
+            latestOpinionatedReviews(first: 10) {
                 totalCount
                 nodes {
-                    requestedReviewer {
-                        ... on User {
-                            ...ReviewerFragment
-                        }
+                    author {
+                        ...ReviewerFragment
                     }
+                    state
                 }
             }
             title
