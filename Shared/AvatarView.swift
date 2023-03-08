@@ -19,23 +19,25 @@ struct AvatarView: View {
 
     var body: some View {
         VStack {
-            AsyncImage(
-                url: model.avatarURL,
-                content: { image in
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                },
-                placeholder: {
-                    ProgressView()
+            if let avatarURL = model.avatarURL {
+                AsyncImage(
+                    url: avatarURL,
+                    content: { image in
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                    },
+                    placeholder: {
+                        ProgressView()
+                    }
+                )
+                .frame(width: 100, height: 100)
+                .clipShape(Circle())
+                .overlay {
+                    Circle().stroke(.gray, lineWidth: 4)
                 }
-            )
-            .frame(width: 100, height: 100)
-            .clipShape(Circle())
-            .overlay {
-                Circle().stroke(.gray, lineWidth: 4)
+                .shadow(radius: 7)
             }
-            .shadow(radius: 7)
             Text(model.name ?? " ")
         }
     }
@@ -65,6 +67,15 @@ extension AvatarView.Model {
             id: fragment.id,
             login: "",
             name: fragment.name,
+            avatarURL: nil
+        )
+    }
+
+    init(_ fragment: PullRequestFragment) {
+        self.init(
+            id: fragment.id,
+            login: "",
+            name: fragment.title,
             avatarURL: nil
         )
     }

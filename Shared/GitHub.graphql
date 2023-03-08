@@ -42,4 +42,32 @@ query Repositories($login: String!) {
 fragment RepositoryFragment on Repository {
     id
     name
+    owner {
+        login
+    }
+}
+
+query PullRequests(
+    $owner: String!,
+    $name: String!
+) {
+    repository(
+        owner: $owner,
+        name: $name
+    ) {
+        pullRequests(
+            first: 10,
+            states: OPEN
+        ) {
+            totalCount
+            nodes {
+                ...PullRequestFragment
+            }
+        }
+    }
+}
+
+fragment PullRequestFragment on PullRequest {
+    id
+    title
 }

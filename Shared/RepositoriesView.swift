@@ -10,7 +10,12 @@ import Apollo
 
 struct RepositoriesView: View {
     struct Model {
-        let avatars: [AvatarView.Model]
+        struct Item: Identifiable {
+            var id: String { avatar.id }
+            let initModel: PullRequestsView.InitModel
+            let avatar: AvatarView.Model
+        }
+        let items: [Item]
     }
 
     @State private var model: Model?
@@ -18,10 +23,11 @@ struct RepositoriesView: View {
     let login: String
 
     var body: some View {
-        List(model?.avatars ?? []) { avatar in
+        List(model?.items ?? []) { item in
             NavigationLink {
+                PullRequestsView(initModel: item.initModel)
             } label: {
-                AvatarView(model: avatar)
+                AvatarView(model: item.avatar)
             }
         }
         .navigationTitle("Repositories")
@@ -41,8 +47,8 @@ struct RepositoriesView: View {
 
                 let avatars = response.data?.organization?.repositories.nodes?
                     .compactMap { $0?.fragments.repositoryFragment }
-                    .map { AvatarView.Model($0) }
-                model = avatars.map { Model(avatars: $0) }
+                    .map { RepositoriesView.Model.Item($0) }
+                model = avatars.map { Model(items: $0) }
             } catch {
                 print(error)
             }
@@ -53,5 +59,17 @@ struct RepositoriesView: View {
 struct RepositoriesView_Previews: PreviewProvider {
     static var previews: some View {
         RepositoriesView(login: defaultLogin)
+    }
+}
+
+private extension RepositoriesView.Model.Item {
+    init(_ fragment: RepositoryFragment) {
+        self.init(
+            initModel: .init(
+                owner: fragment.owner.login,
+                name: fragment.name
+            ),
+            avatar: .init(fragment)
+        )
     }
 }

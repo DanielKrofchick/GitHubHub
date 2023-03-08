@@ -8,6 +8,8 @@
 import SwiftUI
 
 let defaultLogin = "DanielKrofchick"
+let defaultOrganization = "carmigo"
+let defaultORepository = "eblock-ios"
 
 @main
 struct GitHubHubApp: App {

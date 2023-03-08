@@ -29,6 +29,8 @@
 		A4BA23EE28559BEE00B478A7 /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = A4BA23EC28559BEE00B478A7 /* schema.json */; };
 		A4D8171529B7013900BBA855 /* RepositoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D8171429B7013900BBA855 /* RepositoriesView.swift */; };
 		A4D8171629B7013900BBA855 /* RepositoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D8171429B7013900BBA855 /* RepositoriesView.swift */; };
+		A4D8171829B827D600BBA855 /* PullRequestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D8171729B827D600BBA855 /* PullRequestsView.swift */; };
+		A4D8171929B827D600BBA855 /* PullRequestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D8171729B827D600BBA855 /* PullRequestsView.swift */; };
 		A4E0C62028582D6700F868D6 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E0C61F28582D6700F868D6 /* Network.swift */; };
 		A4E0C62128582D6700F868D6 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E0C61F28582D6700F868D6 /* Network.swift */; };
 		A4F9FA3C29B4434E006918E8 /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F9FA3B29B4434E006918E8 /* AvatarView.swift */; };
@@ -53,6 +55,7 @@
 		A4B161E328582A9E00F6C483 /* Types.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Types.graphql.swift; sourceTree = "<group>"; };
 		A4BA23EC28559BEE00B478A7 /* schema.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
 		A4D8171429B7013900BBA855 /* RepositoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoriesView.swift; sourceTree = "<group>"; };
+		A4D8171729B827D600BBA855 /* PullRequestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullRequestsView.swift; sourceTree = "<group>"; };
 		A4E0C61F28582D6700F868D6 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		A4F9FA3B29B4434E006918E8 /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
 		A4F9FA3E29B444F1006918E8 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -104,6 +107,7 @@
 				A4F9FA3E29B444F1006918E8 /* HomeView.swift */,
 				A4F9FA4129B45170006918E8 /* OrganizationsView.swift */,
 				A4D8171429B7013900BBA855 /* RepositoriesView.swift */,
+				A4D8171729B827D600BBA855 /* PullRequestsView.swift */,
 				A4F9FA3B29B4434E006918E8 /* AvatarView.swift */,
 				A4E0C61F28582D6700F868D6 /* Network.swift */,
 				A44313EA285C14390021130C /* ApolloClient+.swift */,
@@ -303,6 +307,7 @@
 				A4E0C62028582D6700F868D6 /* Network.swift in Sources */,
 				A4F9FA3F29B444F1006918E8 /* HomeView.swift in Sources */,
 				A459537F2852E70000AC2AB6 /* GitHubHubApp.swift in Sources */,
+				A4D8171829B827D600BBA855 /* PullRequestsView.swift in Sources */,
 				A459538E2852E71800AC2AB6 /* GitHub.swift in Sources */,
 				A4B161E428582A9E00F6C483 /* GitHub.graphql.swift in Sources */,
 				A4D8171529B7013900BBA855 /* RepositoriesView.swift in Sources */,
@@ -321,6 +326,7 @@
 				A4E0C62128582D6700F868D6 /* Network.swift in Sources */,
 				A4F9FA4029B444F1006918E8 /* HomeView.swift in Sources */,
 				A45953802852E70000AC2AB6 /* GitHubHubApp.swift in Sources */,
+				A4D8171929B827D600BBA855 /* PullRequestsView.swift in Sources */,
 				A459538F2852E71800AC2AB6 /* GitHub.swift in Sources */,
 				A4B161E528582A9E00F6C483 /* GitHub.graphql.swift in Sources */,
 				A4D8171629B7013900BBA855 /* RepositoriesView.swift in Sources */,
