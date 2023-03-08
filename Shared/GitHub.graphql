@@ -6,9 +6,9 @@ query User($login: String!) {
 
 fragment UserFragment on User {
     id
+    login
     name
 	avatarUrl
-    login
 }
 
 query Organizations($login: String!) {
@@ -24,9 +24,9 @@ query Organizations($login: String!) {
 
 fragment OrganizationFragment on Organization {
     id
+    login
     name
     avatarUrl
-    login
 }
 
 query Repositories($login: String!) {
@@ -112,6 +112,7 @@ query Reviewers(
 
 fragment ReviewerFragment on User {
     id
+    login
     name
     avatarUrl
 }

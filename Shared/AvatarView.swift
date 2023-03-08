@@ -10,7 +10,6 @@ import SwiftUI
 struct AvatarView: View {
     struct Model: Identifiable {
         let id: String
-        let login: String
         let name: String?
         let avatarURL: URL?
     }
@@ -47,8 +46,7 @@ extension AvatarView.Model {
     init(_ fragment: UserFragment) {
         self.init(
             id: fragment.id,
-            login: fragment.login,
-            name: fragment.name,
+            name: fragment.login,
             avatarURL: URL(string: fragment.avatarUrl)
         )
     }
@@ -56,8 +54,7 @@ extension AvatarView.Model {
     init(_ fragment: OrganizationFragment) {
         self.init(
             id: fragment.id,
-            login: fragment.login,
-            name: fragment.name,
+            name: fragment.login,
             avatarURL: URL(string: fragment.avatarUrl)
         )
     }
@@ -65,7 +62,6 @@ extension AvatarView.Model {
     init(_ fragment: RepositoryFragment) {
         self.init(
             id: fragment.id,
-            login: "",
             name: fragment.name,
             avatarURL: nil
         )
@@ -74,7 +70,6 @@ extension AvatarView.Model {
     init(_ fragment: PullRequestFragment) {
         self.init(
             id: fragment.id,
-            login: "",
             name: fragment.title,
             avatarURL: nil
         )
@@ -83,9 +78,8 @@ extension AvatarView.Model {
     init(_ fragment: ReviewerFragment) {
         self.init(
             id: fragment.id,
-            login: "",
-            name: fragment.name,
-            avatarURL: nil
+            name: fragment.login,
+            avatarURL: URL(string: fragment.avatarUrl)
         )
     }
 }
@@ -95,7 +89,6 @@ struct AvatarView_Previews: PreviewProvider {
         AvatarView(
             model: .init(
                 id: "1",
-                login: "",
                 name: "name",
                 avatarURL: nil
             )
