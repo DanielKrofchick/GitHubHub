@@ -10,19 +10,26 @@ import Apollo
 
 struct OrganizationsView: View {
     struct Model {
-        let avatars: [AvatarView.Model]
+        struct Load {
+            let login: String
+        }
+        struct Item: Identifiable {
+            var id: String { avatar.id }
+            let load: RepositoriesView.Model
+            let avatar: AvatarView.Model
+        }
+        let load: Load
+        let items: [Item]?
     }
 
-    @State private var model: Model?
-
-    let login: String
+    @State var model: Model
 
     var body: some View {
-        List(model?.avatars ?? []) { avatar in
+        List(model.items ?? []) { item in
             NavigationLink {
-                RepositoriesView(model: .init(load: .init(login: avatar.login), items: nil))
+                RepositoriesView(model: item.load)
             } label: {
-                AvatarView(model: avatar)
+                AvatarView(model: item.avatar)
             }
         }
         .navigationTitle("Organizations")
@@ -34,16 +41,18 @@ struct OrganizationsView: View {
     private func loadData() {
         Task {
             do {
-                let response = try await GitHub().organizations(login)
+                let response = try await GitHub().organizations(model.load.login)
 
                 if let errors = response.errors {
                     throw errors
                 }
 
-                let avatars = response.data?.user?.organizations.nodes?
-                    .compactMap { $0?.fragments.organizationFragment }
-                    .map { AvatarView.Model($0) }
-                model = avatars.map { Model(avatars: $0) }
+                model = .init(
+                    load: model.load,
+                    items: response.data?.user?.organizations.nodes?
+                        .compactMap { $0?.fragments.organizationFragment }
+                        .map { Model.Item($0) }
+                )
             } catch {
                 print(error)
             }
@@ -53,6 +62,24 @@ struct OrganizationsView: View {
 
 struct OrganizationsView_Previews: PreviewProvider {
     static var previews: some View {
-        OrganizationsView(login: defaultLogin)
+        OrganizationsView(
+            model: .init(
+                load: .init(login: defaultLogin),
+                items: nil
+            )
+        )
     }
 }
+
+private extension OrganizationsView.Model.Item {
+    init(_ fragment: OrganizationFragment) {
+        self.init(
+            load: .init(
+                load: .init(login: fragment.login),
+                items: nil
+            ),
+            avatar: .init(fragment)
+        )
+    }
+}
+

@@ -9,17 +9,19 @@ import SwiftUI
 
 struct HomeView: View {
     struct Model {
-        let avatar: AvatarView.Model
+        struct Load {
+            let login: String
+        }
+        let load: Load
+        let avatar: AvatarView.Model?
     }
 
-    @State private var model: Model?
-
-    let login: String
+    @State var model: Model
 
     var body: some View {
         VStack {
-            if let model {
-                AvatarView(model: model.avatar)
+            if let avatar = model.avatar {
+                AvatarView(model: avatar)
             }
         }
         .onAppear {
@@ -30,15 +32,17 @@ struct HomeView: View {
     private func loadData() {
         Task {
             do {
-                let response = try await GitHub().user(login)
+                let response = try await GitHub().user(model.load.login)
 
                 if let errors = response.errors {
                     throw errors
                 }
 
-                if let fragment = response.data?.user?.fragments.userFragment {
-                    model = .init(avatar: .init(fragment))
-                }
+                model = .init(
+                    load: model.load,
+                    avatar: (response.data?.user?.fragments.userFragment)
+                        .map { .init($0) }
+                )
             } catch {
                 print(error)
             }
@@ -48,6 +52,6 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(login: defaultLogin)
+        HomeView(model: .init(load: .init(login: defaultLogin), avatar: nil))
     }
 }

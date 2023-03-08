@@ -13,10 +13,10 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             NavigationLink(value: login) {
-                HomeView(login: login)
+                HomeView(model: .init(load: .init(login: login), avatar: nil))
             }
             .navigationDestination(for: String.self) {
-                OrganizationsView(login: $0)
+                OrganizationsView(model: .init(load: .init(login: $0), items: nil))
             }
             .navigationTitle("Home")
         }
