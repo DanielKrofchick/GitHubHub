@@ -10,6 +10,7 @@ import SwiftUI
 let defaultLogin = "DanielKrofchick"
 let defaultOrganization = "carmigo"
 let defaultRepository = "eblock-ios"
+let defaultPullRequest = 1950
 
 @main
 struct GitHubHubApp: App {

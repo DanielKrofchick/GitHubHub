@@ -79,6 +79,15 @@ extension AvatarView.Model {
             avatarURL: nil
         )
     }
+
+    init(_ fragment: ReviewerFragment) {
+        self.init(
+            id: fragment.id,
+            login: "",
+            name: fragment.name,
+            avatarURL: nil
+        )
+    }
 }
 
 struct AvatarView_Previews: PreviewProvider {

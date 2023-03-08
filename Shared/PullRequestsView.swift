@@ -28,6 +28,7 @@ struct PullRequestsView: View {
     var body: some View {
         List(model.items ?? []) { item in
             NavigationLink {
+                ReviewersView(model: item.load)
             } label: {
                 AvatarView(model: item.avatar)
             }
@@ -77,7 +78,12 @@ private extension PullRequestsView.Model.Item {
     init(_ fragment: PullRequestFragment) {
         self.init(
             load: .init(
-                avatars: []
+                load: .init(
+                    owner: fragment.repository.owner.login,
+                    name: fragment.repository.name,
+                    number: fragment.number
+                ),
+                items: nil
             ),
             avatar: .init(fragment)
         )

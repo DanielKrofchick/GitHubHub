@@ -69,5 +69,50 @@ query PullRequests(
 
 fragment PullRequestFragment on PullRequest {
     id
+    number
     title
+    repository {
+        name
+        owner {
+            login
+        }
+    }
+}
+
+query Reviewers(
+    $owner: String!,
+    $name: String!,
+    $number: Int!
+) {
+    repository(
+        owner: $owner,
+        name: $name
+    ) {
+        pullRequest(number: $number) {
+            reviewRequests(first: 10) {
+                totalCount
+                nodes {
+                    requestedReviewer {
+                        ... on User {
+                            ...ReviewerFragment
+                        }
+                    }
+                }
+            }
+            title
+            number
+            repository {
+                name
+                owner {
+                    login
+                }
+            }
+        }
+    }
+}
+
+fragment ReviewerFragment on User {
+    id
+    name
+    avatarUrl
 }
