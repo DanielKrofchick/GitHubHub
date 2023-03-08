@@ -10,22 +10,24 @@ import Apollo
 
 struct RepositoriesView: View {
     struct Model {
+        struct Load {
+            let login: String
+        }
         struct Item: Identifiable {
             var id: String { avatar.id }
-            let initModel: PullRequestsView.InitModel
+            let load: PullRequestsView.Model
             let avatar: AvatarView.Model
         }
-        let items: [Item]
+        let load: Load
+        let items: [Item]?
     }
 
-    @State private var model: Model?
-
-    let login: String
+    @State var model: Model
 
     var body: some View {
-        List(model?.items ?? []) { item in
+        List(model.items ?? []) { item in
             NavigationLink {
-                PullRequestsView(initModel: item.initModel)
+                PullRequestsView(model: item.load)
             } label: {
                 AvatarView(model: item.avatar)
             }
@@ -39,16 +41,18 @@ struct RepositoriesView: View {
     private func loadData() {
         Task {
             do {
-                let response = try await GitHub().repositories(login)
+                let response = try await GitHub().repositories(model.load.login)
 
                 if let errors = response.errors {
                     throw errors
                 }
 
-                let avatars = response.data?.organization?.repositories.nodes?
-                    .compactMap { $0?.fragments.repositoryFragment }
-                    .map { RepositoriesView.Model.Item($0) }
-                model = avatars.map { Model(items: $0) }
+                model = .init(
+                    load: model.load,
+                    items: response.data?.organization?.repositories.nodes?
+                        .compactMap { $0?.fragments.repositoryFragment }
+                        .map { RepositoriesView.Model.Item($0) }
+                )
             } catch {
                 print(error)
             }
@@ -58,16 +62,24 @@ struct RepositoriesView: View {
 
 struct RepositoriesView_Previews: PreviewProvider {
     static var previews: some View {
-        RepositoriesView(login: defaultLogin)
+        RepositoriesView(
+            model: .init(
+                load: .init(login: defaultLogin),
+                items: nil
+            )
+        )
     }
 }
 
 private extension RepositoriesView.Model.Item {
     init(_ fragment: RepositoryFragment) {
         self.init(
-            initModel: .init(
-                owner: fragment.owner.login,
-                name: fragment.name
+            load: .init(
+                load: .init(
+                    owner: fragment.owner.login,
+                    name: fragment.name
+                ),
+                items: nil
             ),
             avatar: .init(fragment)
         )

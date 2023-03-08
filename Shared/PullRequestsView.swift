@@ -10,22 +10,26 @@ import Apollo
 
 struct PullRequestsView: View {
     struct Model {
-        let avatars: [AvatarView.Model]
+        struct Load {
+            let owner: String
+            let name: String
+        }
+        struct Item: Identifiable {
+            var id: String { avatar.id }
+            let load: ReviewersView.Model
+            let avatar: AvatarView.Model
+        }
+        let load: Load
+        let items: [Item]?
     }
 
-    struct InitModel {
-        let owner: String
-        let name: String
-    }
-
-    @State private var model: Model?
-    let initModel: InitModel
+    @State var model: Model
 
     var body: some View {
-        List(model?.avatars ?? []) { avatar in
+        List(model.items ?? []) { item in
             NavigationLink {
             } label: {
-                AvatarView(model: avatar)
+                AvatarView(model: item.avatar)
             }
         }
         .navigationTitle("Pull Requests")
@@ -37,16 +41,17 @@ struct PullRequestsView: View {
     private func loadData() {
         Task {
             do {
-                let response = try await GitHub().pullRequests(owner: initModel.owner, name: initModel.name)
+                let response = try await GitHub().pullRequests(owner: model.load.owner, name: model.load.name)
 
                 if let errors = response.errors {
                     throw errors
                 }
-
-                let avatars = response.data?.repository?.pullRequests.nodes?
-                    .compactMap { $0?.fragments.pullRequestFragment }
-                    .map { AvatarView.Model($0) }
-                model = avatars.map { Model(avatars: $0) }
+                model = Model(
+                    load: model.load,
+                    items:  response.data?.repository?.pullRequests.nodes?
+                        .compactMap { $0?.fragments.pullRequestFragment }
+                        .map { PullRequestsView.Model.Item($0) }
+                )
             } catch {
                 print(error)
             }
@@ -56,6 +61,25 @@ struct PullRequestsView: View {
 
 struct PullRequestsView_Previews: PreviewProvider {
     static var previews: some View {
-        PullRequestsView(initModel: .init(owner: defaultOrganization, name: defaultORepository))
+        PullRequestsView(
+            model: .init(
+                load: .init(
+                    owner: defaultOrganization,
+                    name: defaultRepository
+                ),
+                items:  nil
+            )
+        )
+    }
+}
+
+private extension PullRequestsView.Model.Item {
+    init(_ fragment: PullRequestFragment) {
+        self.init(
+            load: .init(
+                avatars: []
+            ),
+            avatar: .init(fragment)
+        )
     }
 }
