@@ -11,12 +11,12 @@ import Apollo
 struct PullRequestsView: View {
     struct Model {
         struct Load {
-            let owner: String
-            let name: String
+            let organization: String
+            let repository: String
         }
         struct Item: Identifiable {
             var id: String { avatar.id }
-            let load: ReviewersView.Model
+            let link: ReviewersView.Model
             let avatar: AvatarView.Model
             let color: Color?
         }
@@ -29,7 +29,7 @@ struct PullRequestsView: View {
     var body: some View {
         List(model.items ?? []) { item in
             NavigationLink {
-                ReviewersView(model: item.load)
+                ReviewersView(model: item.link)
             } label: {
                 AvatarView(model: item.avatar)
                     .border(item.color ?? .clear, width: 2)
@@ -44,7 +44,7 @@ struct PullRequestsView: View {
     private func loadData() {
         Task {
             do {
-                let response = try await GitHub().pullRequests(owner: model.load.owner, name: model.load.name)
+                let response = try await GitHub().pullRequests(owner: model.load.organization, name: model.load.repository)
 
                 if let errors = response.errors {
                     throw errors
@@ -67,8 +67,8 @@ struct PullRequestsView_Previews: PreviewProvider {
         PullRequestsView(
             model: .init(
                 load: .init(
-                    owner: defaultOrganization,
-                    name: defaultRepository
+                    organization: defaultOrganization,
+                    repository: defaultRepository
                 ),
                 items:  nil
             )
@@ -79,11 +79,11 @@ struct PullRequestsView_Previews: PreviewProvider {
 private extension PullRequestsView.Model.Item {
     init(_ fragment: PullRequestFragment) {
         self.init(
-            load: .init(
+            link: .init(
                 load: .init(
-                    owner: fragment.repository.owner.login,
-                    name: fragment.repository.name,
-                    number: fragment.number
+                    organization: fragment.repository.owner.login,
+                    repository: fragment.repository.name,
+                    PR: fragment.number
                 ),
                 items: nil
             ),

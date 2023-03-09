@@ -11,13 +11,13 @@ import Apollo
 struct ReviewersView: View {
     struct Model {
         struct Load {
-            let owner: String
-            let name: String
-            let number: Int
+            let organization: String
+            let repository: String
+            let PR: Int
         }
         struct Item: Identifiable {
             var id: String { avatar.id }
-            let load: Any?
+            let link: Any?
             let avatar: AvatarView.Model
             let color: Color
         }
@@ -45,14 +45,13 @@ struct ReviewersView: View {
         Task {
             do {
                 let response = try await GitHub().reviewers(
-                    owner: model.load.owner,
-                    name: model.load.name,
-                    number: model.load.number
+                    owner: model.load.organization,
+                    name: model.load.repository,
+                    number: model.load.PR
                 )
 
-                if let errors = response.errors {
-                    throw errors
-                }
+                if let errors = response.errors { throw errors }
+
                 model = Model(
                     load: model.load,
                     items:  response.data?.repository?.pullRequest?.latestOpinionatedReviews?.nodes?
@@ -80,9 +79,9 @@ struct ReviewersView_Previews: PreviewProvider {
         ReviewersView(
             model: .init(
                 load: .init(
-                    owner: defaultOrganization,
-                    name: defaultRepository,
-                    number: defaultPullRequest
+                    organization: defaultOrganization,
+                    repository: defaultRepository,
+                    PR: defaultPullRequest
                 ),
                 items:  nil
             )
@@ -93,7 +92,7 @@ struct ReviewersView_Previews: PreviewProvider {
 private extension ReviewersView.Model.Item {
     init(_ fragment: ReviewerFragment, state: PullRequestReviewState) {
         self.init(
-            load: nil,
+            link: nil,
             avatar: .init(fragment),
             color: state.color
         )

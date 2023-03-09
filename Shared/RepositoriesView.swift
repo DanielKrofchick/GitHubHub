@@ -11,11 +11,11 @@ import Apollo
 struct RepositoriesView: View {
     struct Model {
         struct Load {
-            let login: String
+            let organization: String
         }
         struct Item: Identifiable {
             var id: String { avatar.id }
-            let load: PullRequestsView.Model
+            let link: PullRequestsView.Model
             let avatar: AvatarView.Model
         }
         let load: Load
@@ -27,7 +27,7 @@ struct RepositoriesView: View {
     var body: some View {
         List(model.items ?? []) { item in
             NavigationLink {
-                PullRequestsView(model: item.load)
+                PullRequestsView(model: item.link)
             } label: {
                 AvatarView(model: item.avatar)
             }
@@ -41,7 +41,7 @@ struct RepositoriesView: View {
     private func loadData() {
         Task {
             do {
-                let response = try await GitHub().repositories(model.load.login)
+                let response = try await GitHub().repositories(model.load.organization)
 
                 if let errors = response.errors {
                     throw errors
@@ -64,7 +64,7 @@ struct RepositoriesView_Previews: PreviewProvider {
     static var previews: some View {
         RepositoriesView(
             model: .init(
-                load: .init(login: defaultLogin),
+                load: .init(organization: defaultLogin),
                 items: nil
             )
         )
@@ -74,10 +74,10 @@ struct RepositoriesView_Previews: PreviewProvider {
 private extension RepositoriesView.Model.Item {
     init(_ fragment: RepositoryFragment) {
         self.init(
-            load: .init(
+            link: .init(
                 load: .init(
-                    owner: fragment.owner.login,
-                    name: fragment.name
+                    organization: fragment.owner.login,
+                    repository: fragment.name
                 ),
                 items: nil
             ),

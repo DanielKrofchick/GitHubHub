@@ -15,7 +15,7 @@ struct OrganizationsView: View {
         }
         struct Item: Identifiable {
             var id: String { avatar.id }
-            let load: RepositoriesView.Model
+            let link: RepositoriesView.Model
             let avatar: AvatarView.Model
         }
         let load: Load
@@ -27,7 +27,7 @@ struct OrganizationsView: View {
     var body: some View {
         List(model.items ?? []) { item in
             NavigationLink {
-                RepositoriesView(model: item.load)
+                RepositoriesView(model: item.link)
             } label: {
                 AvatarView(model: item.avatar)
             }
@@ -74,8 +74,8 @@ struct OrganizationsView_Previews: PreviewProvider {
 private extension OrganizationsView.Model.Item {
     init(_ fragment: OrganizationFragment) {
         self.init(
-            load: .init(
-                load: .init(login: fragment.login),
+            link: .init(
+                load: .init(organization: fragment.login),
                 items: nil
             ),
             avatar: .init(fragment)
