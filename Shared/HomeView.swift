@@ -40,8 +40,7 @@ struct HomeView: View {
 
                 model = .init(
                     load: model.load,
-                    avatar: (response.data?.user?.fragments.userFragment)
-                        .map { .init($0) }
+                    avatar: (response.data?.user?.fragments.actorFragment).map { .init($0) }
                 )
             } catch {
                 print(error)

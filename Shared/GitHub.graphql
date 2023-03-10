@@ -1,12 +1,7 @@
 query User($login: String!) {
     user(login: $login) {
-        ...UserFragment
+        ...ActorFragment
     }
-}
-
-fragment UserFragment on User {
-    id
-    ...ActorFragment
 }
 
 fragment ActorFragment on Actor {
@@ -95,7 +90,7 @@ fragment PullRequestFragment on PullRequest {
 fragment PullRequestReviewFragment on PullRequestReview {
   id
   author {
-    ...UserFragment
+    ...ActorFragment
   }
   state
 }

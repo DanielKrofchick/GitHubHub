@@ -45,30 +45,23 @@ struct AvatarView: View {
                 }
                 .shadow(radius: 7)
             }
-            Text(model.name ?? " ")
+            if let name = model.name {
+                Text(name)
+            }
         }
     }
 }
 
 extension AvatarView.Model {
-    init(_ fragment: ActorFragment, color: Color? = nil) {
+    init(_ fragment: ActorFragment, color: Color? = nil, hasName: Bool = false) {
         self.init(
             id: fragment.login,
-            name: fragment.login,
+            name: hasName ? fragment.login : nil,
             avatarURL: URL(string: fragment.avatarUrl),
             color: color
         )
     }
-
-    init(_ fragment: UserFragment, color: Color? = nil) {
-        self.init(
-            id: fragment.id,
-            name: fragment.fragments.actorFragment.login,
-            avatarURL: URL(string: fragment.fragments.actorFragment.avatarUrl),
-            color: color
-        )
-    }
-
+    
     init(_ fragment: OrganizationFragment) {
         self.init(
             id: fragment.id,
@@ -93,7 +86,7 @@ extension AvatarView.Model {
     }
 
     init?(_ fragment: PullRequestReviewFragment) {
-        guard let actorFragment = fragment.author?.fragments.userFragment?.fragments.actorFragment else { return nil }
+        guard let actorFragment = fragment.author?.fragments.actorFragment else { return nil }
 
         self.init(
             actorFragment,

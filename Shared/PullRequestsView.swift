@@ -33,13 +33,18 @@ struct PullRequestsView: View {
             NavigationLink {
                 ReviewersView(model: item.link)
             } label: {
-                VStack {
-                    if let title = item.title {
-                        Text(title)
+                HStack {
+                    if let author = item.author {
+                        AvatarView(model: author)
                     }
-                    HStack {
-                        ForEach(item.reviewers ?? []) {
-                            AvatarView(model: $0)
+                    VStack {
+                        if let title = item.title {
+                            Text(title)
+                        }
+                        HStack {
+                            ForEach(item.reviewers ?? []) {
+                                AvatarView(model: $0)
+                            }
                         }
                     }
                 }
@@ -91,7 +96,8 @@ private extension PullRequestsView.Model.Item {
         self.init(
             id: fragment.id,
             title: fragment.title,
-            author: (fragment.author?.fragments.actorFragment).map { AvatarView.Model.init($0) },
+            author: (fragment.author?.fragments.actorFragment)
+                .map { AvatarView.Model.init($0) },
             reviewers: fragment.latestOpinionatedReviews?.nodes?
                 .compactMap { $0?.fragments.pullRequestReviewFragment }
                 .compactMap { AvatarView.Model.init($0) },

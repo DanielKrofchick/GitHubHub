@@ -83,11 +83,11 @@ struct ReviewersView_Previews: PreviewProvider {
 
 private extension ReviewersView.Model.Item {
     init?(_ fragment: PullRequestReviewFragment) {
-        guard let userFragment = fragment.author?.fragments.userFragment else { return nil }
+        guard let actorFragment = fragment.author?.fragments.actorFragment else { return nil }
 
         self.init(
             link: nil,
-            avatar: .init(userFragment),
+            avatar: .init(actorFragment),
             color: fragment.state.color
         )
     }
