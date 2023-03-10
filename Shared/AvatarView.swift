@@ -23,7 +23,7 @@ struct AvatarView: View {
     }
 
     @State var model: Model
-    @State var size: CGSize = CGSize(width: 40, height: 40)
+    @State var size: CGFloat = 40
 
     var body: some View {
         VStack {
@@ -39,13 +39,13 @@ struct AvatarView: View {
                         ProgressView()
                     }
                 )
-                .frame(width: size.width, height: size.height)
+                .frame(width: size, height: size)
                 .clipShape(Circle())
                 .overlay {
                     Circle().stroke(.gray, lineWidth: 1)
                 }
                 .shadow(radius: 7)
-                .padding()
+                .padding(10)
                 .background(model.color)
             }
             if let name = model.name {

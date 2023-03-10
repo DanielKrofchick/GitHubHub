@@ -19,21 +19,19 @@ struct PullRequestCellView: View {
     var body: some View {
         HStack {
             if let author = model.author {
-                AvatarView(model: author)
+                AvatarView(model: author, size: 30)
             }
             VStack {
                 if let title = model.title {
                     Text(title)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .border(.green)
                 }
                 HStack {
                     ForEach(model.reviewers ?? []) {
-                        AvatarView(model: $0, size: .init(width: 30, height: 30))
+                        AvatarView(model: $0, size: 20)
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .border(.yellow)
             }
         }
     }
