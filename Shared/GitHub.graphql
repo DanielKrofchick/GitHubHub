@@ -61,21 +61,8 @@ query PullRequests(
         ) {
             totalCount
             nodes {
-                ...PullRequestFragment
+                ...PullRequestReviewsFragment
             }
-        }
-    }
-}
-
-fragment PullRequestFragment on PullRequest {
-    id
-    number
-    title
-    isDraft
-    repository {
-        name
-        owner {
-            login
         }
     }
 }
@@ -90,23 +77,33 @@ query Reviewers(
         name: $name
     ) {
         pullRequest(number: $number) {
-            latestOpinionatedReviews(first: 10) {
-                totalCount
-                nodes {
-                    author {
-                        ...ReviewerFragment
-                    }
-                    state
-                }
+            ...PullRequestReviewsFragment
+        }
+    }
+}
+
+fragment PullRequestReviewsFragment on PullRequest {
+    ...PullRequestFragment
+    latestOpinionatedReviews(first: 10) {
+        totalCount
+        nodes {
+            author {
+                ...ReviewerFragment
             }
-            title
-            number
-            repository {
-                name
-                owner {
-                    login
-                }
-            }
+            state
+        }
+    }
+}
+
+fragment PullRequestFragment on PullRequest {
+    id
+    number
+    title
+    isDraft
+    repository {
+        name
+        owner {
+            login
         }
     }
 }

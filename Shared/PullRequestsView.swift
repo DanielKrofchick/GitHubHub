@@ -18,6 +18,7 @@ struct PullRequestsView: View {
             var id: String { avatar.id }
             let link: ReviewersView.Model
             let avatar: AvatarView.Model
+            let reviewers: [AvatarView.Model]
             let color: Color?
         }
         let load: Load
@@ -31,8 +32,15 @@ struct PullRequestsView: View {
             NavigationLink {
                 ReviewersView(model: item.link)
             } label: {
-                AvatarView(model: item.avatar)
-                    .border(item.color ?? .clear, width: 2)
+                VStack {
+                    AvatarView(model: item.avatar)
+                        .border(item.color ?? .clear, width: 2)
+                    HStack {
+                        ForEach(item.reviewers) {
+                            AvatarView(model: $0)
+                        }
+                    }
+                }
             }
         }
         .navigationTitle("Pull Requests")
@@ -52,7 +60,7 @@ struct PullRequestsView: View {
                 model = Model(
                     load: model.load,
                     items:  response.data?.repository?.pullRequests.nodes?
-                        .compactMap { $0?.fragments.pullRequestFragment }
+                        .compactMap { $0?.fragments.pullRequestReviewsFragment }
                         .map { PullRequestsView.Model.Item($0) }
                 )
             } catch {
@@ -77,18 +85,31 @@ struct PullRequestsView_Previews: PreviewProvider {
 }
 
 private extension PullRequestsView.Model.Item {
-    init(_ fragment: PullRequestFragment) {
+    init(_ fragment: PullRequestReviewsFragment) {
+        let baseFragment = fragment.fragments.pullRequestFragment
         self.init(
             link: .init(
                 load: .init(
-                    organization: fragment.repository.owner.login,
-                    repository: fragment.repository.name,
-                    PR: fragment.number
+                    organization: baseFragment.repository.owner.login,
+                    repository: baseFragment.repository.name,
+                    PR: baseFragment.number
                 ),
                 items: nil
             ),
-            avatar: .init(fragment),
-            color: fragment.isDraft ? .gray : nil
+            avatar: .init(baseFragment),
+            reviewers: fragment.latestOpinionatedReviews?.nodes?
+                .compactMap {
+                    if
+                        let reviewer = $0?.author?.fragments.reviewerFragment,
+                        let state = $0?.state
+                    {
+                        return (reviewer: reviewer, state: state)
+                    }
+
+                    return nil
+                }
+                .map { .init($0.reviewer) } ?? [],
+            color: baseFragment.isDraft ? .gray : nil
         )
     }
 }
