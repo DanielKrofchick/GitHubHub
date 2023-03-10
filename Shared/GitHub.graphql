@@ -5,12 +5,8 @@ query User($login: String!) {
 }
 
 fragment UserFragment on User {
-    ...NodeFragment
-    ...ActorFragment
-}
-
-fragment NodeFragment on Node {
     id
+    ...ActorFragment
 }
 
 fragment ActorFragment on Actor {
@@ -91,12 +87,17 @@ fragment PullRequestFragment on PullRequest {
   latestOpinionatedReviews(first: 10) {
     totalCount
     nodes {
-      author {
-        ...UserFragment
-      }
-      state
+      ...PullRequestReviewFragment
     }
   }
+}
+
+fragment PullRequestReviewFragment on PullRequestReview {
+  id
+  author {
+    ...UserFragment
+  }
+  state
 }
 
 query Reviewers(

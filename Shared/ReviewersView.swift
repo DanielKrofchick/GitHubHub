@@ -56,17 +56,8 @@ struct ReviewersView: View {
                     load: model.load,
                     items: response.data?.repository?.pullRequest?.fragments
                         .pullRequestFragment.latestOpinionatedReviews?.nodes?
-                        .compactMap {
-                            if
-                                let reviewer = $0?.author?.fragments.userFragment,
-                                let state = $0?.state
-                            {
-                                return (reviewer: reviewer, state: state)
-                            }
-
-                            return nil
-                        }
-                        .map { ReviewersView.Model.Item($0.reviewer, state: $0.state) }
+                        .compactMap { $0?.fragments.pullRequestReviewFragment }
+                        .compactMap { ReviewersView.Model.Item($0) }
                 )
             } catch {
                 print(error)
@@ -91,11 +82,13 @@ struct ReviewersView_Previews: PreviewProvider {
 }
 
 private extension ReviewersView.Model.Item {
-    init(_ fragment: UserFragment, state: PullRequestReviewState) {
+    init?(_ fragment: PullRequestReviewFragment) {
+        guard let userFragment = fragment.author?.fragments.userFragment else { return nil }
+
         self.init(
             link: nil,
-            avatar: .init(fragment),
-            color: state.color
+            avatar: .init(userFragment),
+            color: fragment.state.color
         )
     }
 }

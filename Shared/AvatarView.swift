@@ -12,6 +12,14 @@ struct AvatarView: View {
         let id: String
         let name: String?
         let avatarURL: URL?
+        let color: Color?
+
+        init(id: String, name: String? = nil, avatarURL: URL? = nil, color: Color? = nil) {
+            self.id = id
+            self.name = name
+            self.avatarURL = avatarURL
+            self.color = color
+        }
     }
 
     @State var model: Model
@@ -33,7 +41,7 @@ struct AvatarView: View {
                 .frame(width: 40, height: 40)
                 .clipShape(Circle())
                 .overlay {
-                    Circle().stroke(.gray, lineWidth: 4)
+                    Circle().stroke(model.color ?? .gray, lineWidth: 4)
                 }
                 .shadow(radius: 7)
             }
@@ -43,11 +51,21 @@ struct AvatarView: View {
 }
 
 extension AvatarView.Model {
-    init(_ fragment: UserFragment) {
+    init(_ fragment: ActorFragment, color: Color? = nil) {
         self.init(
-            id: fragment.fragments.nodeFragment.id,
+            id: fragment.login,
+            name: fragment.login,
+            avatarURL: URL(string: fragment.avatarUrl),
+            color: color
+        )
+    }
+
+    init(_ fragment: UserFragment, color: Color? = nil) {
+        self.init(
+            id: fragment.id,
             name: fragment.fragments.actorFragment.login,
-            avatarURL: URL(string: fragment.fragments.actorFragment.avatarUrl)
+            avatarURL: URL(string: fragment.fragments.actorFragment.avatarUrl),
+            color: color
         )
     }
 
@@ -61,9 +79,8 @@ extension AvatarView.Model {
 
     init(_ fragment: RepositoryFragment) {
         self.init(
-            id: fragment.id,
-            name: fragment.name,
-            avatarURL: nil
+            id: fragment.name,
+            name: fragment.name
         )
     }
 
@@ -71,7 +88,16 @@ extension AvatarView.Model {
         self.init(
             id: fragment.id,
             name: fragment.title,
-            avatarURL: nil
+            color: fragment.isDraft ? .gray : nil
+        )
+    }
+
+    init?(_ fragment: PullRequestReviewFragment) {
+        guard let actorFragment = fragment.author?.fragments.userFragment?.fragments.actorFragment else { return nil }
+
+        self.init(
+            actorFragment,
+            color: fragment.state.color
         )
     }
 }
