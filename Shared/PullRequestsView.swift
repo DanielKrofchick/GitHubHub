@@ -60,7 +60,7 @@ struct PullRequestsView: View {
                 model = Model(
                     load: model.load,
                     items:  response.data?.repository?.pullRequests.nodes?
-                        .compactMap { $0?.fragments.pullRequestReviewsFragment }
+                        .compactMap { $0?.fragments.pullRequestFragment }
                         .map { PullRequestsView.Model.Item($0) }
                 )
             } catch {
@@ -85,22 +85,21 @@ struct PullRequestsView_Previews: PreviewProvider {
 }
 
 private extension PullRequestsView.Model.Item {
-    init(_ fragment: PullRequestReviewsFragment) {
-        let baseFragment = fragment.fragments.pullRequestFragment
+    init(_ fragment: PullRequestFragment) {
         self.init(
             link: .init(
                 load: .init(
-                    organization: baseFragment.repository.owner.login,
-                    repository: baseFragment.repository.name,
-                    PR: baseFragment.number
+                    organization: fragment.repository.owner.login,
+                    repository: fragment.repository.name,
+                    PR: fragment.number
                 ),
                 items: nil
             ),
-            avatar: .init(baseFragment),
+            avatar: .init(fragment),
             reviewers: fragment.latestOpinionatedReviews?.nodes?
                 .compactMap {
                     if
-                        let reviewer = $0?.author?.fragments.reviewerFragment,
+                        let reviewer = $0?.author?.fragments.userFragment,
                         let state = $0?.state
                     {
                         return (reviewer: reviewer, state: state)
@@ -109,7 +108,7 @@ private extension PullRequestsView.Model.Item {
                     return nil
                 }
                 .map { .init($0.reviewer) } ?? [],
-            color: baseFragment.isDraft ? .gray : nil
+            color: fragment.isDraft ? .gray : nil
         )
     }
 }

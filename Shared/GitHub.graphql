@@ -5,10 +5,17 @@ query User($login: String!) {
 }
 
 fragment UserFragment on User {
+    ...NodeFragment
+    ...ActorFragment
+}
+
+fragment NodeFragment on Node {
     id
+}
+
+fragment ActorFragment on Actor {
     login
-    name
-	avatarUrl
+    avatarUrl
 }
 
 query Organizations($login: String!) {
@@ -61,10 +68,35 @@ query PullRequests(
         ) {
             totalCount
             nodes {
-                ...PullRequestReviewsFragment
+                ...PullRequestFragment
             }
         }
     }
+}
+
+fragment PullRequestFragment on PullRequest {
+  id
+  number
+  title
+  isDraft
+  author {
+    ...ActorFragment
+  }
+  repository {
+    name
+    owner {
+      login
+    }
+  }
+  latestOpinionatedReviews(first: 10) {
+    totalCount
+    nodes {
+      author {
+        ...UserFragment
+      }
+      state
+    }
+  }
 }
 
 query Reviewers(
@@ -77,40 +109,7 @@ query Reviewers(
         name: $name
     ) {
         pullRequest(number: $number) {
-            ...PullRequestReviewsFragment
+            ...PullRequestFragment
         }
     }
-}
-
-fragment PullRequestReviewsFragment on PullRequest {
-    ...PullRequestFragment
-    latestOpinionatedReviews(first: 10) {
-        totalCount
-        nodes {
-            author {
-                ...ReviewerFragment
-            }
-            state
-        }
-    }
-}
-
-fragment PullRequestFragment on PullRequest {
-    id
-    number
-    title
-    isDraft
-    repository {
-        name
-        owner {
-            login
-        }
-    }
-}
-
-fragment ReviewerFragment on User {
-    id
-    login
-    name
-    avatarUrl
 }

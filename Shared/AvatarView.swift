@@ -45,9 +45,9 @@ struct AvatarView: View {
 extension AvatarView.Model {
     init(_ fragment: UserFragment) {
         self.init(
-            id: fragment.id,
-            name: fragment.login,
-            avatarURL: URL(string: fragment.avatarUrl)
+            id: fragment.fragments.nodeFragment.id,
+            name: fragment.fragments.actorFragment.login,
+            avatarURL: URL(string: fragment.fragments.actorFragment.avatarUrl)
         )
     }
 
@@ -72,14 +72,6 @@ extension AvatarView.Model {
             id: fragment.id,
             name: fragment.title,
             avatarURL: nil
-        )
-    }
-
-    init(_ fragment: ReviewerFragment) {
-        self.init(
-            id: fragment.id,
-            name: fragment.login,
-            avatarURL: URL(string: fragment.avatarUrl)
         )
     }
 }
