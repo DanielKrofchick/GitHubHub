@@ -16,11 +16,8 @@ struct PullRequestsView: View {
         }
         struct Item: Identifiable {
             let id: String
-            let title: String?
-            let author: AvatarView.Model?
-            let reviewers: [AvatarView.Model]?
-            let color: Color?
             let link: ReviewersView.Model
+            let model: PullRequestCellView.Model
         }
         let load: Load
         let items: [Item]?
@@ -33,21 +30,7 @@ struct PullRequestsView: View {
             NavigationLink {
                 ReviewersView(model: item.link)
             } label: {
-                HStack {
-                    if let author = item.author {
-                        AvatarView(model: author)
-                    }
-                    VStack {
-                        if let title = item.title {
-                            Text(title)
-                        }
-                        HStack {
-                            ForEach(item.reviewers ?? []) {
-                                AvatarView(model: $0)
-                            }
-                        }
-                    }
-                }
+                PullRequestCellView(model: item.model)
             }
         }
         .navigationTitle("Pull Requests")
@@ -95,13 +78,6 @@ private extension PullRequestsView.Model.Item {
     init(_ fragment: PullRequestFragment) {
         self.init(
             id: fragment.id,
-            title: fragment.title,
-            author: (fragment.author?.fragments.actorFragment)
-                .map { AvatarView.Model.init($0) },
-            reviewers: fragment.latestOpinionatedReviews?.nodes?
-                .compactMap { $0?.fragments.pullRequestReviewFragment }
-                .compactMap { AvatarView.Model.init($0) },
-            color: fragment.isDraft ? .gray : nil,
             link: .init(
                 load: .init(
                     organization: fragment.repository.owner.login,
@@ -109,6 +85,19 @@ private extension PullRequestsView.Model.Item {
                     PR: fragment.number
                 ),
                 items: nil
+            ),
+            model: .init(
+                title: fragment.title,
+                author: (fragment.author?.fragments.actorFragment)
+                    .map {
+                        AvatarView.Model.init(
+                            $0,
+                            color: fragment.isDraft ? .gray : nil
+                        )
+                    },
+                reviewers: fragment.latestOpinionatedReviews?.nodes?
+                    .compactMap { $0?.fragments.pullRequestReviewFragment }
+                    .compactMap { AvatarView.Model.init($0) }
             )
         )
     }

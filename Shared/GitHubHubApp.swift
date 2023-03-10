@@ -11,6 +11,7 @@ let defaultLogin = "DanielKrofchick"
 let defaultOrganization = "carmigo"
 let defaultRepository = "eblock-ios"
 let defaultPullRequest = 1950
+let defaultAvatarURL = URL(string: "https://avatars.githubusercontent.com/u/3325828?v=4")
 
 @main
 struct GitHubHubApp: App {

@@ -23,6 +23,7 @@ struct AvatarView: View {
     }
 
     @State var model: Model
+    @State var size: CGSize = CGSize(width: 40, height: 40)
 
     var body: some View {
         VStack {
@@ -38,12 +39,14 @@ struct AvatarView: View {
                         ProgressView()
                     }
                 )
-                .frame(width: 40, height: 40)
+                .frame(width: size.width, height: size.height)
                 .clipShape(Circle())
                 .overlay {
-                    Circle().stroke(model.color ?? .gray, lineWidth: 4)
+                    Circle().stroke(.gray, lineWidth: 1)
                 }
                 .shadow(radius: 7)
+                .padding()
+                .background(model.color)
             }
             if let name = model.name {
                 Text(name)
@@ -100,8 +103,8 @@ struct AvatarView_Previews: PreviewProvider {
         AvatarView(
             model: .init(
                 id: "1",
-                name: "name",
-                avatarURL: nil
+                avatarURL: defaultAvatarURL,
+                color: .orange
             )
         )
     }
