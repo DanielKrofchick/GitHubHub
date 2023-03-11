@@ -79,10 +79,16 @@ fragment PullRequestFragment on PullRequest {
       login
     }
   }
-  latestOpinionatedReviews(first: 10) {
+  latestReviews(first: 10) {
     totalCount
     nodes {
       ...PullRequestReviewFragment
+    }
+  }
+  reviewRequests(first: 10) {
+    totalCount
+    nodes {
+        ...ReviewRequestFragment
     }
   }
 }
@@ -108,4 +114,11 @@ query Reviewers(
             ...PullRequestFragment
         }
     }
+}
+
+fragment ReviewRequestFragment on ReviewRequest {
+  id
+  requestedReviewer {
+    ...ActorFragment
+  }
 }

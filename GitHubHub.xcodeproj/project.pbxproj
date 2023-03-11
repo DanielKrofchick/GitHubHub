@@ -31,6 +31,7 @@
 		A4B161E728582A9E00F6C483 /* Types.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B161E328582A9E00F6C483 /* Types.graphql.swift */; };
 		A4BA23ED28559BEE00B478A7 /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = A4BA23EC28559BEE00B478A7 /* schema.json */; };
 		A4BA23EE28559BEE00B478A7 /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = A4BA23EC28559BEE00B478A7 /* schema.json */; };
+		A4D6357429BC41B100404B39 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = A4D6357329BC41B100404B39 /* OrderedCollections */; };
 		A4D8171529B7013900BBA855 /* RepositoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D8171429B7013900BBA855 /* RepositoriesView.swift */; };
 		A4D8171629B7013900BBA855 /* RepositoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D8171429B7013900BBA855 /* RepositoriesView.swift */; };
 		A4D8171829B827D600BBA855 /* PullRequestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D8171729B827D600BBA855 /* PullRequestsView.swift */; };
@@ -73,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4D6357429BC41B100404B39 /* OrderedCollections in Frameworks */,
 				A4216DFA285C176000D9BAD7 /* Apollo in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -173,6 +175,7 @@
 			name = "GitHubHub (iOS)";
 			packageProductDependencies = (
 				A4216DF9285C176000D9BAD7 /* Apollo */,
+				A4D6357329BC41B100404B39 /* OrderedCollections */,
 			);
 			productName = "GitHubHub (iOS)";
 			productReference = A45953762852E70000AC2AB6 /* GitHubHub.app */;
@@ -228,6 +231,7 @@
 			mainGroup = A45953692852E6FF00AC2AB6;
 			packageReferences = (
 				A49BE2E628543D5D009EF2DB /* XCRemoteSwiftPackageReference "apollo-ios" */,
+				A4D6357229BC41B000404B39 /* XCRemoteSwiftPackageReference "swift-collections" */,
 			);
 			productRefGroup = A45953772852E70000AC2AB6 /* Products */;
 			projectDirPath = "";
@@ -624,6 +628,14 @@
 				minimumVersion = 0.3.0;
 			};
 		};
+		A4D6357229BC41B000404B39 /* XCRemoteSwiftPackageReference "swift-collections" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-collections.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -636,6 +648,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A49BE2E628543D5D009EF2DB /* XCRemoteSwiftPackageReference "apollo-ios" */;
 			productName = Apollo;
+		};
+		A4D6357329BC41B100404B39 /* OrderedCollections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A4D6357229BC41B000404B39 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = OrderedCollections;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

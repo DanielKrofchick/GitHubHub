@@ -21,7 +21,7 @@ struct HomeView: View {
     var body: some View {
         VStack {
             if let avatar = model.avatar {
-                AvatarView(model: avatar)
+                AvatarView(model: avatar, size: 100)
             }
         }
         .onAppear {
@@ -40,7 +40,8 @@ struct HomeView: View {
 
                 model = .init(
                     load: model.load,
-                    avatar: (response.data?.user?.fragments.actorFragment).map { .init($0) }
+                    avatar: (response.data?.user?.fragments.actorFragment)
+                        .map { .init($0, hasName: true) }
                 )
             } catch {
                 print(error)
@@ -51,6 +52,11 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(model: .init(load: .init(login: defaultLogin), avatar: nil))
+        HomeView(
+            model: .init(
+                load: .init(login: defaultLogin),
+                avatar: nil
+            )
+        )
     }
 }

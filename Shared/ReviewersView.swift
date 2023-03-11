@@ -55,7 +55,7 @@ struct ReviewersView: View {
                 model = Model(
                     load: model.load,
                     items: response.data?.repository?.pullRequest?.fragments
-                        .pullRequestFragment.latestOpinionatedReviews?.nodes?
+                        .pullRequestFragment.latestReviews?.nodes?
                         .compactMap { $0?.fragments.pullRequestReviewFragment }
                         .compactMap { ReviewersView.Model.Item($0) }
                 )

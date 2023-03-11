@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AvatarView: View {
-    struct Model: Identifiable {
+    struct Model: Identifiable, Hashable, Equatable {
         let id: String
         let name: String?
         let avatarURL: URL?
@@ -19,6 +19,14 @@ struct AvatarView: View {
             self.name = name
             self.avatarURL = avatarURL
             self.color = color
+        }
+
+        func hash(into hasher: inout Hasher) {
+            hasher.combine(id)
+        }
+
+        static func == (lhs: Self, rhs: Self) -> Bool {
+            lhs.id == rhs.id
         }
     }
 

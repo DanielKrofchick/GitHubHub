@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Apollo
+import OrderedCollections
 
 struct PullRequestsView: View {
     struct Model {
@@ -42,16 +43,20 @@ struct PullRequestsView: View {
     private func loadData() {
         Task {
             do {
-                let response = try await GitHub().pullRequests(owner: model.load.organization, name: model.load.repository)
+                let response = try await GitHub().pullRequests(
+                    owner: model.load.organization,
+                    name: model.load.repository
+                )
 
                 if let errors = response.errors {
                     throw errors
                 }
+
                 model = Model(
                     load: model.load,
-                    items:  response.data?.repository?.pullRequests.nodes?
+                    items: response.data?.repository?.pullRequests.nodes?
                         .compactMap { $0?.fragments.pullRequestFragment }
-                        .map { PullRequestsView.Model.Item($0) }
+                        .map { PullRequestsView.Model.Item($0) }.reversed()
                 )
             } catch {
                 print(error)
@@ -76,6 +81,17 @@ struct PullRequestsView_Previews: PreviewProvider {
 
 private extension PullRequestsView.Model.Item {
     init(_ fragment: PullRequestFragment) {
+        let reviewRequests = fragment.reviewRequests?.nodes?
+            .compactMap { $0?.fragments.reviewRequestFragment.requestedReviewer?.fragments.actorFragment }
+            .compactMap { AvatarView.Model.init($0) }
+        let latestReviews = fragment.latestReviews?.nodes?
+            .compactMap { $0?.fragments.pullRequestReviewFragment }
+            .compactMap { AvatarView.Model.init($0) }
+
+        var reviewers = OrderedSet<AvatarView.Model>()
+        reviewRequests?.forEach { reviewers.updateOrAppend($0) }
+        latestReviews?.forEach { reviewers.updateOrAppend($0) }
+
         self.init(
             id: fragment.id,
             link: .init(
@@ -95,9 +111,7 @@ private extension PullRequestsView.Model.Item {
                             color: fragment.isDraft ? .gray : nil
                         )
                     },
-                reviewers: fragment.latestOpinionatedReviews?.nodes?
-                    .compactMap { $0?.fragments.pullRequestReviewFragment }
-                    .compactMap { AvatarView.Model.init($0) }
+                reviewers: reviewers.filter { $0.color != nil } + reviewers.filter { $0.color == nil }
             )
         )
     }
