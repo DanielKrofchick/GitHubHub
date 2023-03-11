@@ -104,13 +104,13 @@ private extension PullRequestsView.Model.Item {
             ),
             model: .init(
                 title: fragment.title,
-                author: (fragment.author?.fragments.actorFragment)
-                    .map {
-                        AvatarView.Model.init(
-                            $0,
-                            color: fragment.isDraft ? .gray : nil
-                        )
-                    },
+                author: (fragment.author?.fragments.actorFragment).map {
+                    AvatarView.Model.init(
+                        $0,
+                        color: fragment.isDraft ? .gray : nil
+                    )
+                },
+                age: fragment.createdAt.date?.relative(),
                 reviewers: reviewers.filter { $0.color != nil } + reviewers.filter { $0.color == nil }
             )
         )

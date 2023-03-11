@@ -10,6 +10,8 @@
 		A4216DFA285C176000D9BAD7 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = A4216DF9285C176000D9BAD7 /* Apollo */; };
 		A44313EB285C14390021130C /* ApolloClient+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44313EA285C14390021130C /* ApolloClient+.swift */; };
 		A44313EC285C14390021130C /* ApolloClient+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44313EA285C14390021130C /* ApolloClient+.swift */; };
+		A45700F729BD28EA00093DA9 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45700F629BD28EA00093DA9 /* Date+.swift */; };
+		A45700F829BD28EA00093DA9 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45700F629BD28EA00093DA9 /* Date+.swift */; };
 		A459537F2852E70000AC2AB6 /* GitHubHubApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A459536F2852E6FF00AC2AB6 /* GitHubHubApp.swift */; };
 		A45953802852E70000AC2AB6 /* GitHubHubApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A459536F2852E6FF00AC2AB6 /* GitHubHubApp.swift */; };
 		A45953812852E70000AC2AB6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45953702852E6FF00AC2AB6 /* ContentView.swift */; };
@@ -48,6 +50,7 @@
 
 /* Begin PBXFileReference section */
 		A44313EA285C14390021130C /* ApolloClient+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ApolloClient+.swift"; sourceTree = "<group>"; };
+		A45700F629BD28EA00093DA9 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		A459536F2852E6FF00AC2AB6 /* GitHubHubApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubHubApp.swift; sourceTree = "<group>"; };
 		A45953702852E6FF00AC2AB6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A45953712852E70000AC2AB6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -120,6 +123,7 @@
 				A48C6BDF29B83EBF005B4B17 /* ReviewersView.swift */,
 				A4F9FA3B29B4434E006918E8 /* AvatarView.swift */,
 				A4E0C61F28582D6700F868D6 /* Network.swift */,
+				A45700F629BD28EA00093DA9 /* Date+.swift */,
 				A44313EA285C14390021130C /* ApolloClient+.swift */,
 				A459538D2852E71800AC2AB6 /* GitHub.swift */,
 				A463BB4128558DD400F5CFAD /* GitHub.graphql */,
@@ -326,6 +330,7 @@
 				A4F9FA3C29B4434E006918E8 /* AvatarView.swift in Sources */,
 				A48C6BE029B83EBF005B4B17 /* ReviewersView.swift in Sources */,
 				A44313EB285C14390021130C /* ApolloClient+.swift in Sources */,
+				A45700F729BD28EA00093DA9 /* Date+.swift in Sources */,
 				A4F9FA4229B45170006918E8 /* OrganizationsView.swift in Sources */,
 				A488E9EC29BBD3CB00097527 /* PullRequestCellView.swift in Sources */,
 			);
@@ -347,6 +352,7 @@
 				A4F9FA3D29B4434E006918E8 /* AvatarView.swift in Sources */,
 				A48C6BE129B83EBF005B4B17 /* ReviewersView.swift in Sources */,
 				A44313EC285C14390021130C /* ApolloClient+.swift in Sources */,
+				A45700F829BD28EA00093DA9 /* Date+.swift in Sources */,
 				A4F9FA4329B45170006918E8 /* OrganizationsView.swift in Sources */,
 				A488E9ED29BBD3CB00097527 /* PullRequestCellView.swift in Sources */,
 			);

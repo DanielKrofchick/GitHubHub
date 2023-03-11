@@ -11,6 +11,7 @@ struct PullRequestCellView: View {
     struct Model {
         let title: String?
         let author: AvatarView.Model?
+        let age: String?
         let reviewers: [AvatarView.Model]?
     }
 
@@ -18,13 +19,18 @@ struct PullRequestCellView: View {
 
     var body: some View {
         HStack {
-            if let author = model.author {
-                AvatarView(model: author, size: 30)
+            VStack {
+                if let author = model.author {
+                    AvatarView(model: author, size: 30)
+                }
+                if let age = model.age {
+                    Text(age)
+                }
             }
             VStack {
                 if let title = model.title {
                     Text(title)
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 HStack {
                     ForEach(model.reviewers ?? []) {
@@ -47,6 +53,7 @@ struct PullRequestCellView_Previews: PreviewProvider {
                     avatarURL: defaultAvatarURL,
                     color: .gray
                 ),
+                age: "10d",
                 reviewers: [
                     .init(
                         id: "1",

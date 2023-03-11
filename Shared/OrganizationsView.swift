@@ -17,6 +17,7 @@ struct OrganizationsView: View {
             var id: String { avatar.id }
             let link: RepositoriesView.Model
             let avatar: AvatarView.Model
+            let title: String
         }
         let load: Load
         let items: [Item]?
@@ -29,7 +30,11 @@ struct OrganizationsView: View {
             NavigationLink {
                 RepositoriesView(model: item.link)
             } label: {
-                AvatarView(model: item.avatar)
+                HStack {
+                    AvatarView(model: item.avatar)
+                    Text(item.title)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
             }
         }
         .navigationTitle("Organizations")
@@ -78,7 +83,8 @@ private extension OrganizationsView.Model.Item {
                 load: .init(organization: fragment.login),
                 items: nil
             ),
-            avatar: .init(fragment)
+            avatar: .init(fragment),
+            title: fragment.login
         )
     }
 }

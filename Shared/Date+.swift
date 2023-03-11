@@ -1,0 +1,37 @@
+//
+//  Date+.swift
+//  GitHubHub
+//
+//  Created by Daniel Krofchick on 2023-03-11.
+//
+
+import Foundation
+
+extension String {
+    var date: Date? {
+        ISO8601DateFormatter().date(from: self)
+    }
+}
+
+extension Date {
+    func relative(to date: Date = Date()) -> String {
+        let transformations = [
+            ("months", "M"),
+            ("month", "M"),
+            ("weeks", "w"),
+            ("week", "w"),
+            ("days", "d"),
+            ("day", "d"),
+            ("minutes", "m"),
+            ("minute", "m"),
+            ("hours", "h"),
+            ("hour", "h"),
+            (" ", ""),
+            ("ago", "")
+        ]
+
+        var string = RelativeDateTimeFormatter().localizedString(for: self, relativeTo: date)
+        transformations.forEach { string = string.replacingOccurrences(of: $0.0, with: $0.1) }
+        return string
+    }
+}

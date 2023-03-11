@@ -73,10 +73,10 @@ extension AvatarView.Model {
         )
     }
     
-    init(_ fragment: OrganizationFragment) {
+    init(_ fragment: OrganizationFragment, hasName: Bool = false) {
         self.init(
             id: fragment.id,
-            name: fragment.login,
+            name: hasName ? fragment.login : nil,
             avatarURL: URL(string: fragment.avatarUrl)
         )
     }
