@@ -18,6 +18,7 @@ struct OrganizationsView: View {
             let link: RepositoriesView.Model
             let avatar: AvatarView.Model
             let title: String
+            let count: String?
         }
         let load: Load
         let items: [Item]?
@@ -32,8 +33,10 @@ struct OrganizationsView: View {
             } label: {
                 HStack {
                     AvatarView(model: item.avatar)
-                    Text(item.title)
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                    Text(item.title).frame(maxWidth: .infinity, alignment: .leading)
+                    if let count = item.count {
+                        Text(count).frame(alignment: .trailing)
+                    }
                 }
             }
         }
@@ -84,7 +87,8 @@ private extension OrganizationsView.Model.Item {
                 items: nil
             ),
             avatar: .init(fragment),
-            title: fragment.login
+            title: fragment.login,
+            count: String(fragment.repositories.totalCount)
         )
     }
 }

@@ -1,0 +1,10 @@
+query User($login: String!) {
+    user(login: $login) {
+        ...ActorFragment
+    }
+}
+
+fragment ActorFragment on Actor {
+    login
+    avatarUrl
+}

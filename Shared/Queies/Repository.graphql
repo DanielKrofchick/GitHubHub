@@ -1,0 +1,17 @@
+query Repositories($login: String!) {
+    organization(login: $login) {
+        repositories(first: 50) {
+            nodes {
+                ...RepositoryFragment
+            }
+        }
+    }
+}
+
+fragment RepositoryFragment on Repository {
+    id
+    name
+    owner {
+        login
+    }
+}

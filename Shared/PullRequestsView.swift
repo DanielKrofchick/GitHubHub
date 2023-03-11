@@ -7,7 +7,6 @@
 
 import SwiftUI
 import Apollo
-import OrderedCollections
 
 struct PullRequestsView: View {
     struct Model {
@@ -81,17 +80,6 @@ struct PullRequestsView_Previews: PreviewProvider {
 
 private extension PullRequestsView.Model.Item {
     init(_ fragment: PullRequestFragment) {
-        let reviewRequests = fragment.reviewRequests?.nodes?
-            .compactMap { $0?.fragments.reviewRequestFragment.requestedReviewer?.fragments.actorFragment }
-            .compactMap { AvatarView.Model.init($0) }
-        let latestReviews = fragment.latestReviews?.nodes?
-            .compactMap { $0?.fragments.pullRequestReviewFragment }
-            .compactMap { AvatarView.Model.init($0) }
-
-        var reviewers = OrderedSet<AvatarView.Model>()
-        reviewRequests?.forEach { reviewers.updateOrAppend($0) }
-        latestReviews?.forEach { reviewers.updateOrAppend($0) }
-
         self.init(
             id: fragment.id,
             link: .init(
@@ -102,17 +90,7 @@ private extension PullRequestsView.Model.Item {
                 ),
                 items: nil
             ),
-            model: .init(
-                title: fragment.title,
-                author: (fragment.author?.fragments.actorFragment).map {
-                    AvatarView.Model.init(
-                        $0,
-                        color: fragment.isDraft ? .gray : nil
-                    )
-                },
-                age: fragment.createdAt.date?.relative(),
-                reviewers: reviewers.filter { $0.color != nil } + reviewers.filter { $0.color == nil }
-            )
+            model: .init(fragment)
         )
     }
 }

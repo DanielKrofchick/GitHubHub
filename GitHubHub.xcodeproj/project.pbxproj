@@ -12,6 +12,22 @@
 		A44313EC285C14390021130C /* ApolloClient+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44313EA285C14390021130C /* ApolloClient+.swift */; };
 		A45700F729BD28EA00093DA9 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45700F629BD28EA00093DA9 /* Date+.swift */; };
 		A45700F829BD28EA00093DA9 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45700F629BD28EA00093DA9 /* Date+.swift */; };
+		A45700FA29BD2D6D00093DA9 /* PullRequest.graphql in Resources */ = {isa = PBXBuildFile; fileRef = A45700F929BD2D6D00093DA9 /* PullRequest.graphql */; };
+		A45700FB29BD2D6D00093DA9 /* PullRequest.graphql in Resources */ = {isa = PBXBuildFile; fileRef = A45700F929BD2D6D00093DA9 /* PullRequest.graphql */; };
+		A457010329BD2DF200093DA9 /* Repository.graphql in Resources */ = {isa = PBXBuildFile; fileRef = A457010229BD2DF200093DA9 /* Repository.graphql */; };
+		A457010429BD2DF200093DA9 /* Repository.graphql in Resources */ = {isa = PBXBuildFile; fileRef = A457010229BD2DF200093DA9 /* Repository.graphql */; };
+		A457010629BD2E0D00093DA9 /* Organization.graphql in Resources */ = {isa = PBXBuildFile; fileRef = A457010529BD2E0D00093DA9 /* Organization.graphql */; };
+		A457010729BD2E0D00093DA9 /* Organization.graphql in Resources */ = {isa = PBXBuildFile; fileRef = A457010529BD2E0D00093DA9 /* Organization.graphql */; };
+		A457010E29BD424E00093DA9 /* Repository.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = A457010929BD424E00093DA9 /* Repository.graphql.swift */; };
+		A457010F29BD424E00093DA9 /* Repository.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = A457010929BD424E00093DA9 /* Repository.graphql.swift */; };
+		A457011029BD424E00093DA9 /* Types.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = A457010A29BD424E00093DA9 /* Types.graphql.swift */; };
+		A457011129BD424E00093DA9 /* Types.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = A457010A29BD424E00093DA9 /* Types.graphql.swift */; };
+		A457011229BD424E00093DA9 /* User.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = A457010B29BD424E00093DA9 /* User.graphql.swift */; };
+		A457011329BD424E00093DA9 /* User.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = A457010B29BD424E00093DA9 /* User.graphql.swift */; };
+		A457011429BD424E00093DA9 /* Organization.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = A457010C29BD424E00093DA9 /* Organization.graphql.swift */; };
+		A457011529BD424E00093DA9 /* Organization.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = A457010C29BD424E00093DA9 /* Organization.graphql.swift */; };
+		A457011629BD424E00093DA9 /* PullRequest.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = A457010D29BD424E00093DA9 /* PullRequest.graphql.swift */; };
+		A457011729BD424E00093DA9 /* PullRequest.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = A457010D29BD424E00093DA9 /* PullRequest.graphql.swift */; };
 		A459537F2852E70000AC2AB6 /* GitHubHubApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A459536F2852E6FF00AC2AB6 /* GitHubHubApp.swift */; };
 		A45953802852E70000AC2AB6 /* GitHubHubApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A459536F2852E6FF00AC2AB6 /* GitHubHubApp.swift */; };
 		A45953812852E70000AC2AB6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45953702852E6FF00AC2AB6 /* ContentView.swift */; };
@@ -20,17 +36,13 @@
 		A45953842852E70000AC2AB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A45953712852E70000AC2AB6 /* Assets.xcassets */; };
 		A459538E2852E71800AC2AB6 /* GitHub.swift in Sources */ = {isa = PBXBuildFile; fileRef = A459538D2852E71800AC2AB6 /* GitHub.swift */; };
 		A459538F2852E71800AC2AB6 /* GitHub.swift in Sources */ = {isa = PBXBuildFile; fileRef = A459538D2852E71800AC2AB6 /* GitHub.swift */; };
-		A463BB4228558DD400F5CFAD /* GitHub.graphql in Resources */ = {isa = PBXBuildFile; fileRef = A463BB4128558DD400F5CFAD /* GitHub.graphql */; };
-		A463BB4328558DD400F5CFAD /* GitHub.graphql in Resources */ = {isa = PBXBuildFile; fileRef = A463BB4128558DD400F5CFAD /* GitHub.graphql */; };
+		A463BB4228558DD400F5CFAD /* User.graphql in Resources */ = {isa = PBXBuildFile; fileRef = A463BB4128558DD400F5CFAD /* User.graphql */; };
+		A463BB4328558DD400F5CFAD /* User.graphql in Resources */ = {isa = PBXBuildFile; fileRef = A463BB4128558DD400F5CFAD /* User.graphql */; };
 		A488E9EC29BBD3CB00097527 /* PullRequestCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A488E9EB29BBD3CB00097527 /* PullRequestCellView.swift */; };
 		A488E9ED29BBD3CB00097527 /* PullRequestCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A488E9EB29BBD3CB00097527 /* PullRequestCellView.swift */; };
 		A48C6BE029B83EBF005B4B17 /* ReviewersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48C6BDF29B83EBF005B4B17 /* ReviewersView.swift */; };
 		A48C6BE129B83EBF005B4B17 /* ReviewersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48C6BDF29B83EBF005B4B17 /* ReviewersView.swift */; };
 		A49BE2E828543D5D009EF2DB /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = A49BE2E728543D5D009EF2DB /* Apollo */; };
-		A4B161E428582A9E00F6C483 /* GitHub.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B161E228582A9E00F6C483 /* GitHub.graphql.swift */; };
-		A4B161E528582A9E00F6C483 /* GitHub.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B161E228582A9E00F6C483 /* GitHub.graphql.swift */; };
-		A4B161E628582A9E00F6C483 /* Types.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B161E328582A9E00F6C483 /* Types.graphql.swift */; };
-		A4B161E728582A9E00F6C483 /* Types.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B161E328582A9E00F6C483 /* Types.graphql.swift */; };
 		A4BA23ED28559BEE00B478A7 /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = A4BA23EC28559BEE00B478A7 /* schema.json */; };
 		A4BA23EE28559BEE00B478A7 /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = A4BA23EC28559BEE00B478A7 /* schema.json */; };
 		A4D6357429BC41B100404B39 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = A4D6357329BC41B100404B39 /* OrderedCollections */; };
@@ -51,6 +63,14 @@
 /* Begin PBXFileReference section */
 		A44313EA285C14390021130C /* ApolloClient+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ApolloClient+.swift"; sourceTree = "<group>"; };
 		A45700F629BD28EA00093DA9 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
+		A45700F929BD2D6D00093DA9 /* PullRequest.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = PullRequest.graphql; sourceTree = "<group>"; };
+		A457010229BD2DF200093DA9 /* Repository.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Repository.graphql; sourceTree = "<group>"; };
+		A457010529BD2E0D00093DA9 /* Organization.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Organization.graphql; sourceTree = "<group>"; };
+		A457010929BD424E00093DA9 /* Repository.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repository.graphql.swift; sourceTree = "<group>"; };
+		A457010A29BD424E00093DA9 /* Types.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Types.graphql.swift; sourceTree = "<group>"; };
+		A457010B29BD424E00093DA9 /* User.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.graphql.swift; sourceTree = "<group>"; };
+		A457010C29BD424E00093DA9 /* Organization.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Organization.graphql.swift; sourceTree = "<group>"; };
+		A457010D29BD424E00093DA9 /* PullRequest.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PullRequest.graphql.swift; sourceTree = "<group>"; };
 		A459536F2852E6FF00AC2AB6 /* GitHubHubApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubHubApp.swift; sourceTree = "<group>"; };
 		A45953702852E6FF00AC2AB6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A45953712852E70000AC2AB6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -58,11 +78,9 @@
 		A459537C2852E70000AC2AB6 /* GitHubHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitHubHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A459537E2852E70000AC2AB6 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
 		A459538D2852E71800AC2AB6 /* GitHub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHub.swift; sourceTree = "<group>"; };
-		A463BB4128558DD400F5CFAD /* GitHub.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = GitHub.graphql; sourceTree = "<group>"; };
+		A463BB4128558DD400F5CFAD /* User.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = User.graphql; sourceTree = "<group>"; };
 		A488E9EB29BBD3CB00097527 /* PullRequestCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullRequestCellView.swift; sourceTree = "<group>"; };
 		A48C6BDF29B83EBF005B4B17 /* ReviewersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewersView.swift; sourceTree = "<group>"; };
-		A4B161E228582A9E00F6C483 /* GitHub.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GitHub.graphql.swift; sourceTree = "<group>"; };
-		A4B161E328582A9E00F6C483 /* Types.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Types.graphql.swift; sourceTree = "<group>"; };
 		A4BA23EC28559BEE00B478A7 /* schema.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
 		A4D8171429B7013900BBA855 /* RepositoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoriesView.swift; sourceTree = "<group>"; };
 		A4D8171729B827D600BBA855 /* PullRequestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullRequestsView.swift; sourceTree = "<group>"; };
@@ -100,6 +118,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A457010829BD2E4500093DA9 /* Queies */ = {
+			isa = PBXGroup;
+			children = (
+				A463BB4128558DD400F5CFAD /* User.graphql */,
+				A457010529BD2E0D00093DA9 /* Organization.graphql */,
+				A457010229BD2DF200093DA9 /* Repository.graphql */,
+				A45700F929BD2D6D00093DA9 /* PullRequest.graphql */,
+			);
+			path = Queies;
+			sourceTree = "<group>";
+		};
 		A45953692852E6FF00AC2AB6 = {
 			isa = PBXGroup;
 			children = (
@@ -126,10 +155,10 @@
 				A45700F629BD28EA00093DA9 /* Date+.swift */,
 				A44313EA285C14390021130C /* ApolloClient+.swift */,
 				A459538D2852E71800AC2AB6 /* GitHub.swift */,
-				A463BB4128558DD400F5CFAD /* GitHub.graphql */,
+				A457010829BD2E4500093DA9 /* Queies */,
+				A4B161E128582A9E00F6C483 /* API */,
 				A4BA23EC28559BEE00B478A7 /* schema.json */,
 				A45953712852E70000AC2AB6 /* Assets.xcassets */,
-				A4B161E128582A9E00F6C483 /* API */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -154,8 +183,11 @@
 		A4B161E128582A9E00F6C483 /* API */ = {
 			isa = PBXGroup;
 			children = (
-				A4B161E228582A9E00F6C483 /* GitHub.graphql.swift */,
-				A4B161E328582A9E00F6C483 /* Types.graphql.swift */,
+				A457010C29BD424E00093DA9 /* Organization.graphql.swift */,
+				A457010D29BD424E00093DA9 /* PullRequest.graphql.swift */,
+				A457010929BD424E00093DA9 /* Repository.graphql.swift */,
+				A457010A29BD424E00093DA9 /* Types.graphql.swift */,
+				A457010B29BD424E00093DA9 /* User.graphql.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -252,9 +284,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A463BB4228558DD400F5CFAD /* GitHub.graphql in Resources */,
+				A463BB4228558DD400F5CFAD /* User.graphql in Resources */,
 				A4BA23ED28559BEE00B478A7 /* schema.json in Resources */,
+				A45700FA29BD2D6D00093DA9 /* PullRequest.graphql in Resources */,
 				A45953832852E70000AC2AB6 /* Assets.xcassets in Resources */,
+				A457010629BD2E0D00093DA9 /* Organization.graphql in Resources */,
+				A457010329BD2DF200093DA9 /* Repository.graphql in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,9 +297,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A463BB4328558DD400F5CFAD /* GitHub.graphql in Resources */,
+				A463BB4328558DD400F5CFAD /* User.graphql in Resources */,
 				A4BA23EE28559BEE00B478A7 /* schema.json in Resources */,
+				A45700FB29BD2D6D00093DA9 /* PullRequest.graphql in Resources */,
 				A45953842852E70000AC2AB6 /* Assets.xcassets in Resources */,
+				A457010729BD2E0D00093DA9 /* Organization.graphql in Resources */,
+				A457010429BD2DF200093DA9 /* Repository.graphql in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,21 +356,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A4B161E628582A9E00F6C483 /* Types.graphql.swift in Sources */,
+				A457010E29BD424E00093DA9 /* Repository.graphql.swift in Sources */,
 				A45953812852E70000AC2AB6 /* ContentView.swift in Sources */,
 				A4E0C62028582D6700F868D6 /* Network.swift in Sources */,
 				A4F9FA3F29B444F1006918E8 /* HomeView.swift in Sources */,
 				A459537F2852E70000AC2AB6 /* GitHubHubApp.swift in Sources */,
 				A4D8171829B827D600BBA855 /* PullRequestsView.swift in Sources */,
 				A459538E2852E71800AC2AB6 /* GitHub.swift in Sources */,
-				A4B161E428582A9E00F6C483 /* GitHub.graphql.swift in Sources */,
+				A457011429BD424E00093DA9 /* Organization.graphql.swift in Sources */,
 				A4D8171529B7013900BBA855 /* RepositoriesView.swift in Sources */,
 				A4F9FA3C29B4434E006918E8 /* AvatarView.swift in Sources */,
+				A457011029BD424E00093DA9 /* Types.graphql.swift in Sources */,
 				A48C6BE029B83EBF005B4B17 /* ReviewersView.swift in Sources */,
 				A44313EB285C14390021130C /* ApolloClient+.swift in Sources */,
+				A457011629BD424E00093DA9 /* PullRequest.graphql.swift in Sources */,
 				A45700F729BD28EA00093DA9 /* Date+.swift in Sources */,
 				A4F9FA4229B45170006918E8 /* OrganizationsView.swift in Sources */,
 				A488E9EC29BBD3CB00097527 /* PullRequestCellView.swift in Sources */,
+				A457011229BD424E00093DA9 /* User.graphql.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,21 +381,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A4B161E728582A9E00F6C483 /* Types.graphql.swift in Sources */,
+				A457010F29BD424E00093DA9 /* Repository.graphql.swift in Sources */,
 				A45953822852E70000AC2AB6 /* ContentView.swift in Sources */,
 				A4E0C62128582D6700F868D6 /* Network.swift in Sources */,
 				A4F9FA4029B444F1006918E8 /* HomeView.swift in Sources */,
 				A45953802852E70000AC2AB6 /* GitHubHubApp.swift in Sources */,
 				A4D8171929B827D600BBA855 /* PullRequestsView.swift in Sources */,
 				A459538F2852E71800AC2AB6 /* GitHub.swift in Sources */,
-				A4B161E528582A9E00F6C483 /* GitHub.graphql.swift in Sources */,
+				A457011529BD424E00093DA9 /* Organization.graphql.swift in Sources */,
 				A4D8171629B7013900BBA855 /* RepositoriesView.swift in Sources */,
 				A4F9FA3D29B4434E006918E8 /* AvatarView.swift in Sources */,
+				A457011129BD424E00093DA9 /* Types.graphql.swift in Sources */,
 				A48C6BE129B83EBF005B4B17 /* ReviewersView.swift in Sources */,
 				A44313EC285C14390021130C /* ApolloClient+.swift in Sources */,
+				A457011729BD424E00093DA9 /* PullRequest.graphql.swift in Sources */,
 				A45700F829BD28EA00093DA9 /* Date+.swift in Sources */,
 				A4F9FA4329B45170006918E8 /* OrganizationsView.swift in Sources */,
 				A488E9ED29BBD3CB00097527 /* PullRequestCellView.swift in Sources */,
+				A457011329BD424E00093DA9 /* User.graphql.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
