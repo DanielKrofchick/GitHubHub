@@ -96,7 +96,7 @@ extension AvatarView.Model {
         )
     }
 
-    init?(_ fragment: PullRequestReviewFragment) {
+    init?(fragment: PullRequestReviewFragment) {
         guard let actorFragment = fragment.author?.fragments.actorFragment else { return nil }
 
         self.init(

@@ -2,6 +2,9 @@ query PullRequests(
     $owner: String!,
     $name: String!
 ) {
+    rateLimit {
+        ...RateLimitFragment
+    }
     repository(
         owner: $owner,
         name: $name
@@ -49,10 +52,11 @@ fragment PullRequestFragment on PullRequest {
 
 fragment PullRequestReviewFragment on PullRequestReview {
   id
+  state
+  submittedAt
   author {
     ...ActorFragment
   }
-  state
 }
 
 query Reviewers(

@@ -51,6 +51,8 @@ struct PullRequestsView: View {
                     throw errors
                 }
 
+                print("###", response.data?.rateLimit)
+
                 model = Model(
                     load: model.load,
                     items: response.data?.repository?.pullRequests.nodes?

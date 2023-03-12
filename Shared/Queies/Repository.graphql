@@ -1,6 +1,6 @@
 query Repositories($login: String!) {
   organization(login: $login) {
-    repositories(first: 100) {
+    repositories(first: 70) {
       nodes {
         ...RepositoryFragment
       }
@@ -17,4 +17,12 @@ fragment RepositoryFragment on Repository {
   pullRequests(first: 0, states: OPEN) {
     totalCount
   }
+}
+
+fragment RateLimitFragment on RateLimit {
+    limit
+    cost
+    remaining
+    resetAt
+    used
 }

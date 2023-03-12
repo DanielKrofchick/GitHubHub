@@ -13,7 +13,12 @@ struct PullRequestCellView: View {
         let title: String?
         let author: AvatarView.Model?
         let age: String?
-        let reviewers: [AvatarView.Model]?
+        let reviewers: [Reviewer]?
+        struct Reviewer: Identifiable, Hashable {
+            var id: String { avatar.id }
+            let avatar: AvatarView.Model
+            let age: String?
+        }
     }
 
     @State var model: Model
@@ -34,8 +39,13 @@ struct PullRequestCellView: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 HStack {
-                    ForEach(model.reviewers ?? []) {
-                        AvatarView(model: $0, size: 20)
+                    ForEach(model.reviewers ?? []) { reviewer in
+                        VStack {
+                            AvatarView(model: reviewer.avatar, size: 20)
+                            if let age = reviewer.age {
+                                Text(age)
+                            }
+                        }
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -46,14 +56,26 @@ struct PullRequestCellView: View {
 
 extension PullRequestCellView.Model {
     init(_ fragment: PullRequestFragment) {
-        let reviewRequests = fragment.reviewRequests?.nodes?
+        let reviewRequests: [PullRequestCellView.Model.Reviewer]? = fragment.reviewRequests?.nodes?
             .compactMap { $0?.fragments.reviewRequestFragment.requestedReviewer?.fragments.actorFragment }
-            .compactMap { AvatarView.Model.init($0) }
-        let latestReviews = fragment.latestReviews?.nodes?
+            .compactMap {
+                PullRequestCellView.Model.Reviewer(
+                    avatar: AvatarView.Model.init($0),
+                    age: nil
+                )
+            }
+        let latestReviews: [PullRequestCellView.Model.Reviewer]? = fragment.latestReviews?.nodes?
             .compactMap { $0?.fragments.pullRequestReviewFragment }
-            .compactMap { AvatarView.Model.init($0) }
+            .compactMap {
+                guard let avatar = AvatarView.Model(fragment: $0) else { return nil }
 
-        var reviewers = OrderedSet<AvatarView.Model>()
+                return PullRequestCellView.Model.Reviewer(
+                    avatar: avatar,
+                    age: $0.submittedAt?.date?.relative()
+                )
+            }
+
+        var reviewers = OrderedSet<PullRequestCellView.Model.Reviewer>()
         reviewRequests?.forEach { reviewers.updateOrAppend($0) }
         latestReviews?.forEach { reviewers.updateOrAppend($0) }
 
@@ -66,8 +88,7 @@ extension PullRequestCellView.Model {
                 )
             },
             age: fragment.createdAt.date?.relative(),
-            reviewers: reviewers.filter { $0.color != nil } + reviewers.filter { $0.color == nil }
-        )
+            reviewers: reviewers.filter { $0.avatar.color != nil } + reviewers.filter { $0.avatar.color == nil }        )
     }
 }
 
@@ -84,18 +105,28 @@ struct PullRequestCellView_Previews: PreviewProvider {
                 age: "10d",
                 reviewers: [
                     .init(
-                        id: "1",
-                        avatarURL: defaultAvatarURL,
-                        color: .red
+                        avatar: .init(
+                            id: "1",
+                            avatarURL: defaultAvatarURL,
+                            color: .red
+                        ),
+                        age: "1D"
                     ),
                     .init(
-                        id: "2",
-                        avatarURL: defaultAvatarURL,
-                        color: .green
+                        avatar: .init(
+                            id: "2",
+                            avatarURL: defaultAvatarURL,
+                            color: .red
+                        ),
+                        age: "2W"
                     ),
                     .init(
-                        id: "3",
-                        avatarURL: defaultAvatarURL
+                        avatar: .init(
+                            id: "3",
+                            avatarURL: defaultAvatarURL,
+                            color: .green
+                        ),
+                        age: "3Y"
                     )
                 ]
             )
