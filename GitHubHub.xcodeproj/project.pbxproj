@@ -28,6 +28,10 @@
 		A457011529BD424E00093DA9 /* Organization.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = A457010C29BD424E00093DA9 /* Organization.graphql.swift */; };
 		A457011629BD424E00093DA9 /* PullRequest.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = A457010D29BD424E00093DA9 /* PullRequest.graphql.swift */; };
 		A457011729BD424E00093DA9 /* PullRequest.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = A457010D29BD424E00093DA9 /* PullRequest.graphql.swift */; };
+		A457011929BD444400093DA9 /* OrganizationCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A457011829BD444400093DA9 /* OrganizationCellView.swift */; };
+		A457011A29BD444400093DA9 /* OrganizationCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A457011829BD444400093DA9 /* OrganizationCellView.swift */; };
+		A457011C29BD4C7600093DA9 /* RepositoryCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A457011B29BD4C7600093DA9 /* RepositoryCellView.swift */; };
+		A457011D29BD4C7600093DA9 /* RepositoryCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A457011B29BD4C7600093DA9 /* RepositoryCellView.swift */; };
 		A459537F2852E70000AC2AB6 /* GitHubHubApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A459536F2852E6FF00AC2AB6 /* GitHubHubApp.swift */; };
 		A45953802852E70000AC2AB6 /* GitHubHubApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A459536F2852E6FF00AC2AB6 /* GitHubHubApp.swift */; };
 		A45953812852E70000AC2AB6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45953702852E6FF00AC2AB6 /* ContentView.swift */; };
@@ -71,6 +75,8 @@
 		A457010B29BD424E00093DA9 /* User.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.graphql.swift; sourceTree = "<group>"; };
 		A457010C29BD424E00093DA9 /* Organization.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Organization.graphql.swift; sourceTree = "<group>"; };
 		A457010D29BD424E00093DA9 /* PullRequest.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PullRequest.graphql.swift; sourceTree = "<group>"; };
+		A457011829BD444400093DA9 /* OrganizationCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationCellView.swift; sourceTree = "<group>"; };
+		A457011B29BD4C7600093DA9 /* RepositoryCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryCellView.swift; sourceTree = "<group>"; };
 		A459536F2852E6FF00AC2AB6 /* GitHubHubApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubHubApp.swift; sourceTree = "<group>"; };
 		A45953702852E6FF00AC2AB6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A45953712852E70000AC2AB6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -146,7 +152,9 @@
 				A45953702852E6FF00AC2AB6 /* ContentView.swift */,
 				A4F9FA3E29B444F1006918E8 /* HomeView.swift */,
 				A4F9FA4129B45170006918E8 /* OrganizationsView.swift */,
+				A457011829BD444400093DA9 /* OrganizationCellView.swift */,
 				A4D8171429B7013900BBA855 /* RepositoriesView.swift */,
+				A457011B29BD4C7600093DA9 /* RepositoryCellView.swift */,
 				A4D8171729B827D600BBA855 /* PullRequestsView.swift */,
 				A488E9EB29BBD3CB00097527 /* PullRequestCellView.swift */,
 				A48C6BDF29B83EBF005B4B17 /* ReviewersView.swift */,
@@ -373,6 +381,8 @@
 				A45700F729BD28EA00093DA9 /* Date+.swift in Sources */,
 				A4F9FA4229B45170006918E8 /* OrganizationsView.swift in Sources */,
 				A488E9EC29BBD3CB00097527 /* PullRequestCellView.swift in Sources */,
+				A457011929BD444400093DA9 /* OrganizationCellView.swift in Sources */,
+				A457011C29BD4C7600093DA9 /* RepositoryCellView.swift in Sources */,
 				A457011229BD424E00093DA9 /* User.graphql.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -398,6 +408,8 @@
 				A45700F829BD28EA00093DA9 /* Date+.swift in Sources */,
 				A4F9FA4329B45170006918E8 /* OrganizationsView.swift in Sources */,
 				A488E9ED29BBD3CB00097527 /* PullRequestCellView.swift in Sources */,
+				A457011A29BD444400093DA9 /* OrganizationCellView.swift in Sources */,
+				A457011D29BD4C7600093DA9 /* RepositoryCellView.swift in Sources */,
 				A457011329BD424E00093DA9 /* User.graphql.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

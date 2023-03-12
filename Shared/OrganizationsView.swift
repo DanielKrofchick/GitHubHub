@@ -14,11 +14,9 @@ struct OrganizationsView: View {
             let login: String
         }
         struct Item: Identifiable {
-            var id: String { avatar.id }
+            var id: String
             let link: RepositoriesView.Model
-            let avatar: AvatarView.Model
-            let title: String
-            let count: String?
+            let model: OrganizationCellView.Model
         }
         let load: Load
         let items: [Item]?
@@ -31,13 +29,7 @@ struct OrganizationsView: View {
             NavigationLink {
                 RepositoriesView(model: item.link)
             } label: {
-                HStack {
-                    AvatarView(model: item.avatar)
-                    Text(item.title).frame(maxWidth: .infinity, alignment: .leading)
-                    if let count = item.count {
-                        Text(count).frame(alignment: .trailing)
-                    }
-                }
+                OrganizationCellView(model: item.model)
             }
         }
         .navigationTitle("Organizations")
@@ -82,14 +74,12 @@ struct OrganizationsView_Previews: PreviewProvider {
 private extension OrganizationsView.Model.Item {
     init(_ fragment: OrganizationFragment) {
         self.init(
+            id: fragment.id,
             link: .init(
                 load: .init(organization: fragment.login),
                 items: nil
             ),
-            avatar: .init(fragment),
-            title: fragment.login,
-            count: String(fragment.repositories.totalCount)
+            model: .init(fragment)
         )
     }
 }
-

@@ -14,9 +14,9 @@ struct RepositoriesView: View {
             let organization: String
         }
         struct Item: Identifiable {
-            var id: String { avatar.id }
+            var id: String
             let link: PullRequestsView.Model
-            let avatar: AvatarView.Model
+            let model: RepositoryCellView.Model
         }
         let load: Load
         let items: [Item]?
@@ -29,7 +29,7 @@ struct RepositoriesView: View {
             NavigationLink {
                 PullRequestsView(model: item.link)
             } label: {
-                AvatarView(model: item.avatar)
+                RepositoryCellView(model: item.model)
             }
         }
         .navigationTitle("Repositories")
@@ -51,6 +51,7 @@ struct RepositoriesView: View {
                     load: model.load,
                     items: response.data?.organization?.repositories.nodes?
                         .compactMap { $0?.fragments.repositoryFragment }
+                        .sorted { $0.pullRequests.totalCount > $1.pullRequests.totalCount }
                         .map { RepositoriesView.Model.Item($0) }
                 )
             } catch {
@@ -74,6 +75,7 @@ struct RepositoriesView_Previews: PreviewProvider {
 private extension RepositoriesView.Model.Item {
     init(_ fragment: RepositoryFragment) {
         self.init(
+            id: fragment.id,
             link: .init(
                 load: .init(
                     organization: fragment.owner.login,
@@ -81,7 +83,7 @@ private extension RepositoriesView.Model.Item {
                 ),
                 items: nil
             ),
-            avatar: .init(fragment)
+            model: .init(fragment)
         )
     }
 }

@@ -1,17 +1,20 @@
 query Repositories($login: String!) {
-    organization(login: $login) {
-        repositories(first: 50) {
-            nodes {
-                ...RepositoryFragment
-            }
-        }
+  organization(login: $login) {
+    repositories(first: 100) {
+      nodes {
+        ...RepositoryFragment
+      }
     }
+  }
 }
 
 fragment RepositoryFragment on Repository {
-    id
-    name
-    owner {
-        login
-    }
+  id
+  name
+  owner {
+    login
+  }
+  pullRequests(first: 0, states: OPEN) {
+    totalCount
+  }
 }
