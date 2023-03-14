@@ -21,6 +21,7 @@ struct PullRequestsView: View {
         }
         let load: Load
         let items: [Item]?
+        let rateLimit: String?
     }
 
     @State var model: Model
@@ -34,6 +35,11 @@ struct PullRequestsView: View {
             }
         }
         .navigationTitle("Pull Requests")
+        .toolbar {
+            if let rateLimit = model.rateLimit {
+                Text(rateLimit)
+            }
+        }
         .onAppear {
             loadData()
         }
@@ -51,18 +57,30 @@ struct PullRequestsView: View {
                     throw errors
                 }
 
-                print("###", response.data?.rateLimit)
-
-                model = Model(
-                    load: model.load,
-                    items: response.data?.repository?.pullRequests.nodes?
-                        .compactMap { $0?.fragments.pullRequestFragment }
-                        .map { PullRequestsView.Model.Item($0) }.reversed()
-                )
+                model = .init(response.data, load: model.load)
             } catch {
                 print(error)
             }
         }
+    }
+}
+
+extension PullRequestsView.Model {
+    init(_ data: PullRequestsQuery.Data?, load: Load) {
+        self.init(
+            load: load,
+            items: data?.repository?.pullRequests.nodes?
+                .compactMap { $0?.fragments.pullRequestFragment }
+                .map { PullRequestsView.Model.Item($0) }
+                .reversed(),
+            rateLimit: data?.rateLimit?.fragments.rateLimitFragment.description ?? ""
+        )
+    }
+}
+
+extension RateLimitFragment {
+    var description: String {
+        "\(remaining) -\(cost)"
     }
 }
 
@@ -74,7 +92,8 @@ struct PullRequestsView_Previews: PreviewProvider {
                     organization: defaultOrganization,
                     repository: defaultRepository
                 ),
-                items:  nil
+                items:  nil,
+                rateLimit: nil
             )
         )
     }

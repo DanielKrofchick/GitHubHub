@@ -20,6 +20,7 @@ struct RepositoriesView: View {
         }
         let load: Load
         let items: [Item]?
+        let rateLimit: String?
     }
 
     @State var model: Model
@@ -33,6 +34,11 @@ struct RepositoriesView: View {
             }
         }
         .navigationTitle("Repositories")
+        .toolbar {
+            if let rateLimit = model.rateLimit {
+                Text(rateLimit)
+            }
+        }
         .onAppear {
             loadData()
         }
@@ -47,7 +53,7 @@ struct RepositoriesView: View {
                     throw errors
                 }
 
-                model = .init(
+                model = Model(
                     load: model.load,
                     items: response.data?.organization?.repositories.nodes?
                         .compactMap { $0?.fragments.repositoryFragment }
@@ -63,7 +69,8 @@ struct RepositoriesView: View {
                                 $0.name
                             )
                         }
-                        .map { RepositoriesView.Model.Item($0) }
+                        .map { RepositoriesView.Model.Item($0) },
+                    rateLimit: response.data?.rateLimit?.fragments.rateLimitFragment.description
                 )
             } catch {
                 print(error)
@@ -77,7 +84,8 @@ struct RepositoriesView_Previews: PreviewProvider {
         RepositoriesView(
             model: .init(
                 load: .init(organization: defaultLogin),
-                items: nil
+                items: nil,
+                rateLimit: nil
             )
         )
     }
@@ -92,7 +100,8 @@ private extension RepositoriesView.Model.Item {
                     organization: fragment.owner.login,
                     repository: fragment.name
                 ),
-                items: nil
+                items: nil,
+                rateLimit: nil
             ),
             model: .init(fragment)
         )
