@@ -14,8 +14,14 @@ extension String {
 }
 
 extension Date {
+    var relative: String {
+        relative()
+    }
+
     func relative(to date: Date = Date()) -> String {
         let transformations = [
+            ("years", "y"),
+            ("year", "y"),
             ("months", "M"),
             ("month", "M"),
             ("weeks", "w"),

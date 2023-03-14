@@ -11,6 +11,7 @@ query Repositories($login: String!) {
 fragment RepositoryFragment on Repository {
   id
   name
+  pushedAt
   owner {
     login
   }

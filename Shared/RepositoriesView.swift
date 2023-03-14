@@ -51,7 +51,18 @@ struct RepositoriesView: View {
                     load: model.load,
                     items: response.data?.organization?.repositories.nodes?
                         .compactMap { $0?.fragments.repositoryFragment }
-                        .sorted { $0.pullRequests.totalCount > $1.pullRequests.totalCount }
+                        .sorted {
+                            (
+                                $0.pullRequests.totalCount,
+                                $0.pushedAt?.date ?? Date(),
+                                $1.name
+                            ) >
+                            (
+                                $1.pullRequests.totalCount,
+                                $1.pushedAt?.date ?? Date(),
+                                $0.name
+                            )
+                        }
                         .map { RepositoriesView.Model.Item($0) }
                 )
             } catch {

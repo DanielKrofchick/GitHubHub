@@ -38,14 +38,16 @@ struct PullRequestCellView: View {
                     Text(title)
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                HStack {
+                HStack(alignment: .top) {
                     ForEach(model.reviewers ?? []) { reviewer in
                         VStack {
                             AvatarView(model: reviewer.avatar, size: 20)
+                                .frame(alignment: .top)
                             if let age = reviewer.age {
                                 Text(age)
                             }
                         }
+                        .border(.gray)
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -88,7 +90,8 @@ extension PullRequestCellView.Model {
                 )
             },
             age: fragment.createdAt.date?.relative(),
-            reviewers: reviewers.filter { $0.avatar.color != nil } + reviewers.filter { $0.avatar.color == nil }        )
+            reviewers: reviewers.filter { $0.avatar.color != nil } + reviewers.filter { $0.avatar.color == nil }
+        )
     }
 }
 
@@ -116,7 +119,7 @@ struct PullRequestCellView_Previews: PreviewProvider {
                         avatar: .init(
                             id: "2",
                             avatarURL: defaultAvatarURL,
-                            color: .red
+                            color: .orange
                         ),
                         age: "2W"
                     ),
@@ -127,6 +130,13 @@ struct PullRequestCellView_Previews: PreviewProvider {
                             color: .green
                         ),
                         age: "3Y"
+                    ),
+                    .init(
+                        avatar: .init(
+                            id: "4",
+                            avatarURL: defaultAvatarURL
+                        ),
+                        age: nil
                     )
                 ]
             )

@@ -11,15 +11,24 @@ struct RepositoryCellView: View {
     struct Model {
         let title: String
         let count: String?
+        let lastUpdate: String?
     }
 
     @State var model: Model
 
     var body: some View {
         HStack {
-            Text(model.title).frame(maxWidth: .infinity, alignment: .leading)
+            Text(model.title)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            if let lastUpdate = model.lastUpdate {
+                Text(lastUpdate)
+                    .frame(alignment: .trailing)
+                    .foregroundColor(.gray)
+                    .font(.caption)
+            }
             if let count = model.count {
-                Text(count).frame(alignment: .trailing)
+                Text(count)
+                    .frame(alignment: .trailing)
             }
         }
     }
@@ -29,7 +38,8 @@ extension RepositoryCellView.Model {
     init(_ fragment: RepositoryFragment) {
         self.init(
             title: fragment.name,
-            count: String(fragment.pullRequests.totalCount)
+            count: String(fragment.pullRequests.totalCount),
+            lastUpdate: fragment.pushedAt?.date?.relative
         )
     }
 }
