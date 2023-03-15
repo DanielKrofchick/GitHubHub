@@ -11,14 +11,8 @@ import OrderedCollections
 extension PullRequestCellView {
     struct Model {
         let title: String?
-        let author: AvatarView.Model?
-        let age: String?
-        let reviewers: [Reviewer]?
-        struct Reviewer: Identifiable, Hashable {
-            var id: String { avatar.id }
-            let avatar: AvatarView.Model
-            let age: String?
-        }
+        let author: AvatarAgeView.Model?
+        let reviewers: [AvatarAgeView.Model]?
     }
 }
 
@@ -27,13 +21,8 @@ struct PullRequestCellView: View {
 
     var body: some View {
         HStack {
-            VStack {
-                if let author = model.author {
-                    AvatarView(model: author, size: 30)
-                }
-                if let age = model.age {
-                    Text(age)
-                }
+            if let author = model.author {
+                AvatarAgeView(model: author, size: 30)
             }
             VStack {
                 if let title = model.title {
@@ -42,14 +31,8 @@ struct PullRequestCellView: View {
                 }
                 HStack(alignment: .top) {
                     ForEach(model.reviewers ?? []) { reviewer in
-                        VStack {
-                            AvatarView(model: reviewer.avatar, size: 20)
-                                .frame(alignment: .top)
-                            if let age = reviewer.age {
-                                Text(age)
-                            }
-                        }
-                        .border(.gray)
+                        AvatarAgeView(model: reviewer, size: 20)
+                            .border(.gray)
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -60,38 +43,40 @@ struct PullRequestCellView: View {
 
 extension PullRequestCellView.Model {
     init(_ fragment: PullRequestFragment) {
-        let reviewRequests: [PullRequestCellView.Model.Reviewer]? = fragment.reviewRequests?.nodes?
+        let reviewRequests: [AvatarAgeView.Model]? = fragment.reviewRequests?.nodes?
             .compactMap { $0?.fragments.reviewRequestFragment.requestedReviewer?.fragments.actorFragment }
             .compactMap {
-                PullRequestCellView.Model.Reviewer(
-                    avatar: AvatarView.Model.init($0),
+                AvatarAgeView.Model(
+                    avatar: AvatarView.Model($0),
                     age: nil
                 )
             }
-        let latestReviews: [PullRequestCellView.Model.Reviewer]? = fragment.latestReviews?.nodes?
+        let latestReviews: [AvatarAgeView.Model]? = fragment.latestReviews?.nodes?
             .compactMap { $0?.fragments.pullRequestReviewFragment }
             .compactMap {
                 guard let avatar = AvatarView.Model(fragment: $0) else { return nil }
 
-                return PullRequestCellView.Model.Reviewer(
+                return AvatarAgeView.Model(
                     avatar: avatar,
                     age: $0.submittedAt?.date?.relative()
                 )
             }
 
-        var reviewers = OrderedSet<PullRequestCellView.Model.Reviewer>()
+        var reviewers = OrderedSet<AvatarAgeView.Model>()
         reviewRequests?.forEach { reviewers.updateOrAppend($0) }
         latestReviews?.forEach { reviewers.updateOrAppend($0) }
 
         self.init(
             title: fragment.title,
             author: (fragment.author?.fragments.actorFragment).map {
-                AvatarView.Model.init(
-                    $0,
-                    color: fragment.isDraft ? .gray : nil
+                AvatarAgeView.Model(
+                    avatar: AvatarView.Model.init(
+                        $0,
+                        color: fragment.isDraft ? .gray : nil
+                    ),
+                    age: fragment.createdAt.date?.relative()
                 )
             },
-            age: fragment.createdAt.date?.relative(),
             reviewers: reviewers.filter { $0.avatar.color != nil } + reviewers.filter { $0.avatar.color == nil }
         )
     }
@@ -122,11 +107,13 @@ struct PullRequestCellView_Previews: PreviewProvider {
             model: .init(
                 title: "[AB-123] This is a PR for updating the user colors to the new ones that everyone wants dasd asds dsa",
                 author: .init(
-                    id: "1",
-                    avatarURL: defaultAvatarURL,
-                    color: .gray
+                    avatar: .init(
+                        id: "1",
+                        avatarURL: defaultAvatarURL,
+                        color: .gray
+                    ),
+                    age: "10d"
                 ),
-                age: "10d",
                 reviewers: [
                     .init(
                         avatar: .init(
