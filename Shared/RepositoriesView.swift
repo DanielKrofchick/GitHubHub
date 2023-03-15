@@ -9,20 +9,6 @@ import SwiftUI
 import Apollo
 
 struct RepositoriesView: View {
-    struct Model {
-        struct Load {
-            let organization: String
-        }
-        struct Item: Identifiable {
-            var id: String
-            let link: PullRequestsView.Model
-            let model: RepositoryCellView.Model
-        }
-        let load: Load
-        let items: [Item]?
-        let rateLimit: String?
-    }
-
     @State var model: Model
 
     var body: some View {
@@ -33,7 +19,7 @@ struct RepositoriesView: View {
                 RepositoryCellView(model: item.model)
             }
         }
-        .navigationTitle("Repositories")
+        .navigationTitle(model.title ?? "")
         .toolbar {
             if let rateLimit = model.rateLimit {
                 Text(rateLimit)
@@ -43,7 +29,26 @@ struct RepositoriesView: View {
             loadData()
         }
     }
+}
 
+extension RepositoriesView {
+    struct Model {
+        struct Load {
+            let organization: String
+        }
+        struct Item: Identifiable {
+            var id: String
+            let link: PullRequestsView.Model
+            let model: RepositoryCellView.Model
+        }
+        let load: Load
+        let title: String?
+        let items: [Item]?
+        let rateLimit: String?
+    }
+}
+
+extension RepositoriesView {
     private func loadData() {
         Task {
             do {
@@ -53,25 +58,7 @@ struct RepositoriesView: View {
                     throw errors
                 }
 
-                model = Model(
-                    load: model.load,
-                    items: response.data?.organization?.repositories.nodes?
-                        .compactMap { $0?.fragments.repositoryFragment }
-                        .sorted {
-                            (
-                                $0.pullRequests.totalCount,
-                                $0.pushedAt?.date ?? Date(),
-                                $1.name
-                            ) >
-                            (
-                                $1.pullRequests.totalCount,
-                                $1.pushedAt?.date ?? Date(),
-                                $0.name
-                            )
-                        }
-                        .map { RepositoriesView.Model.Item($0) },
-                    rateLimit: response.data?.rateLimit?.fragments.rateLimitFragment.description
-                )
+                model = .init(response.data, load: model.load)
             } catch {
                 print(error)
             }
@@ -84,6 +71,7 @@ struct RepositoriesView_Previews: PreviewProvider {
         RepositoriesView(
             model: .init(
                 load: .init(organization: defaultLogin),
+                title: nil,
                 items: nil,
                 rateLimit: nil
             )
@@ -91,6 +79,31 @@ struct RepositoriesView_Previews: PreviewProvider {
     }
 }
 
+private extension RepositoriesView.Model {
+    init(_ data: RepositoriesQuery.Data?, load: Load) {
+        self.init(
+            load: load,
+            title: data?.organization?.login,
+            items: data?.organization?.repositories.nodes?
+                .compactMap { $0?.fragments.repositoryFragment }
+                .sorted {
+                    (
+                        $0.pullRequests.totalCount,
+                        $0.pushedAt?.date ?? Date(),
+                        $1.name
+                    )
+                    >
+                    (
+                        $1.pullRequests.totalCount,
+                        $1.pushedAt?.date ?? Date(),
+                        $0.name
+                    )
+                }
+                .map { RepositoriesView.Model.Item($0) },
+            rateLimit: data?.rateLimit?.fragments.rateLimitFragment.description
+        )
+    }
+}
 private extension RepositoriesView.Model.Item {
     init(_ fragment: RepositoryFragment) {
         self.init(
@@ -100,6 +113,7 @@ private extension RepositoriesView.Model.Item {
                     organization: fragment.owner.login,
                     repository: fragment.name
                 ),
+                title: fragment.name,
                 items: nil,
                 rateLimit: nil
             ),

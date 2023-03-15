@@ -3,6 +3,7 @@ query Repositories($login: String!) {
     ...RateLimitFragment
   }
   organization(login: $login) {
+    login
     repositories(first: 70) {
       nodes {
         ...RepositoryFragment
@@ -24,9 +25,9 @@ fragment RepositoryFragment on Repository {
 }
 
 fragment RateLimitFragment on RateLimit {
-    limit
-    cost
-    remaining
-    resetAt
-    used
+  limit
+  cost
+  remaining
+  resetAt
+  used
 }

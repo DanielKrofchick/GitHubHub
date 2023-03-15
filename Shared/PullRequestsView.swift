@@ -9,6 +9,29 @@ import SwiftUI
 import Apollo
 
 struct PullRequestsView: View {
+    @State var model: Model
+
+    var body: some View {
+        List(model.items ?? []) { item in
+            NavigationLink {
+                ReviewersView(model: item.link)
+            } label: {
+                PullRequestCellView(model: item.model)
+            }
+        }
+        .navigationTitle(model.title ?? "")
+        .toolbar {
+            if let rateLimit = model.rateLimit {
+                Text(rateLimit)
+            }
+        }
+        .onAppear {
+            loadData()
+        }
+    }
+}
+
+extension PullRequestsView {
     struct Model {
         struct Load {
             let organization: String
@@ -20,31 +43,13 @@ struct PullRequestsView: View {
             let model: PullRequestCellView.Model
         }
         let load: Load
+        let title: String?
         let items: [Item]?
         let rateLimit: String?
     }
+}
 
-    @State var model: Model
-
-    var body: some View {
-        List(model.items ?? []) { item in
-            NavigationLink {
-                ReviewersView(model: item.link)
-            } label: {
-                PullRequestCellView(model: item.model)
-            }
-        }
-        .navigationTitle("Pull Requests")
-        .toolbar {
-            if let rateLimit = model.rateLimit {
-                Text(rateLimit)
-            }
-        }
-        .onAppear {
-            loadData()
-        }
-    }
-
+extension PullRequestsView {
     private func loadData() {
         Task {
             do {
@@ -65,25 +70,6 @@ struct PullRequestsView: View {
     }
 }
 
-extension PullRequestsView.Model {
-    init(_ data: PullRequestsQuery.Data?, load: Load) {
-        self.init(
-            load: load,
-            items: data?.repository?.pullRequests.nodes?
-                .compactMap { $0?.fragments.pullRequestFragment }
-                .map { PullRequestsView.Model.Item($0) }
-                .reversed(),
-            rateLimit: data?.rateLimit?.fragments.rateLimitFragment.description ?? ""
-        )
-    }
-}
-
-extension RateLimitFragment {
-    var description: String {
-        "\(remaining) -\(cost)"
-    }
-}
-
 struct PullRequestsView_Previews: PreviewProvider {
     static var previews: some View {
         PullRequestsView(
@@ -92,9 +78,24 @@ struct PullRequestsView_Previews: PreviewProvider {
                     organization: defaultOrganization,
                     repository: defaultRepository
                 ),
-                items:  nil,
+                title: nil,
+                items: nil,
                 rateLimit: nil
             )
+        )
+    }
+}
+
+extension PullRequestsView.Model {
+    init(_ data: PullRequestsQuery.Data?, load: Load) {
+        self.init(
+            load: load,
+            title: data?.repository?.name,
+            items: data?.repository?.pullRequests.nodes?
+                .compactMap { $0?.fragments.pullRequestFragment }
+                .map { PullRequestsView.Model.Item($0) }
+                .reversed(),
+            rateLimit: data?.rateLimit?.fragments.rateLimitFragment.description ?? ""
         )
     }
 }
@@ -113,5 +114,11 @@ private extension PullRequestsView.Model.Item {
             ),
             model: .init(fragment)
         )
+    }
+}
+
+extension RateLimitFragment {
+    var description: String {
+        "-\(cost) | \(remaining)"
     }
 }

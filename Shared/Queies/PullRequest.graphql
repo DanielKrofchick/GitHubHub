@@ -9,6 +9,7 @@ query PullRequests(
         owner: $owner,
         name: $name
     ) {
+        name
         pullRequests(
             first: 100,
             states: OPEN
