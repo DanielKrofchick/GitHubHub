@@ -8,7 +8,7 @@
 import SwiftUI
 import Apollo
 
-struct ReviewersView: View {
+extension ReviewersView {
     struct Model {
         struct Load {
             let organization: String
@@ -24,7 +24,9 @@ struct ReviewersView: View {
         let load: Load
         let items: [Item]?
     }
+}
 
+struct ReviewersView: View {
     @State var model: Model
 
     var body: some View {
@@ -40,7 +42,9 @@ struct ReviewersView: View {
             loadData()
         }
     }
+}
 
+extension ReviewersView {
     private func loadData() {
         Task {
             do {
@@ -90,24 +94,5 @@ private extension ReviewersView.Model.Item {
             avatar: .init(actorFragment),
             color: fragment.state.color
         )
-    }
-}
-
-extension PullRequestReviewState {
-    var color: Color {
-        switch self {
-        case .pending:
-            return .gray
-        case .commented:
-            return .orange
-        case .approved:
-            return .green
-        case .changesRequested:
-            return .red
-        case .dismissed:
-            return .blue
-        case .__unknown:
-            return .black
-        }
     }
 }

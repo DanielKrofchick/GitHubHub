@@ -7,13 +7,15 @@
 
 import SwiftUI
 
-struct RepositoryCellView: View {
+extension RepositoryCellView {
     struct Model {
         let title: String
         let count: String?
         let lastUpdate: String?
     }
+}
 
+struct RepositoryCellView: View {
     @State var model: Model
 
     var body: some View {

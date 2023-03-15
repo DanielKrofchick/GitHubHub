@@ -8,7 +8,7 @@
 import SwiftUI
 import Apollo
 
-struct OrganizationsView: View {
+extension OrganizationsView {
     struct Model {
         struct Load {
             let login: String
@@ -21,7 +21,9 @@ struct OrganizationsView: View {
         let load: Load
         let items: [Item]?
     }
+}
 
+struct OrganizationsView: View {
     @State var model: Model
 
     var body: some View {
@@ -37,7 +39,9 @@ struct OrganizationsView: View {
             loadData()
         }
     }
+}
 
+extension OrganizationsView {
     private func loadData() {
         Task {
             do {
@@ -60,17 +64,6 @@ struct OrganizationsView: View {
     }
 }
 
-struct OrganizationsView_Previews: PreviewProvider {
-    static var previews: some View {
-        OrganizationsView(
-            model: .init(
-                load: .init(login: defaultLogin),
-                items: nil
-            )
-        )
-    }
-}
-
 private extension OrganizationsView.Model.Item {
     init(_ fragment: OrganizationFragment) {
         self.init(
@@ -82,6 +75,17 @@ private extension OrganizationsView.Model.Item {
                 rateLimit: nil
             ),
             model: .init(fragment)
+        )
+    }
+}
+
+struct OrganizationsView_Previews: PreviewProvider {
+    static var previews: some View {
+        OrganizationsView(
+            model: .init(
+                load: .init(login: defaultLogin),
+                items: nil
+            )
         )
     }
 }

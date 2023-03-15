@@ -8,6 +8,23 @@
 import SwiftUI
 import Apollo
 
+extension RepositoriesView {
+    struct Model {
+        struct Load {
+            let organization: String
+        }
+        struct Item: Identifiable {
+            var id: String
+            let link: PullRequestsView.Model
+            let model: RepositoryCellView.Model
+        }
+        let load: Load
+        let title: String?
+        let items: [Item]?
+        let rateLimit: String?
+    }
+}
+
 struct RepositoriesView: View {
     @State var model: Model
 
@@ -28,23 +45,6 @@ struct RepositoriesView: View {
         .onAppear {
             loadData()
         }
-    }
-}
-
-extension RepositoriesView {
-    struct Model {
-        struct Load {
-            let organization: String
-        }
-        struct Item: Identifiable {
-            var id: String
-            let link: PullRequestsView.Model
-            let model: RepositoryCellView.Model
-        }
-        let load: Load
-        let title: String?
-        let items: [Item]?
-        let rateLimit: String?
     }
 }
 

@@ -7,13 +7,15 @@
 
 import SwiftUI
 
-struct OrganizationCellView: View {
+extension OrganizationCellView {
     struct Model {
         let avatar: AvatarView.Model
         let title: String
         let count: String?
     }
+}
 
+struct OrganizationCellView: View {
     @State var model: Model
 
     var body: some View {

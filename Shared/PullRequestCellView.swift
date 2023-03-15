@@ -8,7 +8,7 @@
 import SwiftUI
 import OrderedCollections
 
-struct PullRequestCellView: View {
+extension PullRequestCellView {
     struct Model {
         let title: String?
         let author: AvatarView.Model?
@@ -20,7 +20,9 @@ struct PullRequestCellView: View {
             let age: String?
         }
     }
+}
 
+struct PullRequestCellView: View {
     @State var model: Model
 
     var body: some View {
@@ -92,6 +94,25 @@ extension PullRequestCellView.Model {
             age: fragment.createdAt.date?.relative(),
             reviewers: reviewers.filter { $0.avatar.color != nil } + reviewers.filter { $0.avatar.color == nil }
         )
+    }
+}
+
+extension PullRequestReviewState {
+    var color: Color {
+        switch self {
+        case .pending:
+            return .gray
+        case .commented:
+            return .orange
+        case .approved:
+            return .green
+        case .changesRequested:
+            return .red
+        case .dismissed:
+            return .blue
+        case .__unknown:
+            return .black
+        }
     }
 }
 
