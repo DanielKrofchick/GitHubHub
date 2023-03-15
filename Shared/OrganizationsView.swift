@@ -51,16 +51,22 @@ extension OrganizationsView {
                     throw errors
                 }
 
-                model = .init(
-                    load: model.load,
-                    items: response.data?.user?.organizations.nodes?
-                        .compactMap { $0?.fragments.organizationFragment }
-                        .map { Model.Item($0) }
-                )
+                model = Model(response.data, load: model.load)
             } catch {
                 print(error)
             }
         }
+    }
+}
+
+extension OrganizationsView.Model {
+    init(_ data: OrganizationsQuery.Data?, load: Load) {
+        self.init(
+            load: load,
+            items: data?.user?.organizations.nodes?
+                .compactMap { $0?.fragments.organizationFragment }
+                .map { Item($0) }
+        )
     }
 }
 

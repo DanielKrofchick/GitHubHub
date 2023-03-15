@@ -100,19 +100,26 @@ extension PullRequestsView.Model {
     }
 }
 
+extension PullRequestsView.Model {
+    init(_ fragment: RepositoryFragment) {
+        self.init(
+            load: .init(
+                organization: fragment.owner.login,
+                repository: fragment.name
+            ),
+            title: fragment.name,
+            items: nil,
+            rateLimit: nil
+        )
+    }
+}
+
 private extension PullRequestsView.Model.Item {
     init(_ fragment: PullRequestFragment) {
         self.init(
             id: fragment.id,
-            link: .init(
-                load: .init(
-                    organization: fragment.repository.owner.login,
-                    repository: fragment.repository.name,
-                    PR: fragment.number
-                ),
-                items: nil
-            ),
-            model: .init(fragment)
+            link: ReviewersView.Model(fragment),
+            model: PullRequestCellView.Model(fragment)
         )
     }
 }

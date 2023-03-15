@@ -104,20 +104,24 @@ private extension RepositoriesView.Model {
         )
     }
 }
+
+extension RepositoriesView.Model {
+    init(_ fragment: OrganizationFragment) {
+        self.init(
+            load: .init(organization: fragment.login),
+            title: fragment.login,
+            items: nil,
+            rateLimit: nil
+        )
+    }
+}
+
 private extension RepositoriesView.Model.Item {
     init(_ fragment: RepositoryFragment) {
         self.init(
             id: fragment.id,
-            link: .init(
-                load: .init(
-                    organization: fragment.owner.login,
-                    repository: fragment.name
-                ),
-                title: fragment.name,
-                items: nil,
-                rateLimit: nil
-            ),
-            model: .init(fragment)
+            link: PullRequestsView.Model(fragment),
+            model: RepositoryCellView.Model(fragment)
         )
     }
 }

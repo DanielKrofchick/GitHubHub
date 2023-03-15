@@ -22,6 +22,7 @@ extension ReviewersView {
             let color: Color
         }
         let load: Load
+        let title: String?
         let items: [Item]?
     }
 }
@@ -37,7 +38,7 @@ struct ReviewersView: View {
                     .border(item.color, width: 2)
             }
         }
-        .navigationTitle("Pull Requests")
+        .navigationTitle(model.title ?? "")
         .onAppear {
             loadData()
         }
@@ -58,6 +59,7 @@ extension ReviewersView {
 
                 model = Model(
                     load: model.load,
+                    title: response.data?.repository?.pullRequest?.fragments.pullRequestFragment.title,
                     items: response.data?.repository?.pullRequest?.fragments
                         .pullRequestFragment.latestReviews?.nodes?
                         .compactMap { $0?.fragments.pullRequestReviewFragment }
@@ -79,8 +81,23 @@ struct ReviewersView_Previews: PreviewProvider {
                     repository: defaultRepository,
                     PR: defaultPullRequest
                 ),
-                items:  nil
+                title: nil,
+                items: nil
             )
+        )
+    }
+}
+
+extension ReviewersView.Model {
+    init(_ fragment: PullRequestFragment) {
+        self.init(
+            load: .init(
+                organization: fragment.repository.owner.login,
+                repository: fragment.repository.name,
+                PR: fragment.number
+            ),
+            title: fragment.title,
+            items: nil
         )
     }
 }

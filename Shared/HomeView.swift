@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HomeView: View {
+extension HomeView {
     struct Model {
         struct Load {
             let login: String
@@ -15,7 +15,9 @@ struct HomeView: View {
         let load: Load
         let avatar: AvatarView.Model?
     }
+}
 
+struct HomeView: View {
     @State var model: Model
 
     var body: some View {
@@ -28,7 +30,9 @@ struct HomeView: View {
             loadData()
         }
     }
+}
 
+extension HomeView {
     private func loadData() {
         Task {
             do {
@@ -38,15 +42,21 @@ struct HomeView: View {
                     throw errors
                 }
 
-                model = .init(
-                    load: model.load,
-                    avatar: (response.data?.user?.fragments.actorFragment)
-                        .map { .init($0, hasName: true) }
-                )
+                model = Model(response.data, load: model.load)
             } catch {
                 print(error)
             }
         }
+    }
+}
+
+extension HomeView.Model {
+    init(_ data: UserQuery.Data?, load: Load) {
+        self.init(
+            load: load,
+            avatar: (data?.user?.fragments.actorFragment)
+                .map { .init($0, hasName: true) }
+        )
     }
 }
 
