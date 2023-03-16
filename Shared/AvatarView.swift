@@ -96,12 +96,13 @@ extension AvatarView.Model {
         )
     }
 
-    init?(fragment: PullRequestReviewFragment) {
+    init?(fragment: PullRequestReviewFragment, hasName: Bool = false) {
         guard let actorFragment = fragment.author?.fragments.actorFragment else { return nil }
 
         self.init(
             actorFragment,
-            color: fragment.state.color
+            color: fragment.state.color,
+            hasName: hasName
         )
     }
 }

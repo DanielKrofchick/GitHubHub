@@ -17,9 +17,8 @@ extension ReviewersView {
         }
         struct Item: Identifiable {
             var id: String { avatar.id }
-            let link: Any?
-            let avatar: AvatarView.Model
-            let color: Color
+            let avatar: AvatarAgeView.Model
+            let name: String?
         }
         let load: Load
         let title: String?
@@ -34,8 +33,15 @@ struct ReviewersView: View {
         List(model.items ?? []) { item in
             NavigationLink {
             } label: {
-                AvatarView(model: item.avatar)
-                    .border(item.color, width: 2)
+                HStack {
+                    AvatarAgeView(model: item.avatar, size: 40)
+                    Spacer(minLength: 15)
+                    if let name = item.name {
+                        Text(name)
+                            .font(.largeTitle)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                }
             }
         }
         .navigationTitle(model.title ?? "")
@@ -57,13 +63,24 @@ extension ReviewersView {
 
                 if let errors = response.errors { throw errors }
 
+                let pullRequestFragment = response.data?.repository?.pullRequest?.fragments.pullRequestFragment
+                let author = pullRequestFragment.map { AvatarAgeView.Model.author($0) } ?? nil
+                let reviewers = pullRequestFragment.map { AvatarAgeView.Model.reviewers($0) }
+
+                var items = [ReviewersView.Model.Item]()
+
+                if let author {
+                    items.append(.init(avatar: author.set(name: nil), name: author.avatar.name))
+                }
+
+                reviewers?.forEach {
+                    items.append(.init(avatar: $0.set(name: nil), name: $0.avatar.name))
+                }
+
                 model = Model(
                     load: model.load,
-                    title: response.data?.repository?.pullRequest?.fragments.pullRequestFragment.title,
-                    items: response.data?.repository?.pullRequest?.fragments
-                        .pullRequestFragment.latestReviews?.nodes?
-                        .compactMap { $0?.fragments.pullRequestReviewFragment }
-                        .compactMap { ReviewersView.Model.Item($0) }
+                    title: pullRequestFragment?.title,
+                    items: items
                 )
             } catch {
                 print(error)
@@ -98,18 +115,6 @@ extension ReviewersView.Model {
             ),
             title: fragment.title,
             items: nil
-        )
-    }
-}
-
-private extension ReviewersView.Model.Item {
-    init?(_ fragment: PullRequestReviewFragment) {
-        guard let actorFragment = fragment.author?.fragments.actorFragment else { return nil }
-
-        self.init(
-            link: nil,
-            avatar: .init(actorFragment),
-            color: fragment.state.color
         )
     }
 }

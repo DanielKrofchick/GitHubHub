@@ -41,23 +41,32 @@ struct PullRequestCellView: View {
     }
 }
 
-extension PullRequestCellView.Model {
-    init(_ fragment: PullRequestFragment) {
+extension AvatarAgeView.Model {
+    static func reviewers(_ fragment: PullRequestFragment) -> [AvatarAgeView.Model] {
         let reviewRequests: [AvatarAgeView.Model]? = fragment.reviewRequests?.nodes?
             .compactMap { $0?.fragments.reviewRequestFragment.requestedReviewer?.fragments.actorFragment }
             .compactMap {
-                AvatarAgeView.Model(
-                    avatar: AvatarView.Model($0),
+                .init(
+                    avatar: .init(
+                        $0,
+                        color: nil,
+                        hasName: true
+                    ),
                     age: nil
                 )
             }
+
         let latestReviews: [AvatarAgeView.Model]? = fragment.latestReviews?.nodes?
             .compactMap { $0?.fragments.pullRequestReviewFragment }
             .compactMap {
-                guard let avatar = AvatarView.Model(fragment: $0) else { return nil }
+                guard let author = $0.author else { return nil }
 
-                return AvatarAgeView.Model(
-                    avatar: avatar,
+                return .init(
+                    avatar: .init(
+                        author.fragments.actorFragment,
+                        color: $0.state.color,
+                        hasName: true
+                    ),
                     age: $0.submittedAt?.date?.relative()
                 )
             }
@@ -66,18 +75,41 @@ extension PullRequestCellView.Model {
         reviewRequests?.forEach { reviewers.updateOrAppend($0) }
         latestReviews?.forEach { reviewers.updateOrAppend($0) }
 
+        return reviewers.filter { $0.avatar.color != nil } + reviewers.filter { $0.avatar.color == nil }
+    }
+
+    static func author(_ fragment: PullRequestFragment) -> AvatarAgeView.Model? {
+        guard let actor = fragment.author?.fragments.actorFragment else { return nil }
+
+        return AvatarAgeView.Model(
+            avatar: .init(
+                actor,
+                color: fragment.isDraft ? .gray : nil,
+                hasName: true
+            ),
+            age: fragment.createdAt.date?.relative()
+        )
+    }
+
+    func set(name: String?) -> Self {
+        Self.init(
+            avatar: .init(
+                id: avatar.id,
+                name: name,
+                avatarURL: avatar.avatarURL,
+                color: avatar.color
+            ),
+            age: age
+        )
+    }
+}
+
+extension PullRequestCellView.Model {
+    init(_ fragment: PullRequestFragment) {
         self.init(
             title: fragment.title,
-            author: (fragment.author?.fragments.actorFragment).map {
-                AvatarAgeView.Model(
-                    avatar: AvatarView.Model.init(
-                        $0,
-                        color: fragment.isDraft ? .gray : nil
-                    ),
-                    age: fragment.createdAt.date?.relative()
-                )
-            },
-            reviewers: reviewers.filter { $0.avatar.color != nil } + reviewers.filter { $0.avatar.color == nil }
+            author: AvatarAgeView.Model.author(fragment).map { $0.set(name: nil) },
+            reviewers: AvatarAgeView.Model.reviewers(fragment).map { $0.set(name: nil) }
         )
     }
 }
