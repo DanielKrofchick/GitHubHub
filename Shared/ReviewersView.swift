@@ -19,6 +19,7 @@ extension ReviewersView {
             var id: String { avatar.id }
             let avatar: AvatarAgeView.Model
             let name: String?
+            let backgroundColor: Color?
         }
         let load: Load
         let title: String?
@@ -42,6 +43,7 @@ struct ReviewersView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
                 }
+                .background(item.backgroundColor)
             }
         }
         .navigationTitle(model.title ?? "")
@@ -70,11 +72,23 @@ extension ReviewersView {
                 var items = [ReviewersView.Model.Item]()
 
                 if let author {
-                    items.append(.init(avatar: author.set(name: nil), name: author.avatar.name))
+                    items.append(
+                        .init(
+                            avatar: author.set(name: nil),
+                            name: author.avatar.name,
+                            backgroundColor: .yellow
+                        )
+                    )
                 }
 
                 reviewers?.forEach {
-                    items.append(.init(avatar: $0.set(name: nil), name: $0.avatar.name))
+                    items.append(
+                        .init(
+                            avatar: $0.set(name: nil),
+                            name: $0.avatar.name,
+                            backgroundColor: nil
+                        )
+                    )
                 }
 
                 model = Model(
