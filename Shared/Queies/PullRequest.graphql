@@ -61,23 +61,40 @@ fragment PullRequestReviewFragment on PullRequestReview {
 }
 
 query Reviewers(
-    $owner: String!,
-    $name: String!,
-    $number: Int!
+  $owner: String!,
+  $name: String!,
+  $number: Int!
 ) {
-    repository(
-        owner: $owner,
-        name: $name
-    ) {
-        pullRequest(number: $number) {
-            ...PullRequestFragment
-        }
+  repository(
+    owner: $owner,
+    name: $name
+  ) {
+    pullRequest(number: $number) {
+      ...PullRequestFragment
     }
+  }
 }
 
 fragment ReviewRequestFragment on ReviewRequest {
   id
   requestedReviewer {
     ...ActorFragment
+  }
+}
+
+query UserPullRequests(
+  $login: String!
+) {
+  rateLimit {
+    ...RateLimitFragment
+  }
+  user(login: $login) {
+  login
+    pullRequests(first: 20, states: [OPEN]) {
+      totalCount
+      nodes {
+        ...PullRequestFragment
+      }
+    }
   }
 }

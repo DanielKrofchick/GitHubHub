@@ -17,6 +17,7 @@ extension ReviewersView {
         }
         struct Item: Identifiable {
             var id: String { avatar.id }
+            let link: UserPullRequestsView.Model
             let avatar: AvatarAgeView.Model
             let name: String?
             let backgroundColor: Color?
@@ -33,6 +34,7 @@ struct ReviewersView: View {
     var body: some View {
         List(model.items ?? []) { item in
             NavigationLink {
+                UserPullRequestsView(model: item.link)
             } label: {
                 HStack {
                     AvatarAgeView(model: item.avatar, size: 40)
@@ -74,6 +76,11 @@ extension ReviewersView {
                 if let author {
                     items.append(
                         .init(
+                            link: UserPullRequestsView.Model(
+                                author,
+                                organization: model.load.organization,
+                                repository: model.load.repository
+                            ),
                             avatar: author.set(name: nil),
                             name: author.avatar.name,
                             backgroundColor: .yellow
@@ -84,6 +91,11 @@ extension ReviewersView {
                 reviewers?.forEach {
                     items.append(
                         .init(
+                            link: UserPullRequestsView.Model(
+                                $0,
+                                organization: model.load.organization,
+                                repository: model.load.repository
+                            ),
                             avatar: $0.set(name: nil),
                             name: $0.avatar.name,
                             backgroundColor: nil

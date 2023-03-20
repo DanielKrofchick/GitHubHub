@@ -40,4 +40,11 @@ class GitHub {
             query: ReviewersQuery(owner: owner, name: name, number: number)
         )
     }
+
+
+    func userPullRequests(login: String) async throws -> GraphQLResult<UserPullRequestsQuery.Data> {
+        try await Network.shared.apollo.fetchAsync(
+            query: UserPullRequestsQuery(login: login)
+        )
+    }
 }
