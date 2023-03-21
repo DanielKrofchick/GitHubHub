@@ -12,6 +12,8 @@
 		A44313EC285C14390021130C /* ApolloClient+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44313EA285C14390021130C /* ApolloClient+.swift */; };
 		A4498E4C29C7E6760055BBE9 /* UserPullRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4498E4B29C7E6760055BBE9 /* UserPullRequests.swift */; };
 		A4498E4D29C7E6760055BBE9 /* UserPullRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4498E4B29C7E6760055BBE9 /* UserPullRequests.swift */; };
+		A4498E4F29C80A620055BBE9 /* ReviewerCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4498E4E29C80A620055BBE9 /* ReviewerCellView.swift */; };
+		A4498E5029C80A620055BBE9 /* ReviewerCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4498E4E29C80A620055BBE9 /* ReviewerCellView.swift */; };
 		A45700F729BD28EA00093DA9 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45700F629BD28EA00093DA9 /* Date+.swift */; };
 		A45700F829BD28EA00093DA9 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45700F629BD28EA00093DA9 /* Date+.swift */; };
 		A45700FA29BD2D6D00093DA9 /* PullRequest.graphql in Resources */ = {isa = PBXBuildFile; fileRef = A45700F929BD2D6D00093DA9 /* PullRequest.graphql */; };
@@ -71,6 +73,7 @@
 /* Begin PBXFileReference section */
 		A44313EA285C14390021130C /* ApolloClient+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ApolloClient+.swift"; sourceTree = "<group>"; };
 		A4498E4B29C7E6760055BBE9 /* UserPullRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPullRequests.swift; sourceTree = "<group>"; };
+		A4498E4E29C80A620055BBE9 /* ReviewerCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewerCellView.swift; sourceTree = "<group>"; };
 		A45700F629BD28EA00093DA9 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		A45700F929BD2D6D00093DA9 /* PullRequest.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = PullRequest.graphql; sourceTree = "<group>"; };
 		A457010229BD2DF200093DA9 /* Repository.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Repository.graphql; sourceTree = "<group>"; };
@@ -164,6 +167,7 @@
 				A4D8171729B827D600BBA855 /* PullRequestsView.swift */,
 				A488E9EB29BBD3CB00097527 /* PullRequestCellView.swift */,
 				A48C6BDF29B83EBF005B4B17 /* ReviewersView.swift */,
+				A4498E4E29C80A620055BBE9 /* ReviewerCellView.swift */,
 				A4498E4B29C7E6760055BBE9 /* UserPullRequests.swift */,
 				A4F9FA3B29B4434E006918E8 /* AvatarView.swift */,
 				A4F8B0D829C1669900EA49B7 /* AvatarAgeView.swift */,
@@ -387,6 +391,7 @@
 				A457011029BD424E00093DA9 /* Types.graphql.swift in Sources */,
 				A48C6BE029B83EBF005B4B17 /* ReviewersView.swift in Sources */,
 				A44313EB285C14390021130C /* ApolloClient+.swift in Sources */,
+				A4498E4F29C80A620055BBE9 /* ReviewerCellView.swift in Sources */,
 				A457011629BD424E00093DA9 /* PullRequest.graphql.swift in Sources */,
 				A45700F729BD28EA00093DA9 /* Date+.swift in Sources */,
 				A4F9FA4229B45170006918E8 /* OrganizationsView.swift in Sources */,
@@ -416,6 +421,7 @@
 				A457011129BD424E00093DA9 /* Types.graphql.swift in Sources */,
 				A48C6BE129B83EBF005B4B17 /* ReviewersView.swift in Sources */,
 				A44313EC285C14390021130C /* ApolloClient+.swift in Sources */,
+				A4498E5029C80A620055BBE9 /* ReviewerCellView.swift in Sources */,
 				A457011729BD424E00093DA9 /* PullRequest.graphql.swift in Sources */,
 				A45700F829BD28EA00093DA9 /* Date+.swift in Sources */,
 				A4F9FA4329B45170006918E8 /* OrganizationsView.swift in Sources */,

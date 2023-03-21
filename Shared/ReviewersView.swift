@@ -16,11 +16,9 @@ extension ReviewersView {
             let PR: Int
         }
         struct Item: Identifiable {
-            var id: String { avatar.id }
+            var id: String { model.avatar.id }
             let link: UserPullRequestsView.Model
-            let avatar: AvatarAgeView.Model
-            let name: String?
-            let backgroundColor: Color?
+            let model: ReviewerCellView.Model
         }
         let load: Load
         let title: String?
@@ -36,16 +34,7 @@ struct ReviewersView: View {
             NavigationLink {
                 UserPullRequestsView(model: item.link)
             } label: {
-                HStack {
-                    AvatarAgeView(model: item.avatar, size: 40)
-                    Spacer(minLength: 15)
-                    if let name = item.name {
-                        Text(name)
-                            .font(.largeTitle)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                    }
-                }
-                .background(item.backgroundColor)
+                ReviewerCellView(model: item.model)
             }
         }
         .navigationTitle(model.title ?? "")
@@ -81,9 +70,11 @@ extension ReviewersView {
                                 organization: model.load.organization,
                                 repository: model.load.repository
                             ),
-                            avatar: author.set(name: nil),
-                            name: author.avatar.name,
-                            backgroundColor: .yellow
+                            model: .init(
+                                avatar: author.set(name: nil),
+                                name: author.avatar.name,
+                                backgroundColor: .yellow
+                            )
                         )
                     )
                 }
@@ -96,9 +87,11 @@ extension ReviewersView {
                                 organization: model.load.organization,
                                 repository: model.load.repository
                             ),
-                            avatar: $0.set(name: nil),
-                            name: $0.avatar.name,
-                            backgroundColor: nil
+                            model: .init(
+                                avatar: $0.set(name: nil),
+                                name: $0.avatar.name,
+                                backgroundColor: nil
+                            )
                         )
                     )
                 }
