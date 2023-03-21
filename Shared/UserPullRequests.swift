@@ -89,18 +89,35 @@ extension UserPullRequestsView.Model {
         self.init(
             load: load,
             title: data?.user?.login,
-            items: data?.user?.pullRequests.nodes?
-                .compactMap { $0?.fragments.pullRequestFragment }
-                .filter { item in
-                    let isOrganization = load.organization.map { item.repository.owner.login == $0 } ?? true
-                    let isRepository = load.repository.map { item.repository.name == $0 } ?? true
-
-                    return isOrganization && isRepository
-                }
-                .map { UserPullRequestsView.Model.Item($0) }
-                .reversed(),
+            items: data?.pullRequests(
+                organization: load.organization,
+                repository: load.repository
+            )?.map { UserPullRequestsView.Model.Item($0) },
             rateLimit: data?.rateLimit?.fragments.rateLimitFragment.description ?? ""
         )
+    }
+}
+
+extension [PullRequestFragment] {
+    func filter(organization: String?, repository: String?) -> [Element] {
+        self.filter { item in
+            let isOrganization = organization.map { item.repository.owner.login == $0 } ?? true
+            let isRepository = repository.map { item.repository.name == $0 } ?? true
+
+            return isOrganization && isRepository
+        }
+    }
+}
+
+extension UserPullRequestsQuery.Data {
+    func pullRequests(organization: String? = nil, repository: String? = nil) -> [PullRequestFragment]? {
+        user?.pullRequests.nodes?
+            .compactMap { $0?.fragments.pullRequestFragment }
+            .filter(
+                organization: organization,
+                repository: repository
+            )
+            .reversed()
     }
 }
 

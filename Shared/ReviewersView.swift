@@ -48,7 +48,7 @@ extension ReviewersView {
     private func loadData() {
         Task {
             do {
-                let response = try await GitHub().reviewers(
+                let response = try await GitHub.shared.reviewers(
                     owner: model.load.organization,
                     name: model.load.repository,
                     number: model.load.PR
@@ -73,7 +73,9 @@ extension ReviewersView {
                             model: .init(
                                 avatar: author.set(name: nil),
                                 name: author.avatar.name,
-                                backgroundColor: .yellow
+                                backgroundColor: .yellow,
+                                count: nil,
+                                organization: pullRequestFragment?.repository.owner.login
                             )
                         )
                     )
@@ -90,7 +92,9 @@ extension ReviewersView {
                             model: .init(
                                 avatar: $0.set(name: nil),
                                 name: $0.avatar.name,
-                                backgroundColor: nil
+                                backgroundColor: nil,
+                                count: nil,
+                                organization: pullRequestFragment?.repository.owner.login
                             )
                         )
                     )

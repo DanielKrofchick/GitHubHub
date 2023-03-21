@@ -52,7 +52,7 @@ extension RepositoriesView {
     private func loadData() {
         Task {
             do {
-                let response = try await GitHub().repositories(model.load.organization)
+                let response = try await GitHub.shared.repositories(model.load.organization)
 
                 if let errors = response.errors {
                     throw errors

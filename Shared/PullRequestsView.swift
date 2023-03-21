@@ -53,7 +53,7 @@ extension PullRequestsView {
     private func loadData() {
         Task {
             do {
-                let response = try await GitHub().pullRequests(
+                let response = try await GitHub.shared.pullRequests(
                     owner: model.load.organization,
                     name: model.load.repository
                 )

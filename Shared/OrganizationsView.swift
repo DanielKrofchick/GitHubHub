@@ -45,7 +45,7 @@ extension OrganizationsView {
     private func loadData() {
         Task {
             do {
-                let response = try await GitHub().organizations(model.load.login)
+                let response = try await GitHub.shared.organizations(model.load.login)
 
                 if let errors = response.errors {
                     throw errors

@@ -98,3 +98,16 @@ query UserPullRequests(
     }
   }
 }
+
+query UserPullRequestsCount(
+  $login: String!
+) {
+  rateLimit {
+    ...RateLimitFragment
+  }
+  user(login: $login) {
+    pullRequests(first: 0, states: [OPEN]) {
+      totalCount
+    }
+  }
+}
