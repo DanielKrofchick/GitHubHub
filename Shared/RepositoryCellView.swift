@@ -41,7 +41,7 @@ extension RepositoryCellView.Model {
         self.init(
             title: fragment.name,
             count: String(fragment.pullRequests.totalCount),
-            lastUpdate: fragment.pushedAt?.date?.relative.date?.relativeAttributed
+            lastUpdate: fragment.pushedAt?.date?.relativeAttributed
         )
     }
 }

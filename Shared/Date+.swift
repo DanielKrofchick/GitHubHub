@@ -50,9 +50,9 @@ extension Date {
 
     var relativeColor: Color? {
         let transformations: [(String, Color)] = [
-            ("y", .red),
-            ("M", .purple),
-            ("w", .brown),
+            ("y", .gray),
+            ("M", .red),
+            ("w", .purple),
             ("d", .orange),
             ("h", .yellow),
             ("m", .green)
