@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 extension String {
     var date: Date? {
@@ -18,6 +19,12 @@ extension Date {
         relative()
     }
 
+    var relativeAttributed: AttributedString {
+        var result = AttributedString(relative)
+        result.foregroundColor = relativeColor
+        return result
+    }
+
     func relative(to date: Date = Date()) -> String {
         let transformations = [
             ("years", "y"),
@@ -28,10 +35,10 @@ extension Date {
             ("week", "w"),
             ("days", "d"),
             ("day", "d"),
-            ("minutes", "m"),
-            ("minute", "m"),
             ("hours", "h"),
             ("hour", "h"),
+            ("minutes", "m"),
+            ("minute", "m"),
             (" ", ""),
             ("ago", "")
         ]
@@ -39,5 +46,18 @@ extension Date {
         var string = RelativeDateTimeFormatter().localizedString(for: self, relativeTo: date)
         transformations.forEach { string = string.replacingOccurrences(of: $0.0, with: $0.1) }
         return string
+    }
+
+    var relativeColor: Color? {
+        let transformations: [(String, Color)] = [
+            ("y", .red),
+            ("M", .purple),
+            ("w", .brown),
+            ("d", .orange),
+            ("h", .yellow),
+            ("m", .green)
+        ]
+
+        return transformations.first { relative.contains($0.0) }?.1
     }
 }

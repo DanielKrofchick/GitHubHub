@@ -11,7 +11,7 @@ extension RepositoryCellView {
     struct Model {
         let title: String
         let count: String?
-        let lastUpdate: String?
+        let lastUpdate: AttributedString?
     }
 }
 
@@ -41,7 +41,7 @@ extension RepositoryCellView.Model {
         self.init(
             title: fragment.name,
             count: String(fragment.pullRequests.totalCount),
-            lastUpdate: fragment.pushedAt?.date?.relative
+            lastUpdate: fragment.pushedAt?.date?.relative.date?.relativeAttributed
         )
     }
 }

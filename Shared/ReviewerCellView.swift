@@ -38,6 +38,8 @@ struct ReviewerCellView: View {
         }
         .background(model.backgroundColor)
         .onAppear {
+            return;
+
             if let organization = model.organization {
                 loadPullRequestCountData(login: model.avatar.id, organization: organization)
             }

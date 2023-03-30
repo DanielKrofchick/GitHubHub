@@ -67,7 +67,7 @@ extension AvatarAgeView.Model {
                         color: $0.state.color,
                         hasName: true
                     ),
-                    age: $0.submittedAt?.date?.relative()
+                    age: $0.submittedAt?.date?.relativeAttributed
                 )
             }
 
@@ -87,7 +87,7 @@ extension AvatarAgeView.Model {
                 color: fragment.isDraft ? .gray : nil,
                 hasName: true
             ),
-            age: fragment.createdAt.date?.relative()
+            age: fragment.createdAt.date?.relativeAttributed
         )
     }
 

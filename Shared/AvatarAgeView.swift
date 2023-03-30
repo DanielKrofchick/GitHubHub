@@ -26,7 +26,7 @@ extension AvatarAgeView {
     struct Model: Hashable, Identifiable {
         var id: String { avatar.id }
         let avatar: AvatarView.Model
-        let age: String?
+        let age: AttributedString?
 
         func hash(into hasher: inout Hasher) {
             hasher.combine(avatar)
