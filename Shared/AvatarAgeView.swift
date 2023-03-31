@@ -10,15 +10,26 @@ import SwiftUI
 struct AvatarAgeView: View {
     @State var model: Model
     @State var size: CGFloat = 40
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
 
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             AvatarView(model: model.avatar, size: size)
                 .frame(alignment: .top)
             if let age = model.age {
-                Text(age)
+                if horizontalSizeClass == .compact {
+                    Text(age)
+                        .padding(0)
+                } else {
+                    Text(age)
+                        .font(.system(size: 12, weight: .semibold))
+                        .frame(height: 20)
+                        .lineLimit(1)
+                        .padding(0)
+                }
             }
         }
+        
     }
 }
 

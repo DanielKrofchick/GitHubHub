@@ -23,7 +23,7 @@ struct ReviewerCellView: View {
 
     var body: some View {
         HStack {
-            AvatarAgeView(model: model.avatar, size: 40)
+            AvatarAgeView(model: model.avatar, size: 50)
             Spacer(minLength: 15)
             if let name = model.name {
                 Text(name)

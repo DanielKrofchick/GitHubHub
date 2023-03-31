@@ -28,13 +28,18 @@ extension PullRequestsView {
 
 struct PullRequestsView: View {
     @State var model: Model
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
 
     var body: some View {
         List(model.items ?? []) { item in
             NavigationLink {
                 ReviewersView(model: item.link)
             } label: {
-                PullRequestCellView(model: item.model)
+                if horizontalSizeClass == .compact {
+                    PullRequestCellView(model: item.model)
+                } else {
+                    PullRequestCompactCellView(model: item.model)
+                }
             }
         }
         .navigationTitle(model.title ?? "")

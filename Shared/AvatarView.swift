@@ -31,7 +31,7 @@ struct AvatarView: View {
     }
 
     @State var model: Model
-    @State var size: CGFloat = 40
+    @State var size: CGFloat = 50
 
     var body: some View {
         VStack {
@@ -53,7 +53,7 @@ struct AvatarView: View {
                     Circle().stroke(.gray, lineWidth: 1)
                 }
                 .shadow(radius: 7)
-                .padding(10)
+                .padding(4)
                 .background(model.color)
             }
             if let name = model.name {

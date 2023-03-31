@@ -22,7 +22,7 @@ struct PullRequestCellView: View {
     var body: some View {
         HStack {
             if let author = model.author {
-                AvatarAgeView(model: author, size: 30)
+                AvatarAgeView(model: author, size: 50)
             }
             VStack {
                 if let title = model.title {
@@ -31,7 +31,7 @@ struct PullRequestCellView: View {
                 }
                 HStack(alignment: .top) {
                     ForEach(model.reviewers ?? []) { reviewer in
-                        AvatarAgeView(model: reviewer, size: 20)
+                        AvatarAgeView(model: reviewer, size: 40)
                             .border(.gray)
                     }
                 }
@@ -40,6 +40,24 @@ struct PullRequestCellView: View {
         }
     }
 }
+
+struct PullRequestCompactCellView: View {
+    @State var model: PullRequestCellView.Model
+
+    var body: some View {
+        HStack(alignment: .top) {
+            if let author = model.author {
+                AvatarAgeView(model: author, size: 25)
+            }
+            ForEach(model.reviewers ?? []) { reviewer in
+                AvatarAgeView(model: reviewer, size: 25)
+                    .border(.gray)
+            }
+        }
+        .padding(0)
+    }
+}
+
 
 extension AvatarAgeView.Model {
     static func reviewers(_ fragment: PullRequestFragment) -> [AvatarAgeView.Model] {

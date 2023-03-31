@@ -49,7 +49,7 @@ struct RepositoriesView: View {
             }
         } else {
             ScrollView(.horizontal) {
-                HStack {
+                LazyHStack {
                     ForEach(model.items?.prefix(upTo: 3) ?? []) { item in
                         VStack {
                             RepositoryCellView(model: item.model)
