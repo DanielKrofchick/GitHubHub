@@ -17,7 +17,7 @@ let defaultAvatarURL = URL(string: "https://avatars.githubusercontent.com/u/3325
 struct GitHubHubApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView(login: defaultLogin)
+            AuthenticateView()
         }
     }
 }

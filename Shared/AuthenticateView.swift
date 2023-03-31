@@ -1,70 +1,40 @@
 //
-//  AuthenticateView.swift
-//  GitHubHub
+//  ContentView.swift
+//  Shared
 //
-//  Created by Daniel Krofchick on 2023-03-30.
+//  Created by Daniel Krofchick on 2022-06-09.
 //
 
 import SwiftUI
 
-extension AuthenticateView {
-    struct Model {
-        struct Load {
-        }
-    }
+enum Destination: Hashable {
+    case login(_ login: String)
 }
 
 struct AuthenticateView: View {
-    enum FocusedField {
-        case login
-        case token
-    }
-
-    @State var model: Model
-    @State private var token: String = ""
-    @FocusState private var focusedField: FocusedField?
-    @EnvironmentObject var coordinator: Coordinator
+    @ObservedObject var coordinator = NavigationCoordinator()
 
     var body: some View {
-        VStack {
-            Text("GitHubHub")
-                .font(.largeTitle)
-            TextField("Token", text: $token)
-                .focused($focusedField, equals: .token)
-                .onSubmit {}
-                .textInputAutocapitalization(.never)
-                .disableAutocorrection(true)
-                .padding()
-                .border(.primary)
-            Button("Sign In") {
-                Network.shared.token = token
-                doLogin()
-            }
-            .buttonStyle(.borderedProminent)
-            .controlSize(.large)
-            .padding()
+        NavigationStack(path: $coordinator.path) {
+            AuthenticateViewContent(model: .init())
+                .navigationDestination(for: Destination.self) { destination in
+                    switch destination {
+                    case .login(let login):
+                        HomeView(model: .init(load: .init(login: login), avatar: nil))
+                    }
+                }
+                .onAppear {
+                    if Network.shared.token != nil {
+                        AuthenticateViewContent.doLogin(coordinator)
+                    }
+                }
         }
-        .padding()
+        .environmentObject(coordinator)
     }
 }
 
-extension AuthenticateView {
-    private func doLogin() {
-        Task {
-            do {
-                let response = try await GitHub.shared.login()
-
-                if let errors = response.errors {
-                    throw errors
-                }
-
-                if let login = response.data?.viewer.login {
-                    coordinator.pushLogin(login: login)
-                }
-            } catch {
-                print(error)
-            }
-        }
+struct Authenticate_Previews: PreviewProvider {
+    static var previews: some View {
+        AuthenticateView()
     }
 }
-

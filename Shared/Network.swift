@@ -1,20 +1,3 @@
-////
-////  Network.swift
-////  GitHubHub
-////
-////  Created by Daniel Krofchick on 2022-06-13.
-////
-//
-//import Foundation
-//import Apollo
-//
-//class Network {
-//    static let shared = Network()
-//    let domain = "https://api.github.com/graphql"
-//
-//    private(set) lazy var apollo = ApolloClient(url: URL(string: domain)!)
-//}
-
 //
 //  Network.swift
 //  GitHubHub
@@ -24,6 +7,8 @@
 
 import Foundation
 import Apollo
+import SwiftUI
+import KeychainStored
 
 // token = "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"
 
@@ -31,7 +16,7 @@ class Network {
     static let shared = Network()
     private let domain = "https://api.github.com/graphql"
 
-    var token: String = "" {
+    @KeychainStored(service: "com.krofchick.GitHubHub") var token: String? {
         didSet {
             apollo = makeClient()
         }
@@ -55,7 +40,7 @@ class Network {
 
     private var headers: [String: String] {
         [
-            "Authorization": "bearer \(token)"
+            "Authorization": "bearer \(token ?? "")"
         ]
     }
 }
