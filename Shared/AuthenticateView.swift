@@ -1,40 +1,60 @@
 //
-//  ContentView.swift
-//  Shared
+//  AuthenticateView.swift
+//  GitHubHub
 //
-//  Created by Daniel Krofchick on 2022-06-09.
+//  Created by Daniel Krofchick on 2023-03-30.
 //
 
 import SwiftUI
 
-enum Destination: Hashable {
-    case login(_ login: String)
+extension AuthenticateView {
+    struct Model {}
 }
 
 struct AuthenticateView: View {
-    @ObservedObject var coordinator = NavigationCoordinator()
+    @State var model: Model
+    @State private var token: String = Network.shared.token ?? ""
+    @EnvironmentObject var coordinator: NavigationCoordinator
 
     var body: some View {
-        NavigationStack(path: $coordinator.path) {
-            AuthenticateViewContent(model: .init())
-                .navigationDestination(for: Destination.self) { destination in
-                    switch destination {
-                    case .login(let login):
-                        HomeView(model: .init(load: .init(login: login), avatar: nil))
-                    }
-                }
-                .onAppear {
-                    if Network.shared.token != nil {
-                        AuthenticateViewContent.doLogin(coordinator)
-                    }
-                }
+        VStack {
+            Text("GitHubHub")
+                .font(.largeTitle)
+            TextField("Token", text: $token)
+                .font(.footnote)
+                .textInputAutocapitalization(.never)
+                .disableAutocorrection(true)
+                .padding()
+                .border(.primary)
+            Button("Sign In") {
+                Network.shared.token = token
+                Self.doLogin(coordinator)
+            }
+            .buttonStyle(.borderedProminent)
+            .controlSize(.large)
+            .padding()
         }
-        .environmentObject(coordinator)
+        .padding()
     }
 }
 
-struct Authenticate_Previews: PreviewProvider {
-    static var previews: some View {
-        AuthenticateView()
+extension AuthenticateView {
+    static func doLogin(_ coordinator: NavigationCoordinator) {
+        Task {
+            do {
+                let response = try await GitHub.shared.login()
+
+                if let errors = response.errors {
+                    throw errors
+                }
+
+                if let login = response.data?.viewer.login {
+                    coordinator.pushLogin(login: login)
+                }
+            } catch {
+                print(error)
+            }
+        }
     }
 }
+

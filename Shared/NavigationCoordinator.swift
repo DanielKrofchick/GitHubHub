@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+enum Destination: Hashable {
+    case login(_ login: String)
+}
+
 class NavigationCoordinator: ObservableObject {
     @Published var path = NavigationPath()
 

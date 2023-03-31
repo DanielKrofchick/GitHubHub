@@ -10,8 +10,6 @@ import Apollo
 import SwiftUI
 import KeychainStored
 
-// token = "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"
-
 class Network {
     static let shared = Network()
     private let domain = "https://api.github.com/graphql"

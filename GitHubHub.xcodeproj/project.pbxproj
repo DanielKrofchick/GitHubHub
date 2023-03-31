@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A4186DAB29D5F02D009CFE01 /* AuthenticateViewContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4186DAA29D5F02D009CFE01 /* AuthenticateViewContent.swift */; };
-		A4186DAC29D5F02D009CFE01 /* AuthenticateViewContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4186DAA29D5F02D009CFE01 /* AuthenticateViewContent.swift */; };
+		A4186DAB29D5F02D009CFE01 /* AuthenticateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4186DAA29D5F02D009CFE01 /* AuthenticateView.swift */; };
+		A4186DAC29D5F02D009CFE01 /* AuthenticateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4186DAA29D5F02D009CFE01 /* AuthenticateView.swift */; };
 		A4216DFA285C176000D9BAD7 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = A4216DF9285C176000D9BAD7 /* Apollo */; };
 		A44313EB285C14390021130C /* ApolloClient+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44313EA285C14390021130C /* ApolloClient+.swift */; };
 		A44313EC285C14390021130C /* ApolloClient+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44313EA285C14390021130C /* ApolloClient+.swift */; };
@@ -40,8 +40,6 @@
 		A457011D29BD4C7600093DA9 /* RepositoryCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A457011B29BD4C7600093DA9 /* RepositoryCellView.swift */; };
 		A459537F2852E70000AC2AB6 /* GitHubHubApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A459536F2852E6FF00AC2AB6 /* GitHubHubApp.swift */; };
 		A45953802852E70000AC2AB6 /* GitHubHubApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A459536F2852E6FF00AC2AB6 /* GitHubHubApp.swift */; };
-		A45953812852E70000AC2AB6 /* AuthenticateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45953702852E6FF00AC2AB6 /* AuthenticateView.swift */; };
-		A45953822852E70000AC2AB6 /* AuthenticateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45953702852E6FF00AC2AB6 /* AuthenticateView.swift */; };
 		A45953832852E70000AC2AB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A45953712852E70000AC2AB6 /* Assets.xcassets */; };
 		A45953842852E70000AC2AB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A45953712852E70000AC2AB6 /* Assets.xcassets */; };
 		A459538E2852E71800AC2AB6 /* GitHub.swift in Sources */ = {isa = PBXBuildFile; fileRef = A459538D2852E71800AC2AB6 /* GitHub.swift */; };
@@ -76,7 +74,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		A4186DAA29D5F02D009CFE01 /* AuthenticateViewContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticateViewContent.swift; sourceTree = "<group>"; };
+		A4186DAA29D5F02D009CFE01 /* AuthenticateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticateView.swift; sourceTree = "<group>"; };
 		A44313EA285C14390021130C /* ApolloClient+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ApolloClient+.swift"; sourceTree = "<group>"; };
 		A4498E4B29C7E6760055BBE9 /* UserPullRequestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPullRequestsView.swift; sourceTree = "<group>"; };
 		A4498E4E29C80A620055BBE9 /* ReviewerCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewerCellView.swift; sourceTree = "<group>"; };
@@ -92,7 +90,6 @@
 		A457011829BD444400093DA9 /* OrganizationCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationCellView.swift; sourceTree = "<group>"; };
 		A457011B29BD4C7600093DA9 /* RepositoryCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryCellView.swift; sourceTree = "<group>"; };
 		A459536F2852E6FF00AC2AB6 /* GitHubHubApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubHubApp.swift; sourceTree = "<group>"; };
-		A45953702852E6FF00AC2AB6 /* AuthenticateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticateView.swift; sourceTree = "<group>"; };
 		A45953712852E70000AC2AB6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A45953762852E70000AC2AB6 /* GitHubHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitHubHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A459537C2852E70000AC2AB6 /* GitHubHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitHubHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -166,8 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				A459536F2852E6FF00AC2AB6 /* GitHubHubApp.swift */,
-				A45953702852E6FF00AC2AB6 /* AuthenticateView.swift */,
-				A4186DAA29D5F02D009CFE01 /* AuthenticateViewContent.swift */,
+				A4186DAA29D5F02D009CFE01 /* AuthenticateView.swift */,
 				A4F9FA3E29B444F1006918E8 /* HomeView.swift */,
 				A4F9FA4129B45170006918E8 /* OrganizationsView.swift */,
 				A457011829BD444400093DA9 /* OrganizationCellView.swift */,
@@ -389,7 +385,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A457010E29BD424E00093DA9 /* Repository.graphql.swift in Sources */,
-				A45953812852E70000AC2AB6 /* AuthenticateView.swift in Sources */,
 				A4E0C62028582D6700F868D6 /* Network.swift in Sources */,
 				A45DA6BC29D736100047AFE3 /* NavigationCoordinator.swift in Sources */,
 				A4F9FA3F29B444F1006918E8 /* HomeView.swift in Sources */,
@@ -400,7 +395,7 @@
 				A457011429BD424E00093DA9 /* Organization.graphql.swift in Sources */,
 				A4498E4C29C7E6760055BBE9 /* UserPullRequestsView.swift in Sources */,
 				A4D8171529B7013900BBA855 /* RepositoriesView.swift in Sources */,
-				A4186DAB29D5F02D009CFE01 /* AuthenticateViewContent.swift in Sources */,
+				A4186DAB29D5F02D009CFE01 /* AuthenticateView.swift in Sources */,
 				A4F9FA3C29B4434E006918E8 /* AvatarView.swift in Sources */,
 				A457011029BD424E00093DA9 /* Types.graphql.swift in Sources */,
 				A48C6BE029B83EBF005B4B17 /* ReviewersView.swift in Sources */,
@@ -421,7 +416,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A457010F29BD424E00093DA9 /* Repository.graphql.swift in Sources */,
-				A45953822852E70000AC2AB6 /* AuthenticateView.swift in Sources */,
 				A4E0C62128582D6700F868D6 /* Network.swift in Sources */,
 				A45DA6BD29D736100047AFE3 /* NavigationCoordinator.swift in Sources */,
 				A4F9FA4029B444F1006918E8 /* HomeView.swift in Sources */,
@@ -432,7 +426,7 @@
 				A457011529BD424E00093DA9 /* Organization.graphql.swift in Sources */,
 				A4498E4D29C7E6760055BBE9 /* UserPullRequestsView.swift in Sources */,
 				A4D8171629B7013900BBA855 /* RepositoriesView.swift in Sources */,
-				A4186DAC29D5F02D009CFE01 /* AuthenticateViewContent.swift in Sources */,
+				A4186DAC29D5F02D009CFE01 /* AuthenticateView.swift in Sources */,
 				A4F9FA3D29B4434E006918E8 /* AvatarView.swift in Sources */,
 				A457011129BD424E00093DA9 /* Types.graphql.swift in Sources */,
 				A48C6BE129B83EBF005B4B17 /* ReviewersView.swift in Sources */,

@@ -15,9 +15,25 @@ let defaultAvatarURL = URL(string: "https://avatars.githubusercontent.com/u/3325
 
 @main
 struct GitHubHubApp: App {
+    @ObservedObject var coordinator = NavigationCoordinator()
+
     var body: some Scene {
         WindowGroup {
-            AuthenticateView()
+            NavigationStack(path: $coordinator.path) {
+                AuthenticateView(model: .init())
+                    .navigationDestination(for: Destination.self) { destination in
+                        switch destination {
+                        case .login(let login):
+                            HomeView(model: .init(load: .init(login: login), avatar: nil))
+                        }
+                    }
+                    .onAppear {
+                        if Network.shared.token != nil {
+                            AuthenticateView.doLogin(coordinator)
+                        }
+                    }
+            }
+            .environmentObject(coordinator)
         }
     }
 }
