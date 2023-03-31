@@ -25,12 +25,23 @@
 import Foundation
 import Apollo
 
+// token = "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"
+
 class Network {
     static let shared = Network()
     private let domain = "https://api.github.com/graphql"
-    private let token = "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"
+
+    var token: String = "" {
+        didSet {
+            apollo = makeClient()
+        }
+    }
 
     private(set) lazy var apollo: ApolloClient = {
+        makeClient()
+    }()
+
+    func makeClient() -> ApolloClient {
         let store = ApolloStore()
         return ApolloClient(
             networkTransport: RequestChainNetworkTransport(
@@ -40,9 +51,11 @@ class Network {
             ),
             store: store
         )
-    }()
+    }
 
-    private lazy var headers: [String: String] = [
-        "Authorization": "bearer \(token)"
-    ]
+    private var headers: [String: String] {
+        [
+            "Authorization": "bearer \(token)"
+        ]
+    }
 }

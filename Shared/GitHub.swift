@@ -11,6 +11,12 @@ import Apollo
 class GitHub {
     static let shared = GitHub()
 
+    func login() async throws -> GraphQLResult<LoginQuery.Data> {
+        try await Network.shared.apollo.fetchAsync(
+            query: LoginQuery()
+        )
+    }
+
     func user(_ login: String) async throws -> GraphQLResult<UserQuery.Data> {
         try await Network.shared.apollo.fetchAsync(
             query: UserQuery(login: login)

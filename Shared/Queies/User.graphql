@@ -8,3 +8,9 @@ fragment ActorFragment on Actor {
     login
     avatarUrl
 }
+
+query Login {
+  viewer {
+    login
+  }
+}

@@ -8,8 +8,8 @@
 import SwiftUI
 
 extension HomeView {
-    struct Model {
-        struct Load {
+    struct Model: Equatable {
+        struct Load: Equatable {
             let login: String
         }
         let load: Load
@@ -17,13 +17,28 @@ extension HomeView {
     }
 }
 
+extension HomeView: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(model.load.login)
+        hasher.combine(model.avatar)
+    }
+}
+
 struct HomeView: View {
+    static func == (lhs: HomeView, rhs: HomeView) -> Bool {
+        lhs.model == rhs.model
+    }
+
     @State var model: Model
 
     var body: some View {
         VStack {
             if let avatar = model.avatar {
-                AvatarView(model: avatar, size: 100)
+                NavigationLink {
+                    OrganizationsView(model: .init(load: .init(login: model.load.login), items: nil))
+                } label: {
+                    AvatarView(model: avatar, size: 100)
+                }
             }
         }
         .onAppear {
