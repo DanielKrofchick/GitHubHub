@@ -39,6 +39,8 @@ extension Date {
             ("hour", "h"),
             ("minutes", "m"),
             ("minute", "m"),
+            ("seconds", "s"),
+            ("second", "s"),
             (" ", ""),
             ("ago", "")
         ]
@@ -55,7 +57,8 @@ extension Date {
             ("w", .purple),
             ("d", .orange),
             ("h", .yellow),
-            ("m", .green)
+            ("m", .green),
+            ("s", .green)
         ]
 
         return transformations.first { relative.contains($0.0) }?.1

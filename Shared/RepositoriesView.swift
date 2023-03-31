@@ -27,23 +27,52 @@ extension RepositoriesView {
 
 struct RepositoriesView: View {
     @State var model: Model
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
 
     var body: some View {
-        List(model.items ?? []) { item in
-            NavigationLink {
-                PullRequestsView(model: item.link)
-            } label: {
-                RepositoryCellView(model: item.model)
+        if horizontalSizeClass == .compact {
+            List(model.items ?? []) { item in
+                NavigationLink {
+                    PullRequestsView(model: item.link)
+                } label: {
+                    RepositoryCellView(model: item.model)
+                }
             }
-        }
-        .navigationTitle(model.title ?? "")
-        .toolbar {
-            if let rateLimit = model.rateLimit {
-                Text(rateLimit)
+            .navigationTitle(model.title ?? "")
+            .toolbar {
+                if let rateLimit = model.rateLimit {
+                    Text(rateLimit)
+                }
             }
-        }
-        .onAppear {
-            loadData()
+            .onAppear {
+                loadData()
+            }
+        } else {
+            ScrollView(.horizontal) {
+                HStack {
+                    ForEach(model.items?.prefix(upTo: 3) ?? []) { item in
+                        VStack {
+                            RepositoryCellView(model: item.model)
+                                .padding()
+                            PullRequestsView(model: item.link)
+                                .listStyle(.plain)
+                        }
+                        .background(.white)
+                    }
+                    .frame(idealWidth: 300)
+                    .padding(0)
+                }
+                .background(Color(red: 0.98, green: 0.98, blue: 0.98))
+            }
+            .navigationTitle(model.title ?? "")
+            .toolbar {
+                if let rateLimit = model.rateLimit {
+                    Text(rateLimit)
+                }
+            }
+            .onAppear {
+                loadData()
+            }
         }
     }
 }
