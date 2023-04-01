@@ -29,13 +29,15 @@ struct PullRequestCellView: View {
                     Text(title)
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                HStack(alignment: .top) {
-                    ForEach(model.reviewers ?? []) { reviewer in
-                        AvatarAgeView(model: reviewer, size: 40)
-                            .border(.gray)
+                ScrollView(.horizontal) {
+                    HStack(alignment: .top) {
+                        ForEach(model.reviewers ?? []) { reviewer in
+                            AvatarAgeView(model: reviewer, size: 40)
+                                .border(.gray)
+                        }
                     }
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
             }
         }
     }
@@ -45,16 +47,18 @@ struct PullRequestCompactCellView: View {
     @State var model: PullRequestCellView.Model
 
     var body: some View {
-        HStack(alignment: .top) {
-            if let author = model.author {
-                AvatarAgeView(model: author, size: 25)
+        ScrollView(.horizontal) {
+            HStack(alignment: .top) {
+                if let author = model.author {
+                    AvatarAgeView(model: author, size: 25)
+                }
+                ForEach(model.reviewers ?? []) { reviewer in
+                    AvatarAgeView(model: reviewer, size: 25)
+                        .border(.gray)
+                }
             }
-            ForEach(model.reviewers ?? []) { reviewer in
-                AvatarAgeView(model: reviewer, size: 25)
-                    .border(.gray)
-            }
+            .padding(0)
         }
-        .padding(0)
     }
 }
 

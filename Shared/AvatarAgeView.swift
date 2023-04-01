@@ -23,9 +23,9 @@ struct AvatarAgeView: View {
                 } else {
                     Text(age)
                         .font(.system(size: 12, weight: .semibold))
-                        .frame(height: 20)
                         .lineLimit(1)
                         .padding(0)
+                        .scaledToFill()
                 }
             }
         }
