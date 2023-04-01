@@ -28,6 +28,7 @@ extension RepositoriesView {
 struct RepositoriesView: View {
     @State var model: Model
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @EnvironmentObject var rateLimit: RateLimitCoordinator
 
     var body: some View {
         if horizontalSizeClass == .compact {
@@ -50,7 +51,7 @@ struct RepositoriesView: View {
         } else {
             ScrollView(.horizontal) {
                 LazyHStack {
-                    ForEach(model.items?.prefix(upTo: 3) ?? []) { item in
+                    ForEach(model.items?.filter { Int($0.model.count ?? "") ?? 0 > 0 } ?? []) { item in
                         VStack {
                             RepositoryCellView(model: item.model)
                                 .padding()
@@ -65,11 +66,6 @@ struct RepositoriesView: View {
                 .background(Color(red: 0.98, green: 0.98, blue: 0.98))
             }
             .navigationTitle(model.title ?? "")
-            .toolbar {
-                if let rateLimit = model.rateLimit {
-                    Text(rateLimit)
-                }
-            }
             .onAppear {
                 loadData()
             }
@@ -88,6 +84,10 @@ extension RepositoriesView {
                 }
 
                 model = .init(response.data, load: model.load)
+
+                if let rateLimit = model.rateLimit {
+                    self.rateLimit.text = rateLimit
+                }
             } catch {
                 print(error)
             }

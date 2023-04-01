@@ -14,7 +14,7 @@ extension AuthenticateView {
 struct AuthenticateView: View {
     @State var model: Model
     @State private var token: String = Network.shared.token ?? ""
-    @EnvironmentObject var coordinator: NavigationCoordinator
+    @EnvironmentObject var navigation: NavigationCoordinator
 
     var body: some View {
         VStack {
@@ -28,7 +28,7 @@ struct AuthenticateView: View {
                 .border(.primary)
             Button("Sign In") {
                 Network.shared.token = token
-                Self.doLogin(coordinator)
+                Self.doLogin(navigation)
             }
             .buttonStyle(.borderedProminent)
             .controlSize(.large)
@@ -39,7 +39,7 @@ struct AuthenticateView: View {
 }
 
 extension AuthenticateView {
-    static func doLogin(_ coordinator: NavigationCoordinator) {
+    static func doLogin(_ navigation: NavigationCoordinator) {
         Task {
             do {
                 let response = try await GitHub.shared.login()
@@ -49,7 +49,7 @@ extension AuthenticateView {
                 }
 
                 if let login = response.data?.viewer.login {
-                    coordinator.pushLogin(login: login)
+                    navigation.pushLogin(login: login)
                 }
             } catch {
                 print(error)

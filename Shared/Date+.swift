@@ -42,7 +42,8 @@ extension Date {
             ("seconds", "s"),
             ("second", "s"),
             (" ", ""),
-            ("ago", "")
+            ("ago", ""),
+            ("in", "")
         ]
 
         var string = RelativeDateTimeFormatter().localizedString(for: self, relativeTo: date)

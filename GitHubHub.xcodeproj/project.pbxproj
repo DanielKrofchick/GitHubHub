@@ -54,6 +54,10 @@
 		A48C6BE029B83EBF005B4B17 /* ReviewersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48C6BDF29B83EBF005B4B17 /* ReviewersView.swift */; };
 		A48C6BE129B83EBF005B4B17 /* ReviewersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48C6BDF29B83EBF005B4B17 /* ReviewersView.swift */; };
 		A49BE2E828543D5D009EF2DB /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = A49BE2E728543D5D009EF2DB /* Apollo */; };
+		A4B5BD2629D8CBA10062AAB3 /* RateLimitFragment+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B5BD2529D8CBA10062AAB3 /* RateLimitFragment+.swift */; };
+		A4B5BD2729D8CBA10062AAB3 /* RateLimitFragment+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B5BD2529D8CBA10062AAB3 /* RateLimitFragment+.swift */; };
+		A4B5BD2929D8CBCC0062AAB3 /* RateLimitCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B5BD2829D8CBCC0062AAB3 /* RateLimitCoordinator.swift */; };
+		A4B5BD2A29D8CBCC0062AAB3 /* RateLimitCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B5BD2829D8CBCC0062AAB3 /* RateLimitCoordinator.swift */; };
 		A4BA23ED28559BEE00B478A7 /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = A4BA23EC28559BEE00B478A7 /* schema.json */; };
 		A4BA23EE28559BEE00B478A7 /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = A4BA23EC28559BEE00B478A7 /* schema.json */; };
 		A4D6357429BC41B100404B39 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = A4D6357329BC41B100404B39 /* OrderedCollections */; };
@@ -99,6 +103,8 @@
 		A463BB4128558DD400F5CFAD /* User.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = User.graphql; sourceTree = "<group>"; };
 		A488E9EB29BBD3CB00097527 /* PullRequestCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullRequestCellView.swift; sourceTree = "<group>"; };
 		A48C6BDF29B83EBF005B4B17 /* ReviewersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewersView.swift; sourceTree = "<group>"; };
+		A4B5BD2529D8CBA10062AAB3 /* RateLimitFragment+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RateLimitFragment+.swift"; sourceTree = "<group>"; };
+		A4B5BD2829D8CBCC0062AAB3 /* RateLimitCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateLimitCoordinator.swift; sourceTree = "<group>"; };
 		A4BA23EC28559BEE00B478A7 /* schema.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
 		A4D8171429B7013900BBA855 /* RepositoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoriesView.swift; sourceTree = "<group>"; };
 		A4D8171729B827D600BBA855 /* PullRequestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullRequestsView.swift; sourceTree = "<group>"; };
@@ -178,6 +184,8 @@
 				A4F8B0D829C1669900EA49B7 /* AvatarAgeView.swift */,
 				A4E0C61F28582D6700F868D6 /* Network.swift */,
 				A45DA6BB29D736100047AFE3 /* NavigationCoordinator.swift */,
+				A4B5BD2829D8CBCC0062AAB3 /* RateLimitCoordinator.swift */,
+				A4B5BD2529D8CBA10062AAB3 /* RateLimitFragment+.swift */,
 				A45700F629BD28EA00093DA9 /* Date+.swift */,
 				A44313EA285C14390021130C /* ApolloClient+.swift */,
 				A459538D2852E71800AC2AB6 /* GitHub.swift */,
@@ -398,7 +406,9 @@
 				A4186DAB29D5F02D009CFE01 /* AuthenticateView.swift in Sources */,
 				A4F9FA3C29B4434E006918E8 /* AvatarView.swift in Sources */,
 				A457011029BD424E00093DA9 /* Types.graphql.swift in Sources */,
+				A4B5BD2929D8CBCC0062AAB3 /* RateLimitCoordinator.swift in Sources */,
 				A48C6BE029B83EBF005B4B17 /* ReviewersView.swift in Sources */,
+				A4B5BD2629D8CBA10062AAB3 /* RateLimitFragment+.swift in Sources */,
 				A44313EB285C14390021130C /* ApolloClient+.swift in Sources */,
 				A4498E4F29C80A620055BBE9 /* ReviewerCellView.swift in Sources */,
 				A457011629BD424E00093DA9 /* PullRequest.graphql.swift in Sources */,
@@ -429,7 +439,9 @@
 				A4186DAC29D5F02D009CFE01 /* AuthenticateView.swift in Sources */,
 				A4F9FA3D29B4434E006918E8 /* AvatarView.swift in Sources */,
 				A457011129BD424E00093DA9 /* Types.graphql.swift in Sources */,
+				A4B5BD2A29D8CBCC0062AAB3 /* RateLimitCoordinator.swift in Sources */,
 				A48C6BE129B83EBF005B4B17 /* ReviewersView.swift in Sources */,
+				A4B5BD2729D8CBA10062AAB3 /* RateLimitFragment+.swift in Sources */,
 				A44313EC285C14390021130C /* ApolloClient+.swift in Sources */,
 				A4498E5029C80A620055BBE9 /* ReviewerCellView.swift in Sources */,
 				A457011729BD424E00093DA9 /* PullRequest.graphql.swift in Sources */,

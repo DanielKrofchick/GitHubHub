@@ -29,6 +29,7 @@ extension PullRequestsView {
 struct PullRequestsView: View {
     @State var model: Model
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @EnvironmentObject var rateLimit: RateLimitCoordinator
 
     var body: some View {
         List(model.items ?? []) { item in
@@ -43,11 +44,6 @@ struct PullRequestsView: View {
             }
         }
         .navigationTitle(model.title ?? "")
-        .toolbar {
-            if let rateLimit = model.rateLimit {
-                Text(rateLimit)
-            }
-        }
         .onAppear {
             loadData()
         }
@@ -68,6 +64,10 @@ extension PullRequestsView {
                 }
 
                 model = .init(response.data, load: model.load)
+
+                if let rateLimit = model.rateLimit {
+                    self.rateLimit.text = rateLimit
+                }
             } catch {
                 print(error)
             }
@@ -126,11 +126,5 @@ private extension PullRequestsView.Model.Item {
             link: ReviewersView.Model(fragment),
             model: PullRequestCellView.Model(fragment)
         )
-    }
-}
-
-extension RateLimitFragment {
-    var description: String {
-        "-\(cost) | \(remaining)"
     }
 }

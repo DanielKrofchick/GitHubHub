@@ -15,25 +15,43 @@ let defaultAvatarURL = URL(string: "https://avatars.githubusercontent.com/u/3325
 
 @main
 struct GitHubHubApp: App {
-    @ObservedObject var coordinator = NavigationCoordinator()
+    @ObservedObject var navigation = NavigationCoordinator()
+    @ObservedObject var rateLimit = RateLimitCoordinator()
 
     var body: some Scene {
         WindowGroup {
-            NavigationStack(path: $coordinator.path) {
-                AuthenticateView(model: .init())
-                    .navigationDestination(for: Destination.self) { destination in
-                        switch destination {
-                        case .login(let login):
-                            HomeView(model: .init(load: .init(login: login), avatar: nil))
+            ZStack(alignment: .topTrailing) {
+                NavigationStack(path: $navigation.path) {
+                    AuthenticateView(model: .init())
+                        .navigationDestination(for: Destination.self) { destination in
+                            switch destination {
+                            case .login(let login):
+                                HomeView(model: .init(load: .init(login: login), avatar: nil))
+                            }
                         }
-                    }
-                    .onAppear {
-                        if Network.shared.token != nil {
-                            AuthenticateView.doLogin(coordinator)
+                        .onAppear {
+                            if Network.shared.token != nil {
+                                AuthenticateView.doLogin(navigation)
+                            }
                         }
-                    }
+                }
+                RateLimitView()
             }
-            .environmentObject(coordinator)
+            .environmentObject(navigation)
+            .environmentObject(rateLimit)
+        }
+    }
+}
+
+struct RateLimitView: View {
+    @EnvironmentObject var rateLimit: RateLimitCoordinator
+
+    var body: some View {
+        if let text = rateLimit.text {
+            Text(text)
+                .font(.body)
+                .padding()
+                .background(.red)
         }
     }
 }
