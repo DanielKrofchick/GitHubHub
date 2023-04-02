@@ -309,6 +309,10 @@ public final class ReviewersQuery: GraphQLQuery {
   public let operationDefinition: String =
     """
     query Reviewers($owner: String!, $name: String!, $number: Int!) {
+      rateLimit {
+        __typename
+        ...RateLimitFragment
+      }
       repository(owner: $owner, name: $name) {
         __typename
         pullRequest(number: $number) {
@@ -323,6 +327,7 @@ public final class ReviewersQuery: GraphQLQuery {
 
   public var queryDocument: String {
     var document: String = operationDefinition
+    document.append("\n" + RateLimitFragment.fragmentDefinition)
     document.append("\n" + PullRequestFragment.fragmentDefinition)
     document.append("\n" + ActorFragment.fragmentDefinition)
     document.append("\n" + PullRequestReviewFragment.fragmentDefinition)
@@ -349,6 +354,7 @@ public final class ReviewersQuery: GraphQLQuery {
 
     public static var selections: [GraphQLSelection] {
       return [
+        GraphQLField("rateLimit", type: .object(RateLimit.selections)),
         GraphQLField("repository", arguments: ["owner": GraphQLVariable("owner"), "name": GraphQLVariable("name")], type: .object(Repository.selections)),
       ]
     }
@@ -359,8 +365,18 @@ public final class ReviewersQuery: GraphQLQuery {
       self.resultMap = unsafeResultMap
     }
 
-    public init(repository: Repository? = nil) {
-      self.init(unsafeResultMap: ["__typename": "Query", "repository": repository.flatMap { (value: Repository) -> ResultMap in value.resultMap }])
+    public init(rateLimit: RateLimit? = nil, repository: Repository? = nil) {
+      self.init(unsafeResultMap: ["__typename": "Query", "rateLimit": rateLimit.flatMap { (value: RateLimit) -> ResultMap in value.resultMap }, "repository": repository.flatMap { (value: Repository) -> ResultMap in value.resultMap }])
+    }
+
+    /// The client's rate limit information.
+    public var rateLimit: RateLimit? {
+      get {
+        return (resultMap["rateLimit"] as? ResultMap).flatMap { RateLimit(unsafeResultMap: $0) }
+      }
+      set {
+        resultMap.updateValue(newValue?.resultMap, forKey: "rateLimit")
+      }
     }
 
     /// Lookup a given repository by the owner and repository name.
@@ -370,6 +386,62 @@ public final class ReviewersQuery: GraphQLQuery {
       }
       set {
         resultMap.updateValue(newValue?.resultMap, forKey: "repository")
+      }
+    }
+
+    public struct RateLimit: GraphQLSelectionSet {
+      public static let possibleTypes: [String] = ["RateLimit"]
+
+      public static var selections: [GraphQLSelection] {
+        return [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLFragmentSpread(RateLimitFragment.self),
+        ]
+      }
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(limit: Int, cost: Int, remaining: Int, resetAt: String, used: Int) {
+        self.init(unsafeResultMap: ["__typename": "RateLimit", "limit": limit, "cost": cost, "remaining": remaining, "resetAt": resetAt, "used": used])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var fragments: Fragments {
+        get {
+          return Fragments(unsafeResultMap: resultMap)
+        }
+        set {
+          resultMap += newValue.resultMap
+        }
+      }
+
+      public struct Fragments {
+        public private(set) var resultMap: ResultMap
+
+        public init(unsafeResultMap: ResultMap) {
+          self.resultMap = unsafeResultMap
+        }
+
+        public var rateLimitFragment: RateLimitFragment {
+          get {
+            return RateLimitFragment(unsafeResultMap: resultMap)
+          }
+          set {
+            resultMap += newValue.resultMap
+          }
+        }
       }
     }
 

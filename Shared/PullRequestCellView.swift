@@ -38,6 +38,7 @@ struct PullRequestCellView: View {
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                 }
+                .allowsHitTesting(false)
             }
         }
     }
@@ -59,6 +60,7 @@ struct PullRequestCompactCellView: View {
             }
             .padding(0)
         }
+        .allowsHitTesting(false)
     }
 }
 

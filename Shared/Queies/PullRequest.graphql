@@ -65,6 +65,9 @@ query Reviewers(
   $name: String!,
   $number: Int!
 ) {
+  rateLimit {
+    ...RateLimitFragment
+  }
   repository(
     owner: $owner,
     name: $name

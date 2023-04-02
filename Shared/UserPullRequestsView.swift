@@ -29,6 +29,7 @@ extension UserPullRequestsView {
 
 struct UserPullRequestsView: View {
     @State var model: Model
+    @EnvironmentObject var rateLimit: RateLimitCoordinator
 
     var body: some View {
         List(model.items ?? []) { item in
@@ -39,11 +40,6 @@ struct UserPullRequestsView: View {
             }
         }
         .navigationTitle(model.title ?? "")
-        .toolbar {
-            if let rateLimit = model.rateLimit {
-                Text(rateLimit)
-            }
-        }
         .onAppear {
             loadData()
         }
@@ -61,6 +57,10 @@ extension UserPullRequestsView {
                 }
 
                 model = .init(response.data, load: model.load)
+
+                if let rateLimit = model.rateLimit {
+                    self.rateLimit.text = rateLimit
+                }
             } catch {
                 print(error)
             }

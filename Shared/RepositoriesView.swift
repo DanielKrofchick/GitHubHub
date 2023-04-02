@@ -40,11 +40,6 @@ struct RepositoriesView: View {
                 }
             }
             .navigationTitle(model.title ?? "")
-            .toolbar {
-                if let rateLimit = model.rateLimit {
-                    Text(rateLimit)
-                }
-            }
             .onAppear {
                 loadData()
             }

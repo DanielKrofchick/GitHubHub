@@ -75,7 +75,8 @@ extension ReviewersView {
                                 name: author.avatar.name,
                                 backgroundColor: .yellow,
                                 count: nil,
-                                organization: pullRequestFragment?.repository.owner.login
+                                organization: pullRequestFragment?.repository.owner.login,
+                                rateLimit: response.data?.rateLimit?.fragments.rateLimitFragment.description
                             )
                         )
                     )
@@ -94,7 +95,8 @@ extension ReviewersView {
                                 name: $0.avatar.name,
                                 backgroundColor: nil,
                                 count: nil,
-                                organization: pullRequestFragment?.repository.owner.login
+                                organization: pullRequestFragment?.repository.owner.login,
+                                rateLimit: response.data?.rateLimit?.fragments.rateLimitFragment.description
                             )
                         )
                     )

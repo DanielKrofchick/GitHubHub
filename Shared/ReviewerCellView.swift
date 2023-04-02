@@ -15,11 +15,13 @@ extension ReviewerCellView {
         let backgroundColor: Color?
         let count: String?
         let organization: String?
+        let rateLimit: String?
     }
 }
 
 struct ReviewerCellView: View {
     @State var model: Model
+    @EnvironmentObject var rateLimit: RateLimitCoordinator
 
     var body: some View {
         HStack {
@@ -38,8 +40,6 @@ struct ReviewerCellView: View {
         }
         .background(model.backgroundColor)
         .onAppear {
-            return;
-
             if let organization = model.organization {
                 loadPullRequestCountData(login: model.avatar.id, organization: organization)
             }
@@ -64,8 +64,13 @@ extension ReviewerCellView {
                     name: model.name,
                     backgroundColor: model.backgroundColor,
                     count: count,
-                    organization: organization
+                    organization: organization,
+                    rateLimit: response.data?.rateLimit?.fragments.rateLimitFragment.description
                 )
+
+                if let rateLimit = model.rateLimit {
+                    self.rateLimit.text = rateLimit
+                }
             } catch {
                 print(error)
             }
