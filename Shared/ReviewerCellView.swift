@@ -26,6 +26,7 @@ struct ReviewerCellView: View {
     var body: some View {
         HStack {
             AvatarAgeView(model: model.avatar, size: 50)
+                .border(model.backgroundColor ?? .clear)
             Spacer(minLength: 15)
             if let name = model.name {
                 Text(name)
@@ -38,7 +39,6 @@ struct ReviewerCellView: View {
                     .frame(alignment: .trailing)
             }
         }
-        .background(model.backgroundColor)
         .onAppear {
             if let organization = model.organization {
                 loadPullRequestCountData(login: model.avatar.id, organization: organization)

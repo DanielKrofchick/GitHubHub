@@ -73,7 +73,7 @@ extension ReviewersView {
                             model: .init(
                                 avatar: author.set(name: nil),
                                 name: author.avatar.name,
-                                backgroundColor: .yellow,
+                                backgroundColor: nil,
                                 count: nil,
                                 organization: pullRequestFragment?.repository.owner.login,
                                 rateLimit: response.data?.rateLimit?.fragments.rateLimitFragment.description
@@ -93,7 +93,7 @@ extension ReviewersView {
                             model: .init(
                                 avatar: $0.set(name: nil),
                                 name: $0.avatar.name,
-                                backgroundColor: nil,
+                                backgroundColor: .gray,
                                 count: nil,
                                 organization: pullRequestFragment?.repository.owner.login,
                                 rateLimit: response.data?.rateLimit?.fragments.rateLimitFragment.description
