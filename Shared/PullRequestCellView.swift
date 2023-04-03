@@ -10,6 +10,7 @@ import OrderedCollections
 
 extension PullRequestCellView {
     struct Model {
+        let number: String?
         let title: String?
         let author: AvatarAgeView.Model?
         let reviewers: [AvatarAgeView.Model]?
@@ -49,13 +50,20 @@ struct PullRequestCompactCellView: View {
 
     var body: some View {
         ScrollView(.horizontal) {
-            HStack(alignment: .top) {
-                if let author = model.author {
-                    AvatarAgeView(model: author, size: 25)
-                }
-                ForEach(model.reviewers ?? []) { reviewer in
-                    AvatarAgeView(model: reviewer, size: 25)
-                        .border(.gray)
+            HStack(alignment: .center) {
+                Text(model.number ?? "")
+                    .rotationEffect(.degrees(-90))
+                    .fixedSize()
+                    .frame(width: 15)
+                    .padding(.leading, 5)
+                HStack(alignment: .top) {
+                    if let author = model.author {
+                        AvatarAgeView(model: author, size: 25)
+                    }
+                    ForEach(model.reviewers ?? []) { reviewer in
+                        AvatarAgeView(model: reviewer, size: 25)
+                            .border(.gray)
+                    }
                 }
             }
             .padding(0)
@@ -64,6 +72,30 @@ struct PullRequestCompactCellView: View {
     }
 }
 
+struct PullRequestCompactCellView_Previews: PreviewProvider {
+    static var previews: some View {
+        PullRequestCompactCellView(
+            model: .init(
+                number: "123456",
+                title: "title",
+                author: .init(
+                    avatar: .init(id: "1", name: "a", avatarURL: defaultAvatarURL, color: nil),
+                    age: "1d"
+                ),
+                reviewers: [
+                    .init(
+                        avatar: .init(id: "1", name: "a", avatarURL: defaultAvatarURL, color: nil),
+                        age: "1d"
+                    ),
+                    .init(
+                        avatar: .init(id: "1", name: "a", avatarURL: defaultAvatarURL, color: nil),
+                        age: "1d"
+                    )
+                ]
+            )
+        )
+    }
+}
 
 extension AvatarAgeView.Model {
     static func reviewers(_ fragment: PullRequestFragment) -> [AvatarAgeView.Model] {
@@ -131,6 +163,7 @@ extension AvatarAgeView.Model {
 extension PullRequestCellView.Model {
     init(_ fragment: PullRequestFragment) {
         self.init(
+            number: String(fragment.number),
             title: fragment.title,
             author: AvatarAgeView.Model.author(fragment).map { $0.set(name: nil) },
             reviewers: AvatarAgeView.Model.reviewers(fragment).map { $0.set(name: nil) }
@@ -161,6 +194,7 @@ struct PullRequestCellView_Previews: PreviewProvider {
     static var previews: some View {
         PullRequestCellView(
             model: .init(
+                number: "1234",
                 title: "[AB-123] This is a PR for updating the user colors to the new ones that everyone wants dasd asds dsa",
                 author: .init(
                     avatar: .init(
