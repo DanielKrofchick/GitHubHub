@@ -20,7 +20,7 @@ struct GitHubHubApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ZStack(alignment: .topTrailing) {
+            ZStack(alignment: .bottomTrailing) {
                 NavigationStack(path: $navigation.path) {
                     AuthenticateView(model: .init())
                         .navigationDestination(for: Destination.self) { destination in

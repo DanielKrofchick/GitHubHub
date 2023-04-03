@@ -13,22 +13,30 @@ extension PullRequestsView {
         struct Load {
             let organization: String
             let repository: String
+            var isCompact: Bool
         }
         struct Item: Identifiable {
             let id: String
             let link: ReviewersView.Model
             let model: PullRequestCellView.Model
         }
-        let load: Load
+        var load: Load
         let title: String?
         let items: [Item]?
         let rateLimit: String?
     }
 }
 
+extension PullRequestsView.Model {
+    func setIsCompact(_ isCompact: Bool) -> Self {
+        var result = self
+        result.load.isCompact = isCompact
+        return result
+    }
+}
+
 struct PullRequestsView: View {
     @State var model: Model
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @EnvironmentObject var rateLimit: RateLimitCoordinator
 
     var body: some View {
@@ -36,10 +44,10 @@ struct PullRequestsView: View {
             NavigationLink {
                 ReviewersView(model: item.link)
             } label: {
-                if horizontalSizeClass == .compact {
-                    PullRequestCellView(model: item.model)
-                } else {
+                if model.load.isCompact {
                     PullRequestCompactCellView(model: item.model)
+                } else {
+                    PullRequestCellView(model: item.model)
                 }
             }
         }
@@ -81,7 +89,8 @@ struct PullRequestsView_Previews: PreviewProvider {
             model: .init(
                 load: .init(
                     organization: defaultOrganization,
-                    repository: defaultRepository
+                    repository: defaultRepository,
+                    isCompact: false
                 ),
                 title: nil,
                 items: nil,
@@ -106,11 +115,12 @@ extension PullRequestsView.Model {
 }
 
 extension PullRequestsView.Model {
-    init(_ fragment: RepositoryFragment) {
+    init(_ fragment: RepositoryFragment, isCompact: Bool) {
         self.init(
             load: .init(
                 organization: fragment.owner.login,
-                repository: fragment.name
+                repository: fragment.name,
+                isCompact: isCompact
             ),
             title: fragment.name,
             items: nil,

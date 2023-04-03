@@ -12,13 +12,14 @@ extension RepositoriesView {
     struct Model {
         struct Load {
             let organization: String
+            var isCompact: Bool
         }
         struct Item: Identifiable {
             var id: String
             let link: PullRequestsView.Model
             let model: RepositoryCellView.Model
         }
-        let load: Load
+        var load: Load
         let title: String?
         let items: [Item]?
         let rateLimit: String?
@@ -31,39 +32,56 @@ struct RepositoriesView: View {
     @EnvironmentObject var rateLimit: RateLimitCoordinator
 
     var body: some View {
-        if horizontalSizeClass == .compact {
-            List(model.items ?? []) { item in
-                NavigationLink {
-                    PullRequestsView(model: item.link)
-                } label: {
-                    RepositoryCellView(model: item.model)
-                }
+        VStack {
+            if model.load.isCompact {
+                compact
+            } else {
+                normal
             }
-            .navigationTitle(model.title ?? "")
-            .onAppear {
-                loadData()
+        }
+        .toolbar {
+            Toggle(isOn: $model.load.isCompact) {
+                Image(systemName: "list.bullet.circle")
             }
-        } else {
-            ScrollView(.horizontal) {
-                LazyHStack {
-                    ForEach(model.items?.filter { Int($0.model.count ?? "") ?? 0 > 0 } ?? []) { item in
-                        VStack {
-                            RepositoryCellView(model: item.model)
-                                .padding()
-                            PullRequestsView(model: item.link)
-                                .listStyle(.plain)
-                        }
-                        .background(.white)
+        }
+    }
+}
+
+extension RepositoriesView {
+    private var normal: some View {
+        List(model.items ?? []) { item in
+            NavigationLink {
+                PullRequestsView(model: item.link)
+            } label: {
+                RepositoryCellView(model: item.model)
+            }
+        }
+        .navigationTitle(model.title ?? "")
+        .onAppear {
+            loadData()
+        }
+    }
+
+    private var compact: some View {
+        ScrollView(.horizontal) {
+            LazyHStack {
+                ForEach(model.items?.filter { Int($0.model.count ?? "") ?? 0 > 0 } ?? []) { item in
+                    VStack {
+                        RepositoryCellView(model: item.model)
+                            .padding()
+                        PullRequestsView(model: item.link.setIsCompact(model.load.isCompact))
+                            .listStyle(.plain)
                     }
-                    .frame(idealWidth: 300)
-                    .padding(0)
+                    .background(.white)
                 }
-                .background(Color(red: 0.98, green: 0.98, blue: 0.98))
+                .frame(idealWidth: 300)
+                .padding(0)
             }
-            .navigationTitle(model.title ?? "")
-            .onAppear {
-                loadData()
-            }
+            .background(Color(red: 0.98, green: 0.98, blue: 0.98))
+        }
+        .navigationTitle(model.title ?? "")
+        .onAppear {
+            loadData()
         }
     }
 }
@@ -94,7 +112,10 @@ struct RepositoriesView_Previews: PreviewProvider {
     static var previews: some View {
         RepositoriesView(
             model: .init(
-                load: .init(organization: defaultLogin),
+                load: .init(
+                    organization: defaultLogin,
+                    isCompact: false
+                ),
                 title: nil,
                 items: nil,
                 rateLimit: nil
@@ -129,22 +150,11 @@ private extension RepositoriesView.Model {
     }
 }
 
-extension RepositoriesView.Model {
-    init(_ fragment: OrganizationFragment) {
-        self.init(
-            load: .init(organization: fragment.login),
-            title: fragment.login,
-            items: nil,
-            rateLimit: nil
-        )
-    }
-}
-
 private extension RepositoriesView.Model.Item {
     init(_ fragment: RepositoryFragment) {
         self.init(
             id: fragment.id,
-            link: PullRequestsView.Model(fragment),
+            link: PullRequestsView.Model(fragment, isCompact: false),
             model: RepositoryCellView.Model(fragment)
         )
     }

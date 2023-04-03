@@ -75,7 +75,7 @@ private extension OrganizationsView.Model.Item {
         self.init(
             id: fragment.id,
             link: .init(
-                load: .init(organization: fragment.login),
+                load: .init(organization: fragment.login, isCompact: false),
                 title: fragment.login,
                 items: nil,
                 rateLimit: nil

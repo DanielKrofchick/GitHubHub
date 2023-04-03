@@ -74,7 +74,8 @@ struct UserPullRequestsView_Previews: PreviewProvider {
             model: .init(
                 load: .init(
                     organization: defaultOrganization,
-                    repository: defaultRepository
+                    repository: defaultRepository,
+                    isCompact: false
                 ),
                 title: nil,
                 items: nil,
