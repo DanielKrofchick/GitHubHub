@@ -28,7 +28,6 @@ extension RepositoriesView {
 
 struct RepositoriesView: View {
     @State var model: Model
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @EnvironmentObject var rateLimit: RateLimitCoordinator
 
     var body: some View {

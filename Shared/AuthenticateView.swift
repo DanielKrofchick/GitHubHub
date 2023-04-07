@@ -22,7 +22,7 @@ struct AuthenticateView: View {
                 .font(.largeTitle)
             TextField("Token", text: $token)
                 .font(.footnote)
-                .textInputAutocapitalization(.never)
+//                .textInputAutocapitalization(.never)
                 .disableAutocorrection(true)
                 .padding()
                 .border(.primary)
