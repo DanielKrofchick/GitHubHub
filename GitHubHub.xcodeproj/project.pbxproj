@@ -54,7 +54,6 @@
 		A48C6BE029B83EBF005B4B17 /* ReviewersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48C6BDF29B83EBF005B4B17 /* ReviewersView.swift */; };
 		A48C6BE129B83EBF005B4B17 /* ReviewersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48C6BDF29B83EBF005B4B17 /* ReviewersView.swift */; };
 		A49BE2E828543D5D009EF2DB /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = A49BE2E728543D5D009EF2DB /* Apollo */; };
-		A49EDCA229DFB8DC00B01941 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A49EDCA129DFB8DC00B01941 /* Assets.xcassets */; };
 		A49EDCA629DFB8DC00B01941 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A49EDCA529DFB8DC00B01941 /* Preview Assets.xcassets */; };
 		A49EDCAA29DFB94100B01941 /* OrganizationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F9FA4129B45170006918E8 /* OrganizationsView.swift */; };
 		A49EDCAB29DFB94100B01941 /* ReviewerCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4498E4E29C80A620055BBE9 /* ReviewerCellView.swift */; };
@@ -141,7 +140,6 @@
 		A488E9EB29BBD3CB00097527 /* PullRequestCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullRequestCellView.swift; sourceTree = "<group>"; };
 		A48C6BDF29B83EBF005B4B17 /* ReviewersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewersView.swift; sourceTree = "<group>"; };
 		A49EDC9B29DFB8DB00B01941 /* GitHubHub (Catalyst).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GitHubHub (Catalyst).app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A49EDCA129DFB8DC00B01941 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A49EDCA329DFB8DC00B01941 /* Catalyst.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Catalyst.entitlements; sourceTree = "<group>"; };
 		A49EDCA529DFB8DC00B01941 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		A4B5BD2529D8CBA10062AAB3 /* RateLimitFragment+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RateLimitFragment+.swift"; sourceTree = "<group>"; };
@@ -270,7 +268,6 @@
 		A49EDC9C29DFB8DB00B01941 /* Catalyst */ = {
 			isa = PBXGroup;
 			children = (
-				A49EDCA129DFB8DC00B01941 /* Assets.xcassets */,
 				A49EDCA329DFB8DC00B01941 /* Catalyst.entitlements */,
 				A49EDCA429DFB8DC00B01941 /* Preview Content */,
 			);
@@ -449,7 +446,6 @@
 				A49EDCC029DFB94500B01941 /* Organization.graphql in Resources */,
 				A49EDCC929DFB95400B01941 /* schema.json in Resources */,
 				A49EDCC829DFB95400B01941 /* Assets.xcassets in Resources */,
-				A49EDCA229DFB8DC00B01941 /* Assets.xcassets in Resources */,
 				A49EDCC129DFB94500B01941 /* Repository.graphql in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

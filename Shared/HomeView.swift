@@ -33,14 +33,18 @@ struct HomeView: View {
 
     var body: some View {
         VStack {
+            Spacer()
             if let avatar = model.avatar {
                 NavigationLink {
                     OrganizationsView(model: .init(load: .init(login: model.load.login), items: nil))
                 } label: {
                     AvatarView(model: avatar, size: 100)
                 }
+                .buttonStyle(PlainButtonStyle())
             }
+            Spacer()
         }
+        .frame(maxWidth: .infinity)
         .onAppear {
             loadData()
         }

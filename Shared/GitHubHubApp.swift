@@ -22,6 +22,7 @@ struct GitHubHubApp: App {
         WindowGroup {
             ZStack(alignment: .bottomTrailing) {
                 NavigationStack(path: $navigation.path) {
+                    Spacer()
                     AuthenticateView(model: .init())
                         .navigationDestination(for: Destination.self) { destination in
                             switch destination {
@@ -34,6 +35,7 @@ struct GitHubHubApp: App {
                                 AuthenticateView.doLogin(navigation)
                             }
                         }
+                    Spacer()
                 }
                 RateLimitView()
             }
