@@ -12,8 +12,8 @@ extension PullRequestCellView {
     struct Model {
         let number: String?
         let title: String?
-        let author: AvatarAgeView.Model?
-        let reviewers: [AvatarAgeView.Model]?
+        let author: AvatarView.Model?
+        let reviewers: [AvatarView.Model]?
     }
 }
 
@@ -23,7 +23,7 @@ struct PullRequestCellView: View {
     var body: some View {
         HStack {
             if let author = model.author {
-                AvatarAgeView(model: author, size: 50)
+                AvatarView(model: author, size: 50)
             }
             VStack {
                 if let title = model.title {
@@ -33,7 +33,7 @@ struct PullRequestCellView: View {
                 ScrollView(.horizontal) {
                     HStack(alignment: .top) {
                         ForEach(model.reviewers ?? []) { reviewer in
-                            AvatarAgeView(model: reviewer, size: 40)
+                            AvatarView(model: reviewer, size: 40)
                                 .border(.gray)
                         }
                     }
@@ -58,10 +58,10 @@ struct PullRequestCompactCellView: View {
                     .padding(.leading, 5)
                 HStack(alignment: .top) {
                     if let author = model.author {
-                        AvatarAgeView(model: author, size: 25)
+                        AvatarView(model: author, size: 25)
                     }
                     ForEach(model.reviewers ?? []) { reviewer in
-                        AvatarAgeView(model: reviewer, size: 25)
+                        AvatarView(model: reviewer, size: 25)
                             .border(.gray)
                     }
                 }
@@ -78,85 +78,55 @@ struct PullRequestCompactCellView_Previews: PreviewProvider {
             model: .init(
                 number: "123456",
                 title: "title",
-                author: .init(
-                    avatar: .init(id: "1", name: "a", avatarURL: defaultAvatarURL, color: nil),
-                    age: "1d"
-                ),
+                author: .init(id: "1", name: "1d", avatarURL: defaultAvatarURL, color: nil),
                 reviewers: [
-                    .init(
-                        avatar: .init(id: "1", name: "a", avatarURL: defaultAvatarURL, color: nil),
-                        age: "1d"
-                    ),
-                    .init(
-                        avatar: .init(id: "1", name: "a", avatarURL: defaultAvatarURL, color: nil),
-                        age: "1d"
-                    )
+                    .init(id: "1", name: "1d", avatarURL: defaultAvatarURL, color: nil),
+                    .init(id: "1", name: "1d", avatarURL: defaultAvatarURL, color: nil)
                 ]
             )
         )
     }
 }
 
-extension AvatarAgeView.Model {
-    static func reviewers(_ fragment: PullRequestFragment) -> [AvatarAgeView.Model] {
-        let reviewRequests: [AvatarAgeView.Model]? = fragment.reviewRequests?.nodes?
+extension AvatarView.Model {
+    static func reviewers(_ fragment: PullRequestFragment) -> [AvatarView.Model] {
+        let reviewRequests: [AvatarView.Model]? = fragment.reviewRequests?.nodes?
             .compactMap { $0?.fragments.reviewRequestFragment.requestedReviewer?.fragments.actorFragment }
-            .compactMap {
-                .init(
-                    avatar: .init(
-                        $0,
-                        color: nil,
-                        hasName: true
-                    ),
-                    age: nil
-                )
-            }
+            .compactMap { .init($0, name: nil, color: nil) }
 
-        let latestReviews: [AvatarAgeView.Model]? = fragment.latestReviews?.nodes?
+        let latestReviews: [AvatarView.Model]? = fragment.latestReviews?.nodes?
             .compactMap { $0?.fragments.pullRequestReviewFragment }
             .compactMap {
                 guard let author = $0.author else { return nil }
 
                 return .init(
-                    avatar: .init(
-                        author.fragments.actorFragment,
-                        color: $0.state.color,
-                        hasName: true
-                    ),
-                    age: $0.submittedAt?.date?.relativeAttributed
+                    author.fragments.actorFragment,
+                    name: ($0.submittedAt?.date?.relativeAttributed).map { .init($0) },
+                    color: $0.state.color
                 )
             }
 
-        var reviewers = OrderedSet<AvatarAgeView.Model>()
+        var reviewers = OrderedSet<AvatarView.Model>()
         reviewRequests?.forEach { reviewers.updateOrAppend($0) }
         latestReviews?.forEach { reviewers.updateOrAppend($0) }
 
-        return reviewers.filter { $0.avatar.color != nil } + reviewers.filter { $0.avatar.color == nil }
+        return reviewers.filter { $0.color != nil } + reviewers.filter { $0.color == nil }
     }
 
-    static func author(_ fragment: PullRequestFragment) -> AvatarAgeView.Model? {
+    static func author(_ fragment: PullRequestFragment) -> AvatarView.Model? {
         guard let actor = fragment.author?.fragments.actorFragment else { return nil }
 
-        return AvatarAgeView.Model(
-            avatar: .init(
-                actor,
-                color: fragment.isDraft ? .gray : nil,
-                hasName: true
-            ),
-            age: fragment.createdAt.date?.relativeAttributed
+        return .init(
+            actor,
+            name: (fragment.createdAt.date?.relativeAttributed).map { .init($0) },
+            color: fragment.isDraft ? .gray : nil
         )
     }
 
     func set(name: String?) -> Self {
-        Self.init(
-            avatar: .init(
-                id: avatar.id,
-                name: name,
-                avatarURL: avatar.avatarURL,
-                color: avatar.color
-            ),
-            age: age
-        )
+        var result = self
+        result.name = name.map { AttributedString($0) }
+        return result
     }
 }
 
@@ -165,8 +135,8 @@ extension PullRequestCellView.Model {
         self.init(
             number: String(fragment.number),
             title: fragment.title,
-            author: AvatarAgeView.Model.author(fragment).map { $0.set(name: nil) },
-            reviewers: AvatarAgeView.Model.reviewers(fragment).map { $0.set(name: nil) }
+            author: AvatarView.Model.author(fragment),
+            reviewers: AvatarView.Model.reviewers(fragment)
         )
     }
 }
@@ -197,44 +167,33 @@ struct PullRequestCellView_Previews: PreviewProvider {
                 number: "1234",
                 title: "[AB-123] This is a PR for updating the user colors to the new ones that everyone wants dasd asds dsa",
                 author: .init(
-                    avatar: .init(
-                        id: "1",
-                        avatarURL: defaultAvatarURL,
-                        color: .gray
-                    ),
-                    age: "10d"
+                    id: "1",
+                    name: "10d",
+                    avatarURL: defaultAvatarURL,
+                    color: .gray
                 ),
                 reviewers: [
                     .init(
-                        avatar: .init(
-                            id: "1",
-                            avatarURL: defaultAvatarURL,
-                            color: .red
-                        ),
-                        age: "1D"
+                        id: "1",
+                        name: "1d",
+                        avatarURL: defaultAvatarURL,
+                        color: .red
                     ),
                     .init(
-                        avatar: .init(
-                            id: "2",
-                            avatarURL: defaultAvatarURL,
-                            color: .orange
-                        ),
-                        age: "2W"
+                        id: "2",
+                        name: "2w",
+                        avatarURL: defaultAvatarURL,
+                        color: .orange
                     ),
                     .init(
-                        avatar: .init(
-                            id: "3",
-                            avatarURL: defaultAvatarURL,
-                            color: .green
-                        ),
-                        age: "3Y"
+                        id: "3",
+                        name: "3y",
+                        avatarURL: defaultAvatarURL,
+                        color: .green
                     ),
                     .init(
-                        avatar: .init(
-                            id: "4",
-                            avatarURL: defaultAvatarURL
-                        ),
-                        age: nil
+                        id: "4",
+                        avatarURL: defaultAvatarURL
                     )
                 ]
             )

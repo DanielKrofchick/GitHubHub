@@ -10,7 +10,7 @@ import OrderedCollections
 
 extension ReviewerCellView {
     struct Model {
-        let avatar: AvatarAgeView.Model
+        let avatar: AvatarView.Model
         let name: String?
         let backgroundColor: Color?
         let count: String?
@@ -25,7 +25,7 @@ struct ReviewerCellView: View {
 
     var body: some View {
         HStack {
-            AvatarAgeView(model: model.avatar, size: 50)
+            AvatarView(model: model.avatar, size: 50)
                 .border(model.backgroundColor ?? .clear)
             Spacer(minLength: 15)
             if let name = model.name {

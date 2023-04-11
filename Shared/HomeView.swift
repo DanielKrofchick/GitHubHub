@@ -74,7 +74,7 @@ extension HomeView.Model {
         self.init(
             load: load,
             avatar: (data?.user?.fragments.actorFragment)
-                .map { .init($0, hasName: true) }
+                .map { .init($0) }
         )
     }
 }

@@ -10,11 +10,16 @@ import SwiftUI
 struct AvatarView: View {
     struct Model: Identifiable, Hashable, Equatable {
         let id: String
-        let name: String?
+        var name: AttributedString?
         let avatarURL: URL?
         let color: Color?
 
-        init(id: String, name: String? = nil, avatarURL: URL? = nil, color: Color? = nil) {
+        init(
+            id: String,
+            name: AttributedString? = nil,
+            avatarURL: URL? = nil,
+            color: Color? = nil
+        ) {
             self.id = id
             self.name = name
             self.avatarURL = avatarURL
@@ -63,20 +68,44 @@ struct AvatarView: View {
     }
 }
 
+
+//extension AttributedString {
+//    static var none = AttributedString(.none)
+//}
+//
+//extension String {
+//    static var none = UUID().uuidString
+//}
+
+struct Box<T> {
+    var wrapped: T
+
+    init(_ wrapped: T) {
+        self.wrapped = wrapped
+    }
+}
+
 extension AvatarView.Model {
-    init(_ fragment: ActorFragment, color: Color? = nil, hasName: Bool = false) {
+    init(
+        _ fragment: ActorFragment,
+        name: Box<AttributedString?>? = .init(nil),
+        color: Color? = nil
+    ) {
         self.init(
             id: fragment.login,
-            name: hasName ? fragment.login : nil,
+            name: name.map { $0.wrapped ?? AttributedString(fragment.login) },
             avatarURL: URL(string: fragment.avatarUrl),
             color: color
         )
     }
     
-    init(_ fragment: OrganizationFragment, hasName: Bool = false) {
+    init(
+        _ fragment: OrganizationFragment,
+        name: Box<String?>? = .init(nil)
+    ) {
         self.init(
             id: fragment.id,
-            name: hasName ? fragment.login : nil,
+            name: name.map { AttributedString($0.wrapped ?? fragment.login) },
             avatarURL: URL(string: fragment.avatarUrl)
         )
     }
@@ -84,25 +113,34 @@ extension AvatarView.Model {
     init(_ fragment: RepositoryFragment) {
         self.init(
             id: fragment.name,
-            name: fragment.name
+            name: AttributedString(fragment.name)
         )
     }
 
     init(_ fragment: PullRequestFragment) {
         self.init(
             id: fragment.id,
-            name: fragment.title,
+            name: AttributedString(fragment.title),
             color: fragment.isDraft ? .gray : nil
         )
     }
 
-    init?(fragment: PullRequestReviewFragment, hasName: Bool = false) {
+    init?(
+        fragment: PullRequestReviewFragment,
+        name: Box<String?>? = .init(nil)
+    ) {
         guard let actorFragment = fragment.author?.fragments.actorFragment else { return nil }
 
         self.init(
             actorFragment,
-            color: fragment.state.color,
-            hasName: hasName
+            name: name.map {
+                if let wrapped = $0.wrapped {
+                    return .init(AttributedString(wrapped))
+                } else {
+                    return .init(nil)
+                }
+            },
+            color: fragment.state.color
         )
     }
 }

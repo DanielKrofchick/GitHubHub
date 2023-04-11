@@ -57,8 +57,8 @@ extension ReviewersView {
                 if let errors = response.errors { throw errors }
 
                 let pullRequestFragment = response.data?.repository?.pullRequest?.fragments.pullRequestFragment
-                let author = pullRequestFragment.map { AvatarAgeView.Model.author($0) } ?? nil
-                let reviewers = pullRequestFragment.map { AvatarAgeView.Model.reviewers($0) }
+                let author = pullRequestFragment.map { AvatarView.Model.author($0) } ?? nil
+                let reviewers = pullRequestFragment.map { AvatarView.Model.reviewers($0) }
 
                 var items = [ReviewersView.Model.Item]()
 
@@ -71,8 +71,8 @@ extension ReviewersView {
                                 repository: model.load.repository
                             ),
                             model: .init(
-                                avatar: author.set(name: nil),
-                                name: author.avatar.name,
+                                avatar: author,
+                                name: author.id,
                                 backgroundColor: nil,
                                 count: nil,
                                 organization: pullRequestFragment?.repository.owner.login,
@@ -91,8 +91,8 @@ extension ReviewersView {
                                 repository: model.load.repository
                             ),
                             model: .init(
-                                avatar: $0.set(name: nil),
-                                name: $0.avatar.name,
+                                avatar: $0,
+                                name: $0.id,
                                 backgroundColor: .gray,
                                 count: nil,
                                 organization: pullRequestFragment?.repository.owner.login,

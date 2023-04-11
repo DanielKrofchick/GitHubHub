@@ -32,7 +32,7 @@ struct OrganizationCellView: View {
 extension OrganizationCellView.Model {
     init(_ fragment: OrganizationFragment) {
         self.init(
-            avatar: .init(fragment),
+            avatar: .init(fragment, name: nil),
             title: fragment.login,
             count: String(fragment.repositories.totalCount)
         )

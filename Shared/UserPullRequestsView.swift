@@ -123,14 +123,14 @@ extension UserPullRequestsQuery.Data {
 }
 
 extension UserPullRequestsView.Model {
-    init(_ model: AvatarAgeView.Model, organization: String, repository: String) {
+    init(_ model: AvatarView.Model, organization: String, repository: String) {
         self.init(
             load: .init(
                 login: model.id,
                 organization: organization,
                 repository: repository
             ),
-            title: model.avatar.name,
+            title: model.name.map { String($0.characters[...]) },
             items: nil,
             rateLimit: nil
         )
