@@ -49,6 +49,9 @@
 		A45DA6C029D73A310047AFE3 /* KeychainStored in Frameworks */ = {isa = PBXBuildFile; productRef = A45DA6BF29D73A310047AFE3 /* KeychainStored */; };
 		A463BB4228558DD400F5CFAD /* User.graphql in Resources */ = {isa = PBXBuildFile; fileRef = A463BB4128558DD400F5CFAD /* User.graphql */; };
 		A463BB4328558DD400F5CFAD /* User.graphql in Resources */ = {isa = PBXBuildFile; fileRef = A463BB4128558DD400F5CFAD /* User.graphql */; };
+		A48255D529E79476003B1429 /* RateLimitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48255D429E79476003B1429 /* RateLimitView.swift */; };
+		A48255D629E79476003B1429 /* RateLimitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48255D429E79476003B1429 /* RateLimitView.swift */; };
+		A48255D729E79476003B1429 /* RateLimitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48255D429E79476003B1429 /* RateLimitView.swift */; };
 		A488E9EC29BBD3CB00097527 /* PullRequestCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A488E9EB29BBD3CB00097527 /* PullRequestCellView.swift */; };
 		A488E9ED29BBD3CB00097527 /* PullRequestCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A488E9EB29BBD3CB00097527 /* PullRequestCellView.swift */; };
 		A48C6BE029B83EBF005B4B17 /* ReviewersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48C6BDF29B83EBF005B4B17 /* ReviewersView.swift */; };
@@ -62,7 +65,6 @@
 		A49EDCAE29DFB94100B01941 /* RepositoryCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A457011B29BD4C7600093DA9 /* RepositoryCellView.swift */; };
 		A49EDCAF29DFB94100B01941 /* ReviewersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48C6BDF29B83EBF005B4B17 /* ReviewersView.swift */; };
 		A49EDCB029DFB94100B01941 /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F9FA3B29B4434E006918E8 /* AvatarView.swift */; };
-		A49EDCB129DFB94100B01941 /* AvatarAgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F8B0D829C1669900EA49B7 /* AvatarAgeView.swift */; };
 		A49EDCB229DFB94100B01941 /* NavigationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45DA6BB29D736100047AFE3 /* NavigationCoordinator.swift */; };
 		A49EDCB329DFB94100B01941 /* PullRequestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D8171729B827D600BBA855 /* PullRequestsView.swift */; };
 		A49EDCB429DFB94100B01941 /* RateLimitCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B5BD2829D8CBCC0062AAB3 /* RateLimitCoordinator.swift */; };
@@ -103,8 +105,6 @@
 		A4D8171929B827D600BBA855 /* PullRequestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D8171729B827D600BBA855 /* PullRequestsView.swift */; };
 		A4E0C62028582D6700F868D6 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E0C61F28582D6700F868D6 /* Network.swift */; };
 		A4E0C62128582D6700F868D6 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E0C61F28582D6700F868D6 /* Network.swift */; };
-		A4F8B0D929C1669900EA49B7 /* AvatarAgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F8B0D829C1669900EA49B7 /* AvatarAgeView.swift */; };
-		A4F8B0DA29C1669900EA49B7 /* AvatarAgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F8B0D829C1669900EA49B7 /* AvatarAgeView.swift */; };
 		A4F9FA3C29B4434E006918E8 /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F9FA3B29B4434E006918E8 /* AvatarView.swift */; };
 		A4F9FA3D29B4434E006918E8 /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F9FA3B29B4434E006918E8 /* AvatarView.swift */; };
 		A4F9FA3F29B444F1006918E8 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F9FA3E29B444F1006918E8 /* HomeView.swift */; };
@@ -137,6 +137,7 @@
 		A459538D2852E71800AC2AB6 /* GitHub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHub.swift; sourceTree = "<group>"; };
 		A45DA6BB29D736100047AFE3 /* NavigationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationCoordinator.swift; sourceTree = "<group>"; };
 		A463BB4128558DD400F5CFAD /* User.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = User.graphql; sourceTree = "<group>"; };
+		A48255D429E79476003B1429 /* RateLimitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateLimitView.swift; sourceTree = "<group>"; };
 		A488E9EB29BBD3CB00097527 /* PullRequestCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullRequestCellView.swift; sourceTree = "<group>"; };
 		A48C6BDF29B83EBF005B4B17 /* ReviewersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewersView.swift; sourceTree = "<group>"; };
 		A49EDC9B29DFB8DB00B01941 /* GitHubHub (Catalyst).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GitHubHub (Catalyst).app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -148,7 +149,6 @@
 		A4D8171429B7013900BBA855 /* RepositoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoriesView.swift; sourceTree = "<group>"; };
 		A4D8171729B827D600BBA855 /* PullRequestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullRequestsView.swift; sourceTree = "<group>"; };
 		A4E0C61F28582D6700F868D6 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
-		A4F8B0D829C1669900EA49B7 /* AvatarAgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarAgeView.swift; sourceTree = "<group>"; };
 		A4F9FA3B29B4434E006918E8 /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
 		A4F9FA3E29B444F1006918E8 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		A4F9FA4129B45170006918E8 /* OrganizationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationsView.swift; sourceTree = "<group>"; };
@@ -231,11 +231,11 @@
 				A4498E4E29C80A620055BBE9 /* ReviewerCellView.swift */,
 				A4498E4B29C7E6760055BBE9 /* UserPullRequestsView.swift */,
 				A4F9FA3B29B4434E006918E8 /* AvatarView.swift */,
-				A4F8B0D829C1669900EA49B7 /* AvatarAgeView.swift */,
 				A4E0C61F28582D6700F868D6 /* Network.swift */,
 				A45DA6BB29D736100047AFE3 /* NavigationCoordinator.swift */,
 				A4B5BD2829D8CBCC0062AAB3 /* RateLimitCoordinator.swift */,
 				A4B5BD2529D8CBA10062AAB3 /* RateLimitFragment+.swift */,
+				A48255D429E79476003B1429 /* RateLimitView.swift */,
 				A45700F629BD28EA00093DA9 /* Date+.swift */,
 				A44313EA285C14390021130C /* ApolloClient+.swift */,
 				A459538D2852E71800AC2AB6 /* GitHub.swift */,
@@ -506,13 +506,13 @@
 				A4F9FA3F29B444F1006918E8 /* HomeView.swift in Sources */,
 				A459537F2852E70000AC2AB6 /* GitHubHubApp.swift in Sources */,
 				A4D8171829B827D600BBA855 /* PullRequestsView.swift in Sources */,
-				A4F8B0D929C1669900EA49B7 /* AvatarAgeView.swift in Sources */,
 				A459538E2852E71800AC2AB6 /* GitHub.swift in Sources */,
 				A457011429BD424E00093DA9 /* Organization.graphql.swift in Sources */,
 				A4498E4C29C7E6760055BBE9 /* UserPullRequestsView.swift in Sources */,
 				A4D8171529B7013900BBA855 /* RepositoriesView.swift in Sources */,
 				A4186DAB29D5F02D009CFE01 /* AuthenticateView.swift in Sources */,
 				A4F9FA3C29B4434E006918E8 /* AvatarView.swift in Sources */,
+				A48255D529E79476003B1429 /* RateLimitView.swift in Sources */,
 				A457011029BD424E00093DA9 /* Types.graphql.swift in Sources */,
 				A4B5BD2929D8CBCC0062AAB3 /* RateLimitCoordinator.swift in Sources */,
 				A48C6BE029B83EBF005B4B17 /* ReviewersView.swift in Sources */,
@@ -539,13 +539,13 @@
 				A4F9FA4029B444F1006918E8 /* HomeView.swift in Sources */,
 				A45953802852E70000AC2AB6 /* GitHubHubApp.swift in Sources */,
 				A4D8171929B827D600BBA855 /* PullRequestsView.swift in Sources */,
-				A4F8B0DA29C1669900EA49B7 /* AvatarAgeView.swift in Sources */,
 				A459538F2852E71800AC2AB6 /* GitHub.swift in Sources */,
 				A457011529BD424E00093DA9 /* Organization.graphql.swift in Sources */,
 				A4498E4D29C7E6760055BBE9 /* UserPullRequestsView.swift in Sources */,
 				A4D8171629B7013900BBA855 /* RepositoriesView.swift in Sources */,
 				A4186DAC29D5F02D009CFE01 /* AuthenticateView.swift in Sources */,
 				A4F9FA3D29B4434E006918E8 /* AvatarView.swift in Sources */,
+				A48255D629E79476003B1429 /* RateLimitView.swift in Sources */,
 				A457011129BD424E00093DA9 /* Types.graphql.swift in Sources */,
 				A4B5BD2A29D8CBCC0062AAB3 /* RateLimitCoordinator.swift in Sources */,
 				A48C6BE129B83EBF005B4B17 /* ReviewersView.swift in Sources */,
@@ -579,6 +579,7 @@
 				A49EDCB929DFB94100B01941 /* GitHub.swift in Sources */,
 				A49EDCB729DFB94100B01941 /* OrganizationCellView.swift in Sources */,
 				A49EDCAB29DFB94100B01941 /* ReviewerCellView.swift in Sources */,
+				A48255D729E79476003B1429 /* RateLimitView.swift in Sources */,
 				A49EDCB229DFB94100B01941 /* NavigationCoordinator.swift in Sources */,
 				A49EDCBB29DFB94100B01941 /* Network.swift in Sources */,
 				A49EDCB329DFB94100B01941 /* PullRequestsView.swift in Sources */,
@@ -588,7 +589,6 @@
 				A49EDCC329DFB94800B01941 /* User.graphql.swift in Sources */,
 				A49EDCAE29DFB94100B01941 /* RepositoryCellView.swift in Sources */,
 				A49EDCBD29DFB94100B01941 /* RepositoriesView.swift in Sources */,
-				A49EDCB129DFB94100B01941 /* AvatarAgeView.swift in Sources */,
 				A49EDCBA29DFB94100B01941 /* AuthenticateView.swift in Sources */,
 				A49EDCB529DFB94100B01941 /* PullRequestCellView.swift in Sources */,
 				A49EDCBE29DFB94100B01941 /* UserPullRequestsView.swift in Sources */,

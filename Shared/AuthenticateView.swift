@@ -21,11 +21,10 @@ struct AuthenticateView: View {
             Text("GitHubHub")
                 .font(.largeTitle)
             TextField("Token", text: $token)
-                .font(.footnote)
-//                .textInputAutocapitalization(.never)
+                .font(.title)
                 .disableAutocorrection(true)
                 .padding()
-                .border(.primary)
+                .fixedSize()
             Button("Sign In") {
                 Network.shared.token = token
                 Self.doLogin(navigation)

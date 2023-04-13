@@ -68,15 +68,14 @@ extension RepositoriesView {
                     VStack {
                         RepositoryCellView(model: item.model)
                             .padding()
+                            .background()
                         PullRequestsView(model: item.link.setIsCompact(model.load.isCompact))
                             .listStyle(.plain)
                     }
-                    .background(.white)
                 }
                 .frame(idealWidth: 300)
                 .padding(0)
             }
-            .background(Color(red: 0.98, green: 0.98, blue: 0.98))
         }
         .navigationTitle(model.title ?? "")
         .onAppear {
