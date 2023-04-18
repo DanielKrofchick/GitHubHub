@@ -68,15 +68,6 @@ struct AvatarView: View {
     }
 }
 
-
-//extension AttributedString {
-//    static var none = AttributedString(.none)
-//}
-//
-//extension String {
-//    static var none = UUID().uuidString
-//}
-
 struct Box<T> {
     var wrapped: T
 

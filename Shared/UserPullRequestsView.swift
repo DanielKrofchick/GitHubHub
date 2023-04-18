@@ -30,8 +30,24 @@ extension UserPullRequestsView {
 struct UserPullRequestsView: View {
     @State var model: Model
     @EnvironmentObject var rateLimit: RateLimitCoordinator
+    @State private var isLoading = false
 
     var body: some View {
+        ZStack {
+            if isLoading {
+                list.hidden()
+                ProgressView()
+            } else {
+                list
+            }
+        }
+        .navigationTitle(model.title ?? "")
+        .onAppear {
+            loadData()
+        }
+    }
+
+    private var list: some View {
         List(model.items ?? []) { item in
             NavigationLink {
                 ReviewersView(model: item.link)
@@ -39,8 +55,7 @@ struct UserPullRequestsView: View {
                 PullRequestCellView(model: item.model)
             }
         }
-        .navigationTitle(model.title ?? "")
-        .onAppear {
+        .refreshable {
             loadData()
         }
     }
@@ -50,6 +65,7 @@ extension UserPullRequestsView {
     private func loadData() {
         Task {
             do {
+                isLoading = true
                 let response = try await GitHub().userPullRequests(login: model.load.login)
 
                 if let errors = response.errors {
@@ -61,6 +77,7 @@ extension UserPullRequestsView {
                 if let rateLimit = model.rateLimit {
                     self.rateLimit.text = rateLimit
                 }
+                isLoading = false
             } catch {
                 print(error)
             }

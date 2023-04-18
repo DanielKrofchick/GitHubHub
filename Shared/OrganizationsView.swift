@@ -25,8 +25,24 @@ extension OrganizationsView {
 
 struct OrganizationsView: View {
     @State var model: Model
+    @State private var isLoading = false
 
     var body: some View {
+        ZStack {
+            if isLoading {
+                list.hidden()
+                ProgressView()
+            } else {
+                list
+            }
+        }
+        .navigationTitle("Organizations")
+        .onAppear {
+            loadData()
+        }
+    }
+
+    private var list: some View {
         List(model.items ?? []) { item in
             NavigationLink {
                 RepositoriesView(model: item.link)
@@ -34,8 +50,7 @@ struct OrganizationsView: View {
                 OrganizationCellView(model: item.model)
             }
         }
-        .navigationTitle("Organizations")
-        .onAppear {
+        .refreshable {
             loadData()
         }
     }
@@ -45,6 +60,7 @@ extension OrganizationsView {
     private func loadData() {
         Task {
             do {
+                isLoading = true
                 let response = try await GitHub.shared.organizations(model.load.login)
 
                 if let errors = response.errors {
@@ -52,6 +68,7 @@ extension OrganizationsView {
                 }
 
                 model = Model(response.data, load: model.load)
+                isLoading = false
             } catch {
                 print(error)
             }

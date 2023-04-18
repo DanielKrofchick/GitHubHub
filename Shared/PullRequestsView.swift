@@ -38,8 +38,24 @@ extension PullRequestsView.Model {
 struct PullRequestsView: View {
     @State var model: Model
     @EnvironmentObject var rateLimit: RateLimitCoordinator
+    @State private var isLoading = false
 
     var body: some View {
+        ZStack {
+            if isLoading {
+                list.hidden()
+                ProgressView()
+            } else {
+                list
+            }
+        }
+        .navigationTitle(model.title ?? "")
+        .onAppear {
+            loadData()
+        }
+    }
+
+    private var list: some View {
         List(model.items ?? []) { item in
             NavigationLink {
                 ReviewersView(model: item.link)
@@ -51,8 +67,7 @@ struct PullRequestsView: View {
                 }
             }
         }
-        .navigationTitle(model.title ?? "")
-        .onAppear {
+        .refreshable {
             loadData()
         }
     }
@@ -62,6 +77,7 @@ extension PullRequestsView {
     private func loadData() {
         Task {
             do {
+                isLoading = true
                 let response = try await GitHub.shared.pullRequests(
                     owner: model.load.organization,
                     name: model.load.repository
@@ -76,6 +92,7 @@ extension PullRequestsView {
                 if let rateLimit = model.rateLimit {
                     self.rateLimit.text = rateLimit
                 }
+                isLoading = false
             } catch {
                 print(error)
             }

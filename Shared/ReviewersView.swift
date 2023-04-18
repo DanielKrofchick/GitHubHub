@@ -28,8 +28,24 @@ extension ReviewersView {
 
 struct ReviewersView: View {
     @State var model: Model
+    @State private var isLoading = false
 
     var body: some View {
+        ZStack {
+            if isLoading {
+                list.hidden()
+                ProgressView()
+            } else {
+                list
+            }
+        }
+        .navigationTitle(model.title ?? "")
+        .onAppear {
+            loadData()
+        }
+    }
+
+    private var list: some View {
         List(model.items ?? []) { item in
             NavigationLink {
                 UserPullRequestsView(model: item.link)
@@ -37,8 +53,7 @@ struct ReviewersView: View {
                 ReviewerCellView(model: item.model)
             }
         }
-        .navigationTitle(model.title ?? "")
-        .onAppear {
+        .refreshable {
             loadData()
         }
     }
@@ -48,6 +63,7 @@ extension ReviewersView {
     private func loadData() {
         Task {
             do {
+                isLoading = true
                 let response = try await GitHub.shared.reviewers(
                     owner: model.load.organization,
                     name: model.load.repository,
@@ -107,6 +123,7 @@ extension ReviewersView {
                     title: pullRequestFragment?.title,
                     items: items
                 )
+                isLoading = false
             } catch {
                 print(error)
             }

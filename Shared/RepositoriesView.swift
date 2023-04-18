@@ -29,13 +29,15 @@ extension RepositoriesView {
 struct RepositoriesView: View {
     @State var model: Model
     @EnvironmentObject var rateLimit: RateLimitCoordinator
+    @State private var isLoading = false
 
     var body: some View {
-        VStack {
-            if model.load.isCompact {
-                compact
+        ZStack {
+            if isLoading {
+                list.hidden()
+                ProgressView()
             } else {
-                normal
+                list
             }
         }
         .toolbar {
@@ -43,10 +45,23 @@ struct RepositoriesView: View {
                 Image(systemName: "list.bullet.circle")
             }
         }
+        .onAppear {
+            loadData()
+        }
     }
 }
 
 extension RepositoriesView {
+    private var list: some View {
+        VStack {
+            if model.load.isCompact {
+                compact
+            } else {
+                normal
+            }
+        }
+    }
+
     private var normal: some View {
         List(model.items ?? []) { item in
             NavigationLink {
@@ -56,7 +71,7 @@ extension RepositoriesView {
             }
         }
         .navigationTitle(model.title ?? "")
-        .onAppear {
+        .refreshable {
             loadData()
         }
     }
@@ -78,9 +93,6 @@ extension RepositoriesView {
             }
         }
         .navigationTitle(model.title ?? "")
-        .onAppear {
-            loadData()
-        }
     }
 }
 
@@ -88,6 +100,7 @@ extension RepositoriesView {
     private func loadData() {
         Task {
             do {
+                isLoading = true
                 let response = try await GitHub.shared.repositories(model.load.organization)
 
                 if let errors = response.errors {
@@ -99,6 +112,7 @@ extension RepositoriesView {
                 if let rateLimit = model.rateLimit {
                     self.rateLimit.text = rateLimit
                 }
+                isLoading = false
             } catch {
                 print(error)
             }
