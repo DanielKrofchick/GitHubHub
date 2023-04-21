@@ -22,6 +22,7 @@ struct AuthenticateView: View {
                 .font(.largeTitle)
             TextField("Token", text: $token)
                 .font(.title)
+                .textFieldStyle(.roundedBorder)
                 .disableAutocorrection(true)
                 .padding()
                 .fixedSize()

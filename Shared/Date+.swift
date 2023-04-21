@@ -15,12 +15,8 @@ extension String {
 }
 
 extension Date {
-    var relative: String {
-        relative()
-    }
-
-    var relativeAttributed: AttributedString {
-        var result = AttributedString(relative)
+    func relativeAttributed(to date: Date = Date()) -> AttributedString {
+        var result = AttributedString(relative(to: date))
         result.foregroundColor = relativeColor
         return result
     }
@@ -62,6 +58,6 @@ extension Date {
             ("s", .green)
         ]
 
-        return transformations.first { relative.contains($0.0) }?.1
+        return transformations.first { relative().contains($0.0) }?.1
     }
 }

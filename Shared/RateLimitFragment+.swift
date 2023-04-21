@@ -9,6 +9,6 @@ import Foundation
 
 extension RateLimitFragment {
     var description: String {
-        "\(remaining) - \(resetAt.date?.relative ?? "")"
+        "\(remaining) - \(resetAt.date?.relative() ?? "")"
     }
 }

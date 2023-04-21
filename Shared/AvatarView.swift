@@ -79,6 +79,7 @@ struct Box<T> {
 extension AvatarView.Model {
     init(
         _ fragment: ActorFragment,
+        // a bit silly, Box is used to have a default state and allow overriding it with all values including nil
         name: Box<AttributedString?>? = .init(nil),
         color: Color? = nil
     ) {

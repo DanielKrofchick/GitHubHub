@@ -96,13 +96,22 @@ extension AvatarView.Model {
 
         let latestReviews: [AvatarView.Model]? = fragment.latestReviews?.nodes?
             .compactMap { $0?.fragments.pullRequestReviewFragment }
-            .compactMap {
-                guard let author = $0.author else { return nil }
+            .compactMap { authorFragment in
+                guard let author = authorFragment.author else { return nil }
 
                 return .init(
                     author.fragments.actorFragment,
-                    name: ($0.submittedAt?.date?.relativeAttributed).map { .init($0) },
-                    color: $0.state.color
+                    name: {
+                        if
+                            let createdAt = fragment.createdAt.date,
+                            let submittedAt = authorFragment.submittedAt?.date
+                        {
+                            return Box(submittedAt.relativeAttributed(to: createdAt))
+                        } else {
+                            return nil
+                        }
+                    }(),
+                    color: authorFragment.state.color
                 )
             }
 
@@ -118,7 +127,7 @@ extension AvatarView.Model {
 
         return .init(
             actor,
-            name: (fragment.createdAt.date?.relativeAttributed).map { .init($0) },
+            name: (fragment.createdAt.date?.relativeAttributed()).map { .init($0) },
             color: fragment.isDraft ? .gray : nil
         )
     }
