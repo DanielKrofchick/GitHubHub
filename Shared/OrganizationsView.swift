@@ -26,20 +26,24 @@ extension OrganizationsView {
 struct OrganizationsView: View {
     @State var model: Model
     @State private var isLoading = false
+    @EnvironmentObject var rateLimit: RateLimitCoordinator
 
     var body: some View {
-        ZStack {
-            if isLoading {
-                list.hidden()
-                ProgressView()
-            } else {
-                list
-            }
+        LoadingView(loader: self) {
+            list
         }
+//        ZStack {
+//            if isLoading {
+//                list.hidden()
+//                ProgressView()
+//            } else {
+//                list
+//            }
+//        }
         .navigationTitle("Organizations")
-        .onAppear {
-            loadData()
-        }
+//        .task {
+//            try? await refresh()
+//        }
     }
 
     private var list: some View {
@@ -51,29 +55,40 @@ struct OrganizationsView: View {
             }
         }
         .refreshable {
-            loadData()
+            try? await refresh()
         }
     }
 }
 
-extension OrganizationsView {
-    private func loadData() {
-        Task {
-            do {
-                isLoading = true
-                let response = try await GitHub.shared.organizations(model.load.login)
+extension OrganizationsView: Refreshable {
+    func refresh() async throws {
+        let response = try await GitHub.shared.organizations(model.load.login)
 
-                if let errors = response.errors {
-                    throw errors
-                }
-
-                model = Model(response.data, load: model.load)
-                isLoading = false
-            } catch {
-                print(error)
-            }
+        if let errors = response.errors {
+            throw errors
         }
+
+        model = Model(response.data, load: model.load)
     }
+
+
+//    private func loadData() {
+//        Task {
+//            do {
+//                isLoading = true
+//                let response = try await GitHub.shared.organizations(model.load.login)
+//
+//                if let errors = response.errors {
+//                    throw errors
+//                }
+//
+//                model = Model(response.data, load: model.load)
+//                isLoading = false
+//            } catch {
+//                print(error)
+//            }
+//        }
+//    }
 }
 
 extension OrganizationsView.Model {

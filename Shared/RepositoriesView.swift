@@ -29,24 +29,26 @@ extension RepositoriesView {
 struct RepositoriesView: View {
     @State var model: Model
     @EnvironmentObject var rateLimit: RateLimitCoordinator
-    @State private var isLoading = false
 
     var body: some View {
-        ZStack {
-            if isLoading {
-                list.hidden()
-                ProgressView()
-            } else {
-                list
-            }
+        LoadingView(loader: self) {
+            list
         }
-        .toolbar {
-            Toggle(isOn: $model.load.isCompact) {
-                Image(systemName: "list.bullet.circle")
-            }
+    }
+}
+
+extension RepositoriesView: Refreshable {
+    func refresh() async throws {
+        let response = try await GitHub.shared.repositories(model.load.organization)
+
+        if let errors = response.errors {
+            throw errors
         }
-        .onAppear {
-            loadData()
+
+        self.model = RepositoriesView.Model(response.data, load: model.load)
+
+        if let rateLimit = model.rateLimit {
+            self.rateLimit.text = rateLimit
         }
     }
 }
@@ -71,9 +73,6 @@ extension RepositoriesView {
             }
         }
         .navigationTitle(model.title ?? "")
-        .refreshable {
-            loadData()
-        }
     }
 
     private var compact: some View {
@@ -96,29 +95,29 @@ extension RepositoriesView {
     }
 }
 
-extension RepositoriesView {
-    private func loadData() {
-        Task {
-            do {
-                isLoading = true
-                let response = try await GitHub.shared.repositories(model.load.organization)
-
-                if let errors = response.errors {
-                    throw errors
-                }
-
-                model = .init(response.data, load: model.load)
-
-                if let rateLimit = model.rateLimit {
-                    self.rateLimit.text = rateLimit
-                }
-                isLoading = false
-            } catch {
-                print(error)
-            }
-        }
-    }
-}
+//extension RepositoriesView {
+//    private func loadData() {
+//        Task {
+//            do {
+//                isLoading = true
+//                let response = try await GitHub.shared.repositories(model.load.organization)
+//
+//                if let errors = response.errors {
+//                    throw errors
+//                }
+//
+//                model = .init(response.data, load: model.load)
+//
+//                if let rateLimit = model.rateLimit {
+//                    self.rateLimit.text = rateLimit
+//                }
+//                isLoading = false
+//            } catch {
+//                print(error)
+//            }
+//        }
+//    }
+//}
 
 struct RepositoriesView_Previews: PreviewProvider {
     static var previews: some View {

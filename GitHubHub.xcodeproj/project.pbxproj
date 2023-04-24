@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		A4186DAB29D5F02D009CFE01 /* AuthenticateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4186DAA29D5F02D009CFE01 /* AuthenticateView.swift */; };
 		A4186DAC29D5F02D009CFE01 /* AuthenticateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4186DAA29D5F02D009CFE01 /* AuthenticateView.swift */; };
+		A41C270B29F34E7D00BF86B3 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41C270A29F34E7D00BF86B3 /* LoadingView.swift */; };
+		A41C270C29F34E7D00BF86B3 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41C270A29F34E7D00BF86B3 /* LoadingView.swift */; };
+		A41C270D29F34E7D00BF86B3 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41C270A29F34E7D00BF86B3 /* LoadingView.swift */; };
 		A4216DFA285C176000D9BAD7 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = A4216DF9285C176000D9BAD7 /* Apollo */; };
 		A44313EB285C14390021130C /* ApolloClient+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44313EA285C14390021130C /* ApolloClient+.swift */; };
 		A44313EC285C14390021130C /* ApolloClient+.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44313EA285C14390021130C /* ApolloClient+.swift */; };
@@ -115,6 +118,7 @@
 
 /* Begin PBXFileReference section */
 		A4186DAA29D5F02D009CFE01 /* AuthenticateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticateView.swift; sourceTree = "<group>"; };
+		A41C270A29F34E7D00BF86B3 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		A44313EA285C14390021130C /* ApolloClient+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ApolloClient+.swift"; sourceTree = "<group>"; };
 		A4498E4B29C7E6760055BBE9 /* UserPullRequestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPullRequestsView.swift; sourceTree = "<group>"; };
 		A4498E4E29C80A620055BBE9 /* ReviewerCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewerCellView.swift; sourceTree = "<group>"; };
@@ -221,6 +225,7 @@
 				A459536F2852E6FF00AC2AB6 /* GitHubHubApp.swift */,
 				A4186DAA29D5F02D009CFE01 /* AuthenticateView.swift */,
 				A4F9FA3E29B444F1006918E8 /* HomeView.swift */,
+				A41C270A29F34E7D00BF86B3 /* LoadingView.swift */,
 				A4F9FA4129B45170006918E8 /* OrganizationsView.swift */,
 				A457011829BD444400093DA9 /* OrganizationCellView.swift */,
 				A4D8171429B7013900BBA855 /* RepositoriesView.swift */,
@@ -517,6 +522,7 @@
 				A4B5BD2929D8CBCC0062AAB3 /* RateLimitCoordinator.swift in Sources */,
 				A48C6BE029B83EBF005B4B17 /* ReviewersView.swift in Sources */,
 				A4B5BD2629D8CBA10062AAB3 /* RateLimitFragment+.swift in Sources */,
+				A41C270B29F34E7D00BF86B3 /* LoadingView.swift in Sources */,
 				A44313EB285C14390021130C /* ApolloClient+.swift in Sources */,
 				A4498E4F29C80A620055BBE9 /* ReviewerCellView.swift in Sources */,
 				A457011629BD424E00093DA9 /* PullRequest.graphql.swift in Sources */,
@@ -550,6 +556,7 @@
 				A4B5BD2A29D8CBCC0062AAB3 /* RateLimitCoordinator.swift in Sources */,
 				A48C6BE129B83EBF005B4B17 /* ReviewersView.swift in Sources */,
 				A4B5BD2729D8CBA10062AAB3 /* RateLimitFragment+.swift in Sources */,
+				A41C270C29F34E7D00BF86B3 /* LoadingView.swift in Sources */,
 				A44313EC285C14390021130C /* ApolloClient+.swift in Sources */,
 				A4498E5029C80A620055BBE9 /* ReviewerCellView.swift in Sources */,
 				A457011729BD424E00093DA9 /* PullRequest.graphql.swift in Sources */,
@@ -583,6 +590,7 @@
 				A49EDCB229DFB94100B01941 /* NavigationCoordinator.swift in Sources */,
 				A49EDCBB29DFB94100B01941 /* Network.swift in Sources */,
 				A49EDCB329DFB94100B01941 /* PullRequestsView.swift in Sources */,
+				A41C270D29F34E7D00BF86B3 /* LoadingView.swift in Sources */,
 				A49EDCC729DFB94800B01941 /* Repository.graphql.swift in Sources */,
 				A49EDCAF29DFB94100B01941 /* ReviewersView.swift in Sources */,
 				A49EDCB029DFB94100B01941 /* AvatarView.swift in Sources */,
