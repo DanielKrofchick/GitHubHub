@@ -1,25 +1,25 @@
 query PullRequests(
-    $owner: String!,
-    $name: String!
+  $owner: String!,
+  $name: String!
 ) {
-    rateLimit {
-        ...RateLimitFragment
-    }
-    repository(
-        owner: $owner,
-        name: $name
+  repository(
+    owner: $owner,
+    name: $name
+  ) {
+    name
+    pullRequests(
+      first: 100,
+      states: OPEN
     ) {
-        name
-        pullRequests(
-            first: 100,
-            states: OPEN
-        ) {
-            totalCount
-            nodes {
-                ...PullRequestFragment
-            }
-        }
+      totalCount
+      nodes {
+        ...PullRequestFragment
+      }
     }
+  }
+  rateLimit {
+    ...RateLimitFragment
+  }
 }
 
 fragment PullRequestFragment on PullRequest {

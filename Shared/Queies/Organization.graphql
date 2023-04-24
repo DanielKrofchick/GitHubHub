@@ -1,20 +1,23 @@
 query Organizations($login: String!) {
-    user(login: $login) {
-        organizations(first: 10) {
-            totalCount
-            nodes {
-                ...OrganizationFragment
-            }
-        }
+  user(login: $login) {
+    organizations(first: 10) {
+      totalCount
+      nodes {
+        ...OrganizationFragment
+      }
     }
+  }
+  rateLimit {
+    ...RateLimitFragment
+  }
 }
 
 fragment OrganizationFragment on Organization {
-    id
-    login
-    name
-    avatarUrl
-    repositories(first: 0) {
-        totalCount
-    }
+  id
+  login
+  name
+  avatarUrl
+  repositories(first: 0) {
+    totalCount
+  }
 }

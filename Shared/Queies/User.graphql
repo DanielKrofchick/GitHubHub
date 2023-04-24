@@ -1,12 +1,15 @@
 query User($login: String!) {
-    user(login: $login) {
-        ...ActorFragment
-    }
+  user(login: $login) {
+    ...ActorFragment
+  }
+  rateLimit {
+    ...RateLimitFragment
+  }
 }
 
 fragment ActorFragment on Actor {
-    login
-    avatarUrl
+  login
+  avatarUrl
 }
 
 query Login {

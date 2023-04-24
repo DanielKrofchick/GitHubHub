@@ -27,7 +27,7 @@ struct GitHubHubApp: App {
                         .navigationDestination(for: Destination.self) { destination in
                             switch destination {
                             case .login(let login):
-                                HomeView(model: .init(load: .init(login: login), avatar: nil))
+                                HomeView(login)
                             }
                         }
                         .onAppear {

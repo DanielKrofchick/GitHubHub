@@ -1,7 +1,4 @@
 query Repositories($login: String!) {
-  rateLimit {
-    ...RateLimitFragment
-  }
   organization(login: $login) {
     login
     repositories(first: 70) {
@@ -9,6 +6,9 @@ query Repositories($login: String!) {
         ...RepositoryFragment
       }
     }
+  }
+  rateLimit {
+    ...RateLimitFragment
   }
 }
 

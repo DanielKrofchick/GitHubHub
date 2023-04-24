@@ -31,103 +31,79 @@ struct ReviewersView: View {
     @State private var isLoading = false
 
     var body: some View {
-        ZStack {
-            if isLoading {
-                list.hidden()
-                ProgressView()
-            } else {
-                list
+        LoadingView(loader: self) {
+            List(model.items ?? []) { item in
+                NavigationLink {
+                    UserPullRequestsView(model: item.link)
+                } label: {
+                    ReviewerCellView(model: item.model)
+                }
             }
-        }
-        .navigationTitle(model.title ?? "")
-        .onAppear {
-            loadData()
-        }
-    }
-
-    private var list: some View {
-        List(model.items ?? []) { item in
-            NavigationLink {
-                UserPullRequestsView(model: item.link)
-            } label: {
-                ReviewerCellView(model: item.model)
-            }
-        }
-        .refreshable {
-            loadData()
         }
     }
 }
 
-extension ReviewersView {
-    private func loadData() {
-        Task {
-            do {
-                isLoading = true
-                let response = try await GitHub.shared.reviewers(
-                    owner: model.load.organization,
-                    name: model.load.repository,
-                    number: model.load.PR
-                )
+extension ReviewersView: Loadable {
+    func load() async throws {
+        let response = try await GitHub.shared.reviewers(
+            owner: model.load.organization,
+            name: model.load.repository,
+            number: model.load.PR
+        )
 
-                if let errors = response.errors { throw errors }
+        if let errors = response.errors { throw errors }
 
-                let pullRequestFragment = response.data?.repository?.pullRequest?.fragments.pullRequestFragment
-                let author = pullRequestFragment.map { AvatarView.Model.author($0) } ?? nil
-                let reviewers = pullRequestFragment.map { AvatarView.Model.reviewers($0) }
+        let pullRequestFragment = response.data?.repository?.pullRequest?.fragments.pullRequestFragment
+        let author = pullRequestFragment.map { AvatarView.Model.author($0) } ?? nil
+        let reviewers = pullRequestFragment.map { AvatarView.Model.reviewers($0) }
 
-                var items = [ReviewersView.Model.Item]()
+        var items = [ReviewersView.Model.Item]()
 
-                if let author {
-                    items.append(
-                        .init(
-                            link: UserPullRequestsView.Model(
-                                author,
-                                organization: model.load.organization,
-                                repository: model.load.repository
-                            ),
-                            model: .init(
-                                avatar: author,
-                                name: author.id,
-                                backgroundColor: nil,
-                                count: nil,
-                                organization: pullRequestFragment?.repository.owner.login,
-                                rateLimit: response.data?.rateLimit?.fragments.rateLimitFragment.description
-                            )
-                        )
+        if let author {
+            items.append(
+                .init(
+                    link: UserPullRequestsView.Model(
+                        author,
+                        organization: model.load.organization,
+                        repository: model.load.repository
+                    ),
+                    model: .init(
+                        avatar: author,
+                        name: author.id,
+                        backgroundColor: nil,
+                        count: nil,
+                        organization: pullRequestFragment?.repository.owner.login,
+                        rateLimit: response.data?.rateLimit?.fragments.rateLimitFragment.description
                     )
-                }
-
-                reviewers?.forEach {
-                    items.append(
-                        .init(
-                            link: UserPullRequestsView.Model(
-                                $0,
-                                organization: model.load.organization,
-                                repository: model.load.repository
-                            ),
-                            model: .init(
-                                avatar: $0,
-                                name: $0.id,
-                                backgroundColor: .gray,
-                                count: nil,
-                                organization: pullRequestFragment?.repository.owner.login,
-                                rateLimit: response.data?.rateLimit?.fragments.rateLimitFragment.description
-                            )
-                        )
-                    )
-                }
-
-                model = Model(
-                    load: model.load,
-                    title: pullRequestFragment?.title,
-                    items: items
                 )
-                isLoading = false
-            } catch {
-                print(error)
-            }
+            )
         }
+
+        reviewers?.forEach {
+            items.append(
+                .init(
+                    link: UserPullRequestsView.Model(
+                        $0,
+                        organization: model.load.organization,
+                        repository: model.load.repository
+                    ),
+                    model: .init(
+                        avatar: $0,
+                        name: $0.id,
+                        backgroundColor: .gray,
+                        count: nil,
+                        organization: pullRequestFragment?.repository.owner.login,
+                        rateLimit: response.data?.rateLimit?.fragments.rateLimitFragment.description
+                    )
+                )
+            )
+        }
+
+        model = Model(
+            load: model.load,
+            title: pullRequestFragment?.title,
+            items: items
+        )
     }
 }
 

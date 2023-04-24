@@ -32,13 +32,24 @@ struct RepositoriesView: View {
 
     var body: some View {
         LoadingView(loader: self) {
-            list
+            VStack {
+                if model.load.isCompact {
+                    compact
+                } else {
+                    normal
+                }
+            }
+        }
+        .toolbar {
+            Toggle(isOn: $model.load.isCompact) {
+                Image(systemName: "list.bullet.circle")
+            }
         }
     }
 }
 
-extension RepositoriesView: Refreshable {
-    func refresh() async throws {
+extension RepositoriesView: Loadable {
+    func load() async throws {
         let response = try await GitHub.shared.repositories(model.load.organization)
 
         if let errors = response.errors {
@@ -54,16 +65,6 @@ extension RepositoriesView: Refreshable {
 }
 
 extension RepositoriesView {
-    private var list: some View {
-        VStack {
-            if model.load.isCompact {
-                compact
-            } else {
-                normal
-            }
-        }
-    }
-
     private var normal: some View {
         List(model.items ?? []) { item in
             NavigationLink {
@@ -94,30 +95,6 @@ extension RepositoriesView {
         .navigationTitle(model.title ?? "")
     }
 }
-
-//extension RepositoriesView {
-//    private func loadData() {
-//        Task {
-//            do {
-//                isLoading = true
-//                let response = try await GitHub.shared.repositories(model.load.organization)
-//
-//                if let errors = response.errors {
-//                    throw errors
-//                }
-//
-//                model = .init(response.data, load: model.load)
-//
-//                if let rateLimit = model.rateLimit {
-//                    self.rateLimit.text = rateLimit
-//                }
-//                isLoading = false
-//            } catch {
-//                print(error)
-//            }
-//        }
-//    }
-//}
 
 struct RepositoriesView_Previews: PreviewProvider {
     static var previews: some View {

@@ -20,48 +20,36 @@ extension OrganizationsView {
         }
         let load: Load
         let items: [Item]?
+        let rateLimit: String?
     }
 }
 
 struct OrganizationsView: View {
     @State var model: Model
-    @State private var isLoading = false
     @EnvironmentObject var rateLimit: RateLimitCoordinator
 
     var body: some View {
         LoadingView(loader: self) {
-            list
-        }
-//        ZStack {
-//            if isLoading {
-//                list.hidden()
-//                ProgressView()
-//            } else {
-//                list
-//            }
-//        }
-        .navigationTitle("Organizations")
-//        .task {
-//            try? await refresh()
-//        }
-    }
-
-    private var list: some View {
-        List(model.items ?? []) { item in
-            NavigationLink {
-                RepositoriesView(model: item.link)
-            } label: {
-                OrganizationCellView(model: item.model)
+            List(model.items ?? []) { item in
+                NavigationLink {
+                    RepositoriesView(model: item.link)
+                } label: {
+                    OrganizationCellView(model: item.model)
+                }
             }
         }
-        .refreshable {
-            try? await refresh()
-        }
+        .navigationTitle("Organizations")
     }
 }
 
-extension OrganizationsView: Refreshable {
-    func refresh() async throws {
+extension OrganizationsView {
+    init(_ login: String) {
+        self.init(model: .init(load: .init(login: login), items: nil, rateLimit: nil))
+    }
+}
+
+extension OrganizationsView: Loadable {
+    func load() async throws {
         let response = try await GitHub.shared.organizations(model.load.login)
 
         if let errors = response.errors {
@@ -69,26 +57,11 @@ extension OrganizationsView: Refreshable {
         }
 
         model = Model(response.data, load: model.load)
+
+        if let rateLimit = model.rateLimit {
+            self.rateLimit.text = rateLimit
+        }
     }
-
-
-//    private func loadData() {
-//        Task {
-//            do {
-//                isLoading = true
-//                let response = try await GitHub.shared.organizations(model.load.login)
-//
-//                if let errors = response.errors {
-//                    throw errors
-//                }
-//
-//                model = Model(response.data, load: model.load)
-//                isLoading = false
-//            } catch {
-//                print(error)
-//            }
-//        }
-//    }
 }
 
 extension OrganizationsView.Model {
@@ -97,7 +70,8 @@ extension OrganizationsView.Model {
             load: load,
             items: data?.user?.organizations.nodes?
                 .compactMap { $0?.fragments.organizationFragment }
-                .map { Item($0) }
+                .map { Item($0) },
+            rateLimit: data?.rateLimit?.fragments.rateLimitFragment.description
         )
     }
 }
@@ -122,7 +96,8 @@ struct OrganizationsView_Previews: PreviewProvider {
         OrganizationsView(
             model: .init(
                 load: .init(login: defaultLogin),
-                items: nil
+                items: nil,
+                rateLimit: nil
             )
         )
     }

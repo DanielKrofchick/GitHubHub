@@ -14,57 +14,51 @@ extension HomeView {
         }
         let load: Load
         let avatar: AvatarView.Model?
-    }
-}
-
-extension HomeView: Hashable {
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(model.load.login)
-        hasher.combine(model.avatar)
+        let rateLimit: String?
     }
 }
 
 struct HomeView: View {
-    static func == (lhs: HomeView, rhs: HomeView) -> Bool {
-        lhs.model == rhs.model
-    }
-
     @State var model: Model
+    @EnvironmentObject var rateLimit: RateLimitCoordinator
 
     var body: some View {
-        VStack {
-            Spacer()
-            if let avatar = model.avatar {
-                NavigationLink {
-                    OrganizationsView(model: .init(load: .init(login: model.load.login), items: nil))
-                } label: {
-                    AvatarView(model: avatar, size: 100)
+        LoadingView(loader: self) {
+            VStack {
+                Spacer()
+                if let avatar = model.avatar {
+                    NavigationLink {
+                        OrganizationsView(model.load.login)
+                    } label: {
+                        AvatarView(model: avatar, size: 100)
+                    }
+                    .buttonStyle(PlainButtonStyle())
                 }
-                .buttonStyle(PlainButtonStyle())
+                Spacer()
             }
-            Spacer()
         }
         .frame(maxWidth: .infinity)
-        .onAppear {
-            loadData()
-        }
     }
 }
 
 extension HomeView {
-    private func loadData() {
-        Task {
-            do {
-                let response = try await GitHub.shared.user(model.load.login)
+    init(_ login: String) {
+        self.init(model: .init(load: .init(login: login), avatar: nil, rateLimit: nil))
+    }
+}
 
-                if let errors = response.errors {
-                    throw errors
-                }
+extension HomeView: Loadable {
+    func load() async throws {
+        let response = try await GitHub.shared.user(model.load.login)
+        
+        if let errors = response.errors {
+            throw errors
+        }
+        
+        model = Model(response.data, load: model.load)
 
-                model = Model(response.data, load: model.load)
-            } catch {
-                print(error)
-            }
+        if let rateLimit = model.rateLimit {
+            self.rateLimit.text = rateLimit
         }
     }
 }
@@ -74,7 +68,8 @@ extension HomeView.Model {
         self.init(
             load: load,
             avatar: (data?.user?.fragments.actorFragment)
-                .map { .init($0) }
+                .map { .init($0) },
+            rateLimit: data?.rateLimit?.fragments.rateLimitFragment.description
         )
     }
 }
@@ -84,7 +79,8 @@ struct HomeView_Previews: PreviewProvider {
         HomeView(
             model: .init(
                 load: .init(login: defaultLogin),
-                avatar: nil
+                avatar: nil,
+                rateLimit: nil
             )
         )
     }

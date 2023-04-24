@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-protocol Refreshable {
-    func refresh() async throws
+protocol Loadable {
+    func load() async throws
 }
 
-struct LoadingView<Loader, Content>: View where Loader: Refreshable, Content: View {
-    let loader: Refreshable
+struct LoadingView<Loader, Content>: View where Loader: Loadable, Content: View {
+    let loader: Loadable
     let content: Content
 
     init(loader: Loader, @ViewBuilder _ content: () -> Content) {
@@ -33,17 +33,20 @@ struct LoadingView<Loader, Content>: View where Loader: Refreshable, Content: Vi
             }
         }
         .task {
-            await refresh()
+            await load()
+        }
+        .refreshable {
+            await load()
         }
         .environmentObject(rateLimit)
     }
 }
 
 extension LoadingView {
-    func refresh() async {
+    func load() async {
         do {
             isLoading = true
-            try await loader.refresh()
+            try await loader.load()
             print(rateLimit)
             isLoading = false
         } catch {

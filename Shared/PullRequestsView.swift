@@ -38,64 +38,40 @@ extension PullRequestsView.Model {
 struct PullRequestsView: View {
     @State var model: Model
     @EnvironmentObject var rateLimit: RateLimitCoordinator
-    @State private var isLoading = false
 
     var body: some View {
-        ZStack {
-            if isLoading {
-                list.hidden()
-                ProgressView()
-            } else {
-                list
+        LoadingView(loader: self) {
+            List(model.items ?? []) { item in
+                NavigationLink {
+                    ReviewersView(model: item.link)
+                } label: {
+                    if model.load.isCompact {
+                        PullRequestCompactCellView(model: item.model)
+                    } else {
+                        PullRequestCellView(model: item.model)
+                    }
+                }
             }
         }
         .navigationTitle(model.title ?? "")
-        .onAppear {
-            loadData()
-        }
-    }
-
-    private var list: some View {
-        List(model.items ?? []) { item in
-            NavigationLink {
-                ReviewersView(model: item.link)
-            } label: {
-                if model.load.isCompact {
-                    PullRequestCompactCellView(model: item.model)
-                } else {
-                    PullRequestCellView(model: item.model)
-                }
-            }
-        }
-        .refreshable {
-            loadData()
-        }
     }
 }
 
-extension PullRequestsView {
-    private func loadData() {
-        Task {
-            do {
-                isLoading = true
-                let response = try await GitHub.shared.pullRequests(
-                    owner: model.load.organization,
-                    name: model.load.repository
-                )
+extension PullRequestsView: Loadable {
+    func load() async throws {
+        let response = try await GitHub.shared.pullRequests(
+            owner: model.load.organization,
+            name: model.load.repository
+        )
 
-                if let errors = response.errors {
-                    throw errors
-                }
+        if let errors = response.errors {
+            throw errors
+        }
 
-                model = .init(response.data, load: model.load)
+        model = .init(response.data, load: model.load)
 
-                if let rateLimit = model.rateLimit {
-                    self.rateLimit.text = rateLimit
-                }
-                isLoading = false
-            } catch {
-                print(error)
-            }
+        if let rateLimit = model.rateLimit {
+            self.rateLimit.text = rateLimit
         }
     }
 }

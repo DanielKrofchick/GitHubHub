@@ -108,6 +108,8 @@
 		A4D8171929B827D600BBA855 /* PullRequestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D8171729B827D600BBA855 /* PullRequestsView.swift */; };
 		A4E0C62028582D6700F868D6 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E0C61F28582D6700F868D6 /* Network.swift */; };
 		A4E0C62128582D6700F868D6 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E0C61F28582D6700F868D6 /* Network.swift */; };
+		A4F0594129F6203E0049A0D0 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = A4F0594029F6203E0049A0D0 /* OrderedCollections */; };
+		A4F0594329F6204E0049A0D0 /* KeychainStored in Frameworks */ = {isa = PBXBuildFile; productRef = A4F0594229F6204E0049A0D0 /* KeychainStored */; };
 		A4F9FA3C29B4434E006918E8 /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F9FA3B29B4434E006918E8 /* AvatarView.swift */; };
 		A4F9FA3D29B4434E006918E8 /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F9FA3B29B4434E006918E8 /* AvatarView.swift */; };
 		A4F9FA3F29B444F1006918E8 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F9FA3E29B444F1006918E8 /* HomeView.swift */; };
@@ -173,6 +175,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4F0594329F6204E0049A0D0 /* KeychainStored in Frameworks */,
+				A4F0594129F6203E0049A0D0 /* OrderedCollections in Frameworks */,
 				A49BE2E828543D5D009EF2DB /* Apollo in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -222,10 +226,10 @@
 		A459536E2852E6FF00AC2AB6 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				A4F0593E29F61BC80049A0D0 /* Components */,
 				A459536F2852E6FF00AC2AB6 /* GitHubHubApp.swift */,
 				A4186DAA29D5F02D009CFE01 /* AuthenticateView.swift */,
 				A4F9FA3E29B444F1006918E8 /* HomeView.swift */,
-				A41C270A29F34E7D00BF86B3 /* LoadingView.swift */,
 				A4F9FA4129B45170006918E8 /* OrganizationsView.swift */,
 				A457011829BD444400093DA9 /* OrganizationCellView.swift */,
 				A4D8171429B7013900BBA855 /* RepositoriesView.swift */,
@@ -235,7 +239,6 @@
 				A48C6BDF29B83EBF005B4B17 /* ReviewersView.swift */,
 				A4498E4E29C80A620055BBE9 /* ReviewerCellView.swift */,
 				A4498E4B29C7E6760055BBE9 /* UserPullRequestsView.swift */,
-				A4F9FA3B29B4434E006918E8 /* AvatarView.swift */,
 				A4E0C61F28582D6700F868D6 /* Network.swift */,
 				A45DA6BB29D736100047AFE3 /* NavigationCoordinator.swift */,
 				A4B5BD2829D8CBCC0062AAB3 /* RateLimitCoordinator.swift */,
@@ -299,6 +302,15 @@
 			path = API;
 			sourceTree = "<group>";
 		};
+		A4F0593E29F61BC80049A0D0 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				A41C270A29F34E7D00BF86B3 /* LoadingView.swift */,
+				A4F9FA3B29B4434E006918E8 /* AvatarView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -341,6 +353,8 @@
 			name = "GitHubHub (macOS)";
 			packageProductDependencies = (
 				A49BE2E728543D5D009EF2DB /* Apollo */,
+				A4F0594029F6203E0049A0D0 /* OrderedCollections */,
+				A4F0594229F6204E0049A0D0 /* KeychainStored */,
 			);
 			productName = "GitHubHub (macOS)";
 			productReference = A459537C2852E70000AC2AB6 /* GitHubHub.app */;
@@ -350,6 +364,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A49EDCA929DFB8DC00B01941 /* Build configuration list for PBXNativeTarget "GitHubHub (Catalyst)" */;
 			buildPhases = (
+				A4F0593F29F620140049A0D0 /* Apollo */,
 				A49EDC9729DFB8DB00B01941 /* Sources */,
 				A49EDC9829DFB8DB00B01941 /* Frameworks */,
 				A49EDC9929DFB8DB00B01941 /* Resources */,
@@ -493,6 +508,24 @@
 			);
 			outputPaths = (
 				"$(SRCROOT)/Shared/API/",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Don't run this during index builds\nif [ $ACTION = \"indexbuild\" ]; then exit 0; fi\n\n# Go to the build root and search up the chain to find the Derived Data Path where the source packages are checked out.\nDERIVED_DATA_CANDIDATE=\"${BUILD_ROOT}\"\n\nwhile ! [ -d \"${DERIVED_DATA_CANDIDATE}/SourcePackages\" ]; do\n  if [ \"${DERIVED_DATA_CANDIDATE}\" = / ]; then\n    echo >&2 \"error: Unable to locate SourcePackages directory from BUILD_ROOT: '${BUILD_ROOT}'\"\n    exit 1\n  fi\n\n  DERIVED_DATA_CANDIDATE=\"$(dirname \"${DERIVED_DATA_CANDIDATE}\")\"\ndone\n\n# Grab a reference to the directory where scripts are checked out\nSCRIPT_PATH=\"${DERIVED_DATA_CANDIDATE}/SourcePackages/checkouts/apollo-ios/scripts\"\n\nif [ -z \"${SCRIPT_PATH}\" ]; then\n    echo >&2 \"error: Couldn't find the CLI script in your checked out SPM packages; make sure to add the framework to your project.\"\n    exit 1\nfi\n\ncd \"${SRCROOT}/${TARGET_NAME}\"\nECHO \"###\"\nECHO \"${SRCROOT}/${TARGET_NAME}\"\nECHO \"###\"\n\"${SCRIPT_PATH}\"/run-bundled-codegen.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile=\"${SRCROOT}/Shared/schema.json\" \"Shared/API\"\n#\"${SCRIPT_PATH}\"/run-bundled-codegen.sh schema:download --endpoint=\"https://api.github.com/graphql\" --header \"Authorization: bearer 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\"\n\n";
+		};
+		A4F0593F29F620140049A0D0 /* Apollo */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Apollo;
+			outputFileListPaths = (
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1019,6 +1052,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A4D6357229BC41B000404B39 /* XCRemoteSwiftPackageReference "swift-collections" */;
 			productName = OrderedCollections;
+		};
+		A4F0594029F6203E0049A0D0 /* OrderedCollections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A4D6357229BC41B000404B39 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = OrderedCollections;
+		};
+		A4F0594229F6204E0049A0D0 /* KeychainStored */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A45DA6BE29D73A310047AFE3 /* XCRemoteSwiftPackageReference "KeychainStored" */;
+			productName = KeychainStored;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
