@@ -9,12 +9,13 @@ import SwiftUI
 
 enum Destination: Hashable {
     case login(_ login: String)
+    case organizations(_ login: String)
 }
 
 class NavigationCoordinator: ObservableObject {
     @Published var path = NavigationPath()
 
-    func pushLogin(login: String) {
-        path.append(Destination.login(login))
+    func push(_ destination: Destination) {
+        path.append(destination)
     }
 }

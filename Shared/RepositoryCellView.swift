@@ -22,15 +22,17 @@ struct RepositoryCellView: View {
         HStack {
             Text(model.title)
                 .frame(maxWidth: .infinity, alignment: .leading)
+                .font(.headline)
             if let lastUpdate = model.lastUpdate {
                 Text(lastUpdate)
                     .frame(alignment: .trailing)
                     .foregroundColor(.gray)
-                    .font(.caption)
+                    .font(.subheadline)
             }
             if let count = model.count {
                 Text(count)
                     .frame(alignment: .trailing)
+                    .font(.subheadline)
             }
         }
     }

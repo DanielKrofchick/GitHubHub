@@ -17,27 +17,37 @@ let defaultAvatarURL = URL(string: "https://avatars.githubusercontent.com/u/3325
 struct GitHubHubApp: App {
     @ObservedObject var navigation = NavigationCoordinator()
     @ObservedObject var rateLimit = RateLimitCoordinator()
+    @State var isOn = true
 
     var body: some Scene {
         WindowGroup {
-            ZStack(alignment: .bottomTrailing) {
-                NavigationStack(path: $navigation.path) {
-                    Spacer()
-                    AuthenticateView(model: .init())
-                        .navigationDestination(for: Destination.self) { destination in
-                            switch destination {
-                            case .login(let login):
-                                HomeView(login)
-                            }
+            NavigationStack(path: $navigation.path) {
+                Spacer()
+                AuthenticateView(model: .init())
+                    .navigationDestination(for: Destination.self) { destination in
+                        switch destination {
+                        case .login(let login):
+                            HomeView(login)
+                        case .organizations(let login):
+                            OrganizationsView(login)
                         }
-                        .onAppear {
-                            if Network.shared.token != nil {
+                    }
+                    .task {
+                        if Network.shared.token != nil {
+                            if let login = Network.shared.login {
+                                navigation.push(.login(login))
+                                navigation.push(.organizations(login))
+                            } else {
                                 AuthenticateView.doLogin(navigation)
                             }
                         }
-                    Spacer()
+                    }
+                Spacer()
+            }
+            .toolbar {
+                Toggle(isOn: $isOn) {
+                    RateLimitView()
                 }
-                RateLimitView()
             }
             .environmentObject(navigation)
             .environmentObject(rateLimit)

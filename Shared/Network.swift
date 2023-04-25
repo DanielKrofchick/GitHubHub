@@ -14,7 +14,8 @@ class Network {
     static let shared = Network()
     private let domain = "https://api.github.com/graphql"
 
-    @KeychainStored(service: "com.krofchick.GitHubHub") var token: String? {
+    @KeychainStored(service: "Network.login") var login: String?
+    @KeychainStored(service: "Network.token") var token: String? {
         didSet {
             apollo = makeClient()
         }

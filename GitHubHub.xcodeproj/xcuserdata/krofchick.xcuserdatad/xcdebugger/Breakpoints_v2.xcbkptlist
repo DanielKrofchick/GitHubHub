@@ -52,5 +52,53 @@
             landmarkType = "14">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3BE3DD69-2A33-4388-B1F0-4AFD85F23126"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Shared/AuthenticateView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "16"
+            endingLineNumber = "16"
+            landmarkName = "AuthenticateView"
+            landmarkType = "14">
+            <Locations>
+               <Location
+                  uuid = "3BE3DD69-2A33-4388-B1F0-4AFD85F23126 - d72341d0d4669b50"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "property wrapper backing initializer of GitHubHub__Catalyst_.AuthenticateView.token : Swift.String"
+                  moduleName = "GitHubHub (Catalyst)"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/krofchick/Documents/GitHubHub/Shared/AuthenticateView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "16"
+                  endingLineNumber = "16"
+                  offsetFromSymbolStart = "38">
+               </Location>
+               <Location
+                  uuid = "3BE3DD69-2A33-4388-B1F0-4AFD85F23126 - 47fcfefa13785e7c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "GitHubHub__Catalyst_.AuthenticateView.init(model: GitHubHub__Catalyst_.AuthenticateView.Model, navigation: SwiftUI.EnvironmentObject&lt;GitHubHub__Catalyst_.NavigationCoordinator&gt;) -&gt; GitHubHub__Catalyst_.AuthenticateView"
+                  moduleName = "GitHubHub (Catalyst)"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/krofchick/Documents/GitHubHub/Shared/AuthenticateView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "16"
+                  endingLineNumber = "16"
+                  offsetFromSymbolStart = "31">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

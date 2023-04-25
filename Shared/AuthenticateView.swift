@@ -48,8 +48,12 @@ extension AuthenticateView {
                     throw errors
                 }
 
-                if let login = response.data?.viewer.login {
-                    navigation.pushLogin(login: login)
+                let login = response.data?.viewer.login
+
+                Network.shared.login = login
+
+                if let login {
+                    navigation.push(.login(login))
                 }
             } catch {
                 print(error)
